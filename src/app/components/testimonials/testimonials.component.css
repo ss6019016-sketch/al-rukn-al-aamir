@@ -1,0 +1,10 @@
+.testimonial-card {
+  background: var(--clr-bg-light);
+  border-radius: var(--radius);
+  padding: 20px;
+  height: 100%;
+  transition: var(--transition);
+}
+.testimonial-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); background: #fff; }
+.testimonial-msg { font-size: 0.88rem; color: var(--clr-muted); line-height: 1.6; }
+.section-title.text-center { display: table; }

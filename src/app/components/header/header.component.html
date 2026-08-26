@@ -1,0 +1,204 @@
+<!-- Announcement bar -->
+<div class="announcement-bar" *ngIf="showAnnouncement">
+  <div class="container-xl position-relative d-flex justify-content-center align-items-center">
+    <span>Free Delivery across U.A.E</span>
+    <button class="announcement-close" appRipple (click)="closeAnnouncement()" aria-label="Close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Main header -->
+<header class="main-header">
+  <div class="container-xl d-flex align-items-center justify-content-between py-3 gap-3 flex-wrap">
+    <!-- Search + category (desktop only) -->
+    <form class="search-group d-none d-lg-flex" (ngSubmit)="search()">
+      <input type="text" name="search" [(ngModel)]="searchTerm" placeholder="Search..." />
+      <div class="category-select">
+        <select [(ngModel)]="selectedCategory" name="category">
+          <option *ngFor="let c of categories">{{ c }}</option>
+        </select>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+      <button type="submit" class="search-btn" appRipple><i class="bi bi-search"></i></button>
+    </form>
+
+    <!-- Logo -->
+    <a routerLink="/" class="brand mx-auto mx-lg-0">
+      <span class="brand-name">TECNALOGYA</span>
+      <span class="brand-tag">Computer Trading</span>
+    </a>
+
+    <!-- Right actions -->
+    <div class="header-actions d-flex align-items-center gap-4">
+      <a href="https://wa.me/971562350368" target="_blank" class="call-block d-none d-md-flex">
+        <i class="bi bi-whatsapp"></i>
+        <span class="call-text">
+          <small>CALL US NOW</small>
+          <strong>+971-526511946</strong>
+        </span>
+      </a>
+
+      <a href="#" class="header-icon-link d-none d-md-inline-flex">
+        <i class="bi bi-person"></i>
+      </a>
+
+      <a routerLink="/wishlist" class="header-icon-link" appRipple>
+        <i class="bi bi-heart"></i>
+        <span class="icon-count" *ngIf="wishlistCount">{{ wishlistCount }}</span>
+      </a>
+
+      <!-- Cart icon + mini-cart dropdown -->
+      <div class="cart-dropdown-wrapper">
+        <a
+          href="#"
+          class="header-icon-link cart-link"
+          appRipple
+          (click)="toggleCartDropdown($event)"
+        >
+          <i class="bi bi-bag"></i>
+          <span class="icon-count" *ngIf="cartCount">{{ cartCount }}</span>
+          <i class="bi bi-chevron-down cart-caret"></i>
+        </a>
+
+        <div class="cart-dropdown-backdrop" *ngIf="cartDropdownOpen" (click)="closeCartDropdown()"></div>
+
+        <div class="mini-cart" [class.show]="cartDropdownOpen">
+          <ng-container *ngIf="cartItems.length; else emptyCart">
+            <div class="mini-cart-item" *ngFor="let item of cartItems">
+              <img [src]="item.product.image" [alt]="item.product.name" />
+              <div class="mini-cart-info">
+                <p class="mini-cart-name">{{ item.product.name }}</p>
+                <div class="mini-cart-row">
+                  <div class="qty-stepper qty-stepper-sm">
+                    <button type="button" appRipple (click)="decrementCartItem(item)">&minus;</button>
+                    <span>{{ item.quantity }}</span>
+                    <button type="button" appRipple (click)="incrementCartItem(item)">+</button>
+                  </div>
+                  <span class="mini-cart-price">د.إ{{ itemPrice(item) }}</span>
+                </div>
+              </div>
+              <button class="mini-cart-remove" appRipple title="Remove" (click)="removeCartItem(item)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+
+            <div class="mini-cart-subtotal">
+              <span>Subtotal:</span>
+              <strong>د.إ{{ cartTotal }}</strong>
+            </div>
+
+            <div class="mini-cart-actions">
+              <button class="btn btn-view-cart" appRipple (click)="goToCart()">View Cart</button>
+              <button class="btn btn-checkout" appRipple (click)="goToCheckout()">Checkout</button>
+            </div>
+          </ng-container>
+
+          <ng-template #emptyCart>
+            <div class="mini-cart-empty">
+              <i class="bi bi-bag-x"></i>
+              <p>Your cart is empty</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-lg main-nav">
+    <div class="container-xl justify-content-center">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse flex-grow-0" id="mainNavCollapse">
+
+        <!-- Mobile-only search -->
+        <form class="search-group search-group-mobile d-flex d-lg-none" (ngSubmit)="search()">
+          <input type="text" name="searchMobile" [(ngModel)]="searchTerm" placeholder="Search..." />
+          <div class="category-select">
+            <select [(ngModel)]="selectedCategory" name="categoryMobile">
+              <option *ngFor="let c of categories">{{ c }}</option>
+            </select>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <button type="submit" class="search-btn" appRipple><i class="bi bi-search"></i></button>
+        </form>
+
+        <ul class="navbar-nav gap-lg-4">
+          <li
+            class="nav-item"
+            *ngFor="let item of navLinks"
+            [class.has-children]="item.children"
+            [class.mega-item]="item.mega"
+            (mouseenter)="item.mega ? openMega() : null"
+            (mouseleave)="item.mega ? closeMega() : null"
+          >
+            <a
+              class="nav-link"
+              [routerLink]="item.link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [class.dropdown-toggle]="item.children && !item.mega"
+            >
+              {{ item.label }}
+              <i class="bi bi-chevron-down mega-caret" *ngIf="item.mega"></i>
+            </a>
+
+            <ul class="dropdown-menu" *ngIf="item.children && !item.mega">
+              <li *ngFor="let child of item.children">
+                <a class="dropdown-item" [routerLink]="child.link" [queryParams]="child.queryParams">{{ child.label }}</a>
+              </li>
+            </ul>
+
+            <div class="mega-menu d-none d-lg-block" *ngIf="item.mega" [class.show]="megaOpen">
+              <div class="mega-menu-inner">
+                <div class="mega-col">
+                  <h6>Categories</h6>
+                  <a
+                    *ngFor="let c of megaCategories"
+                    class="mega-link"
+                    routerLink="/shop"
+                    [queryParams]="c.queryParams"
+                    (click)="closeMega()"
+                  >{{ c.label }}</a>
+                </div>
+                <div class="mega-col">
+                  <h6>Brands</h6>
+                  <a
+                    *ngFor="let b of megaBrands"
+                    class="mega-link"
+                    routerLink="/shop"
+                    [queryParams]="b.queryParams"
+                    (click)="closeMega()"
+                  >{{ b.label }}</a>
+                </div>
+                <div class="mega-col">
+                  <h6>Best Seller</h6>
+                  <a
+                    *ngFor="let s of megaBestSellers"
+                    class="mega-link"
+                    routerLink="/shop"
+                    [queryParams]="s.queryParams"
+                    (click)="closeMega()"
+                  >{{ s.label }}</a>
+                </div>
+                <div class="mega-promo">
+                  <a routerLink="/shop" [queryParams]="{ category: 'Graphic' }" class="mega-promo-card" (click)="closeMega()">
+                    <img src="https://alquwahcomputer.com/wp-content/uploads/2022/08/Dell-Precision-7770-Mobile-Workstation-2-400x400.jpg" alt="Graphic Laptops" />
+                    <span>Graphic Laptops</span>
+                  </a>
+                  <a routerLink="/shop" [queryParams]="{ category: 'Glossy' }" class="mega-promo-card" (click)="closeMega()">
+                    <img src="https://alquwahcomputer.com/wp-content/uploads/2022/08/image-2-400x400.webp" alt="Glossy Series" />
+                    <span>Glossy Series</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

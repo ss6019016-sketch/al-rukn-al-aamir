@@ -1,0 +1,12 @@
+.cat-banner {
+  background: var(--clr-primary);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  transition: var(--transition);
+}
+.cat-banner:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.cat-banner h4 { font-weight: 700; margin-bottom: 4px; }
+.cat-sub { font-size: 0.85rem; opacity: 0.8; margin-bottom: 8px; }
+.cat-price { color: var(--clr-accent); font-weight: 700; }

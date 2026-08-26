@@ -1,0 +1,143 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar">
+  <div class="container-xl">
+    <a routerLink="/">Home</a>
+    <span class="sep">/</span>
+    <span>About Us</span>
+  </div>
+</div>
+
+<!-- Hero image -->
+<section class="container-xl mt-4">
+  <div class="about-hero animate-in" appScrollReveal>
+    <img [src]="heroImage" alt="Al-Quwah Computers warehouse" class="img-fluid rounded-4" />
+  </div>
+</section>
+
+<!-- Story -->
+<section class="py-5">
+  <div class="container-xl">
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <h2 class="section-title">
+          At<br />
+          <span class="text-accent">{{ storyIntro }}</span>
+        </h2>
+      </div>
+      <div class="col-lg-7">
+        <p class="body-text" *ngFor="let p of storyParagraphs">{{ p }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How we became best -->
+<section class="py-4">
+  <div class="container-xl">
+    <h2 class="section-title">{{ howHeading }}</h2>
+    <p class="body-text how-text">{{ howText }}</p>
+
+    <div class="row g-4 mt-2">
+      <div class="col-md-6" *ngFor="let img of galleryImages; let i = index">
+        <div class="gallery-frame animate-in" appScrollReveal [revealDelay]="i * 100">
+          <img [src]="img" alt="Al-Quwah Computers facility" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Team -->
+<section class="py-5 bg-soft">
+  <div class="container-xl text-center">
+    <h2 class="section-title text-center mx-auto">Our Team</h2>
+    <p class="body-text team-intro mx-auto">{{ teamIntro }}</p>
+
+    <div class="team-carousel">
+      <button class="team-arrow team-arrow-prev" appRipple (click)="prevTeamSlide()" aria-label="Previous">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="team-slide-window">
+        <div
+          class="team-slide-track"
+          [style.transform]="'translateX(-' + (activeTeamSlide * 100) + '%)'"
+        >
+          <div class="team-slide" *ngFor="let slide of teamSlides">
+            <div class="team-member" *ngFor="let member of slide">
+              <app-avatar [name]="member.name" [size]="88"></app-avatar>
+              <h6>{{ member.name }}</h6>
+              <p class="team-role">{{ member.role }}</p>
+              <p class="team-contact">{{ member.phone }} · {{ member.email }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="team-arrow team-arrow-next" appRipple (click)="nextTeamSlide()" aria-label="Next">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="team-dots">
+      <button
+        *ngFor="let slide of teamSlides; let i = index"
+        [class.active]="i === activeTeamSlide"
+        (click)="setTeamSlide(i)"
+      ></button>
+    </div>
+  </div>
+</section>
+
+<!-- Promo banners -->
+<section class="py-5">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-md-6" *ngFor="let banner of promoBanners">
+        <div class="promo-banner animate-in" appScrollReveal>
+          <img [src]="banner.image" [alt]="banner.title" />
+          <div class="promo-overlay">
+            <span class="promo-tag">{{ banner.tag }}</span>
+            <h4>{{ banner.title }}</h4>
+            <p class="promo-price">from <strong>{{ banner.price }}</strong></p>
+            <a routerLink="/shop" class="btn btn-accent" appRipple>Shop Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Facilities CTA band -->
+<section class="facilities-band">
+  <div class="container-xl">
+    <h2>{{ facilitiesHeading }}</h2>
+    <p>{{ facilitiesText }}</p>
+  </div>
+</section>
+
+<!-- Happy Customers -->
+<section class="py-5 testimonial-section">
+  <div class="container-xl text-center">
+    <h2 class="section-title text-center mx-auto">Happy Customers</h2>
+    <p class="body-text mx-auto">People love our products and 70% our customers are returned customers.</p>
+
+    <div class="testimonial-slide" *ngFor="let t of testimonials; let i = index" [class.active]="i === activeTestimonial">
+      <app-avatar [name]="t.name" [size]="56"></app-avatar>
+      <h6>{{ t.name }}</h6>
+      <p class="testimonial-role">{{ t.role }}</p>
+      <div class="testimonial-stars">
+        <i class="bi bi-star-fill" *ngFor="let s of stars; let si = index" [class.text-muted]="si >= t.rating"></i>
+      </div>
+      <p class="testimonial-quote">"{{ t.message }}"</p>
+    </div>
+
+    <div class="testimonial-dots">
+      <button
+        *ngFor="let t of testimonials; let i = index"
+        [class.active]="i === activeTestimonial"
+        (click)="setTestimonial(i)"
+      ></button>
+    </div>
+  </div>
+</section>

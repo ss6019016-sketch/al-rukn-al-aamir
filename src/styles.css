@@ -1,0 +1,168 @@
+/* ===== Tecnalogya Global Theme (matches alquwahcomputer.com styling) ===== */
+:root {
+  --clr-primary: #0d2b4e;      /* dark navy - header/footer */
+  --clr-primary-light: #14396b;
+  --clr-accent: #ff6a00;       /* orange - CTA / sale badges */
+  --clr-accent-dark: #e05e00;
+  --clr-text: #2b2f38;
+  --clr-muted: #6c757d;
+  --clr-bg-light: #f6f8fb;
+  --clr-white: #ffffff;
+  --clr-border: #e9ecef;
+  --radius: 10px;
+  --shadow-sm: 0 2px 8px rgba(13, 43, 78, 0.08);
+  --shadow-md: 0 8px 24px rgba(13, 43, 78, 0.12);
+  --transition: all 0.25s ease-in-out;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", Roboto, -apple-system, sans-serif;
+  color: var(--clr-text);
+  background: var(--clr-white);
+  margin: 0;
+  padding: 0;
+}
+/* Smooth scrolling for anchor jumps */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- Scroll reveal ---------- */
+.animate-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.animate-in.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Button press feedback ---------- */
+.btn, button {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.btn:active, button:active {
+  transform: scale(0.96);
+}
+
+/* ---------- Ripple effect ---------- */
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  transform: scale(0);
+  animation: ripple-anim 0.6s ease-out;
+  pointer-events: none;
+}
+@keyframes ripple-anim {
+  to {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* ---------- Bootstrap modal smoother open/close ---------- */
+.modal.fade .modal-dialog {
+  transform: scale(0.92) translateY(20px);
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+}
+.modal.show .modal-dialog {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+.modal-backdrop.fade {
+  transition: opacity 0.25s ease;
+}
+
+/* Card hover lift */
+.testimonial-card,
+.cat-banner,
+.product-card {
+  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s ease;
+}
+a { text-decoration: none; color: inherit; }
+
+.section-title {
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--clr-accent);
+  border-radius: 2px;
+}
+.section-title.text-center::after { left: 50%; transform: translateX(-50%); }
+
+.btn-accent {
+  background: var(--clr-accent);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 30px;
+  transition: var(--transition);
+}
+.btn-accent:hover {
+  background: var(--clr-accent-dark);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline-nav {
+  border: 1.5px solid #fff;
+  color: #fff;
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.btn-outline-nav:hover { background: #fff; color: var(--clr-primary); }
+
+.badge-sale {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--clr-accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+.badge-featured {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--clr-primary);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+
+.animate-in { animation: fadeInUp 0.6s ease both; }
+
+.bg-soft { background: var(--clr-bg-light); }
+
+.container-xl { max-width: 1320px; margin: 0 auto; padding: 0 15px; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--clr-accent); border-radius: 10px; }

@@ -1,0 +1,28 @@
+<section class="py-5">
+  <div class="container-xl">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <img src="https://alquwahcomputer.com/wp-content/uploads/2022/08/Dell-Precision-7770-Mobile-Workstation-2-400x400.jpg" class="img-fluid rounded-4 shadow-sm" alt="about" />
+      </div>
+      <div class="col-lg-6">
+        <h2 class="section-title">About Us</h2>
+        <p class="lead-text">Delivering premium, fully tested laptops with reliable wholesale supply for businesses that demand quality.</p>
+        <p class="body-text">
+          At Tecnalogya, we've been empowering customers since 2002 — from humble beginnings to becoming a
+          trusted name in the global used laptop market. We specialize in refurbishing and delivering affordable,
+          reliable technology to students, families, and professionals. Our mission is to make quality devices
+          accessible for everyone while reducing e-waste and supporting a sustainable future.
+        </p>
+
+        <div class="d-flex gap-5 my-4">
+          <div *ngFor="let s of stats" class="stat-box">
+            <h3>{{ s.value }}</h3>
+            <span>{{ s.label }}</span>
+          </div>
+        </div>
+
+        <a routerLink="/about-us" class="btn btn-accent">More About Us</a>
+      </div>
+    </div>
+  </div>
+</section>

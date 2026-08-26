@@ -1,0 +1,123 @@
+.hero-full {
+  position: relative;
+  width: 100%;
+  height: 78vh;
+  min-height: 480px;
+  max-height: 820px;
+  overflow: hidden;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease;
+  display: flex;
+  align-items: center;
+}
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-media-img {
+  background-size: cover;
+  background-position: center;
+}
+
+/* Dark gradient overlay so text stays readable over any image/video */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(6, 26, 51, 0.85) 0%,
+    rgba(6, 26, 51, 0.6) 40%,
+    rgba(6, 26, 51, 0.25) 70%,
+    rgba(6, 26, 51, 0.1) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  color: #fff;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--clr-accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+
+.hero-heading {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-outline-hero {
+  border: 1.5px solid #fff;
+  color: #fff;
+  background: transparent;
+  border-radius: 6px;
+  padding: 10px 26px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.btn-outline-hero:hover {
+  background: #fff;
+  color: var(--clr-primary);
+}
+
+.btn-accent {
+  border-radius: 6px;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 28px;
+  right: 40px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+.hero-dots button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  transition: var(--transition);
+}
+.hero-dots button.active {
+  background: var(--clr-accent);
+  width: 30px;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .hero-full { height: 60vh; min-height: 420px; }
+  .hero-heading { font-size: 1.8rem; }
+  .hero-content { padding: 0 20px; }
+  .hero-dots { right: 20px; bottom: 16px; }
+}

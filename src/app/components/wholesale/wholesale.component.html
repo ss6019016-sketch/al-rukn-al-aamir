@@ -1,0 +1,167 @@
+<!-- Hero -->
+<section class="wholesale-hero">
+  <div class="hero-pattern"></div>
+  <div class="container-xl">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <h1 class="hero-heading animate-in" appScrollReveal>{{ heroSlides[activeHeroSlide].heading }}</h1>
+        <div class="d-flex gap-3 mt-4">
+          <button class="btn btn-accent" appRipple (click)="openSellModal()">Want To Sell</button>
+          <button class="btn btn-accent" appRipple (click)="openBuyModal()">Want To Buy</button>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img [src]="heroSlides[activeHeroSlide].image" alt="Wholesale laptops" class="hero-img img-fluid" />
+      </div>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <button *ngFor="let s of heroSlides; let i = index" [class.active]="i === activeHeroSlide" (click)="setHeroSlide(i)"></button>
+  </div>
+</section>
+
+<!-- Trusted Wholesale Laptop Trading -->
+<section class="py-5">
+  <div class="container-xl">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-4">
+        <h2 class="section-title">Trusted Wholesale Laptop Trading</h2>
+      </div>
+      <div class="col-lg-4">
+        <p class="body-text">
+          Build your business with a platform designed for serious buyers and sellers. We provide verified,
+          high-quality renewed and refurbished laptops sourced from reliable partners. Every unit is tested,
+          graded, and ready for bulk distribution. Enjoy transparent pricing, consistent stock availability,
+          and a smooth trading experience backed by professional support.
+        </p>
+      </div>
+      <div class="col-lg-4">
+        <div class="video-frame animate-in" appScrollReveal>
+          <video controls poster="https://alquwahcomputer.com/wp-content/uploads/2022/08/image-1-400x400.jpg">
+            <!-- Apna intro video src="assets/videos/wholesale-intro.mp4" yahan daalna -->
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trusted Global Marketplace -->
+<section class="py-5 bg-soft">
+  <div class="container-xl">
+    <h2 class="section-title">Trusted Global Marketplace</h2>
+    <div class="row g-4 mt-2">
+      <div class="col-md-6" *ngFor="let card of marketplaceCards">
+        <div class="marketplace-card animate-in" appScrollReveal>
+          <img [src]="card.image" [alt]="card.title" />
+          <div class="marketplace-overlay">
+            <h4>{{ card.title }}</h4>
+            <p>{{ card.text }}</p>
+          </div>
+        </div>
+        <button
+          class="btn btn-navy mt-3"
+          appRipple
+          (click)="card.action === 'sell' ? openSellModal() : openBuyModal()"
+        >{{ card.ctaLabel }}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Best Seller -->
+<section class="py-5">
+  <div class="container-xl">
+    <h2 class="section-title">Best Seller</h2>
+    <div class="row g-4">
+      <div class="col-6 col-md-3" *ngFor="let p of bestSellers; let i = index">
+        <div class="animate-in" appScrollReveal [revealDelay]="i * 60">
+          <app-product-card [product]="p"></app-product-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Get Inquiry -->
+<section class="py-5 bg-soft">
+  <div class="container-xl">
+    <h2 class="section-title">Get Inquiry</h2>
+
+    <div class="inquiry-success animate-in" *ngIf="inquirySubmitted">
+      <i class="bi bi-check-circle-fill"></i>
+      Thanks! Your inquiry has been received — our team will reach out shortly.
+    </div>
+
+    <form class="inquiry-form" (ngSubmit)="submitInquiry()" *ngIf="!inquirySubmitted">
+      <label class="form-label">Name <span class="req">*</span></label>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <input type="text" class="form-control" placeholder="First" [(ngModel)]="inquiryFirstName" name="firstName" required />
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" placeholder="Last" [(ngModel)]="inquiryLastName" name="lastName" />
+        </div>
+      </div>
+
+      <label class="form-label mt-3">Email <span class="req">*</span></label>
+      <input type="email" class="form-control" [(ngModel)]="inquiryEmail" name="email" required />
+
+      <label class="form-label mt-3">Comment or Message</label>
+      <textarea class="form-control" rows="5" [(ngModel)]="inquiryMessage" name="message"></textarea>
+
+      <button type="submit" class="btn btn-navy mt-4" appRipple>Submit</button>
+    </form>
+  </div>
+</section>
+
+<!-- Tags -->
+<section class="py-5">
+  <div class="container-xl">
+    <h2 class="section-title">Tags</h2>
+    <div class="tags-row">
+      <a routerLink="/shop" [queryParams]="{ search: tag }" class="tag-pill" appRipple *ngFor="let tag of tags">{{ tag }}</a>
+    </div>
+  </div>
+</section>
+
+<!-- Want To Sell / Want To Buy modal -->
+<div
+  class="wholesale-modal-backdrop"
+  *ngIf="sellModalOpen || buyModalOpen"
+  [class.closing]="modalClosing"
+  appAppendToBody
+  (click)="closeModal()"
+>
+  <div class="wholesale-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+    <button type="button" class="wholesale-modal-close" aria-label="Close" (click)="closeModal()">&times;</button>
+
+    <ng-container *ngIf="!formSubmitted; else formSuccess">
+      <h3>{{ sellModalOpen ? 'Want To Sell Your Laptops?' : 'Want To Buy Wholesale Stock?' }}</h3>
+      <p class="wholesale-modal-sub">
+        {{ sellModalOpen
+          ? 'Tell us about your inventory — our team will get back to you with a quote.'
+          : 'Tell us your requirement — our team will share available stock and pricing.' }}
+      </p>
+
+      <form (ngSubmit)="submitModalForm()">
+        <input type="text" class="form-control mb-3" placeholder="Full Name" [(ngModel)]="formName" name="formName" required />
+        <input type="tel" class="form-control mb-3" placeholder="Phone Number" [(ngModel)]="formPhone" name="formPhone" required />
+        <input type="email" class="form-control mb-3" placeholder="Email" [(ngModel)]="formEmail" name="formEmail" required />
+        <input type="text" class="form-control mb-3" placeholder="Quantity (approx. units)" [(ngModel)]="formQuantity" name="formQuantity" />
+        <textarea class="form-control mb-3" rows="3" placeholder="Additional notes" [(ngModel)]="formNotes" name="formNotes"></textarea>
+        <button type="submit" class="btn btn-accent w-100" appRipple>Submit Request</button>
+      </form>
+    </ng-container>
+
+    <ng-template #formSuccess>
+      <div class="wholesale-modal-success">
+        <i class="bi bi-check-circle-fill"></i>
+        <h3>Request Received!</h3>
+        <p>Our team will contact you shortly on {{ formEmail || 'your provided email' }}.</p>
+        <button class="btn btn-navy" appRipple (click)="closeModal()">Close</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

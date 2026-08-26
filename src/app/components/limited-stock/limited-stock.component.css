@@ -1,0 +1,18 @@
+.view-all {
+  color: var(--clr-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+.view-all:hover { color: var(--clr-accent); }
+
+.col-lg-2-4 {
+  flex: 0 0 auto;
+  width: 20%;
+}
+@media (max-width: 992px) {
+  .col-lg-2-4 { width: 33.33%; }
+}
+@media (max-width: 576px) {
+  .col-lg-2-4 { width: 50%; }
+}

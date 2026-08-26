@@ -1,0 +1,39 @@
+<section class="hero-full">
+  <div class="hero-slide" *ngFor="let slide of slides; let i = index" [class.active]="i === active">
+    <video
+      *ngIf="slide.videoSrc"
+      class="hero-media"
+      [src]="slide.videoSrc"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
+
+    <div
+      *ngIf="!slide.videoSrc"
+      class="hero-media hero-media-img"
+      [style.backgroundImage]="'url(' + slide.imageSrc + ')'"
+    ></div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content container-xl">
+      <span class="hero-badge">{{ slide.badge }}</span>
+      <h1 class="hero-heading">{{ slide.heading }}</h1>
+      <div class="d-flex gap-3 mt-4 flex-wrap">
+        <button class="btn btn-accent" appRipple (click)="handleCta(slide.cta1)">{{ slide.cta1 }}</button>
+        <button class="btn btn-outline-hero" appRipple (click)="handleCta(slide.cta2)">{{ slide.cta2 }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-dots">
+    <button
+      *ngFor="let slide of slides; let i = index"
+      appRipple
+      (click)="setActive(i)"
+      [class.active]="i === active"
+    ></button>
+  </div>
+</section>

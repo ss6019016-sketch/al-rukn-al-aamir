@@ -1,0 +1,24 @@
+<section class="py-5" [class.bg-soft]="reverse">
+  <div class="container-xl">
+    <div class="row g-4 align-items-center" [class.flex-row-reverse]="reverse">
+      <div class="col-lg-3">
+        <div class="cat-banner animate-in" appScrollReveal>
+          <img [src]="banner.image" class="img-fluid rounded-3 mb-3" [alt]="banner.title" />
+          <h4>{{ banner.title }}</h4>
+          <p class="cat-sub">{{ banner.subtitle }}</p>
+          <span class="cat-price">from {{ banner.priceFrom }}</span>
+          <a routerLink="/shop" class="btn btn-accent w-100 mt-3" appRipple>{{ banner.ctaLabel }}</a>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="row g-4">
+          <div class="col-6 col-md-3" *ngFor="let p of products; let i = index">
+            <div class="animate-in" appScrollReveal [revealDelay]="i * 60">
+              <app-product-card [product]="p"></app-product-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

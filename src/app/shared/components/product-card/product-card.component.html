@@ -1,0 +1,111 @@
+<div class="product-card h-100" [class.product-card-list]="listView">
+  <div class="product-thumb position-relative">
+    <span class="badge-sale" *ngIf="product.discountPercent">-{{ product.discountPercent }}%</span>
+    <span class="badge-sale" *ngIf="!product.discountPercent && product.isSale">SALE</span>
+    <span class="badge-featured" *ngIf="product.featured">FEATURED</span>
+    <img [src]="product.image" [alt]="product.name" class="img-fluid" />
+    <div class="quick-actions">
+      <button class="qa-btn" appRipple title="Quick View" (click)="openQuickView()"><i class="bi bi-eye"></i></button>
+      <button class="qa-btn" appRipple title="Add to Wishlist" (click)="toggleWishlist()"><i class="bi" [class.bi-heart-fill]="isWishlisted()" [class.bi-heart]="!isWishlisted()"></i></button>
+      <button class="qa-btn quick-cart" appRipple title="Add to cart" *ngIf="!product.priceRange" (click)="addQuickCart()"><i class="bi bi-basket"></i></button>
+    </div>
+  </div>
+
+  <div
+    class="quick-view-backdrop"
+    *ngIf="quickViewOpen"
+    [class.closing]="quickViewClosing"
+    appAppendToBody
+    (click)="closeQuickView()"
+  >
+    <div class="quick-view-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+      <button type="button" class="quick-view-close" aria-label="Close" (click)="closeQuickView()">&times;</button>
+
+      <div class="qv-grid">
+        <!-- Left: image -->
+        <div class="qv-media">
+          <span class="badge-sale" *ngIf="product.discountPercent">-{{ product.discountPercent }}%</span>
+          <img [src]="product.image" [alt]="product.name" />
+        </div>
+
+        <!-- Right: details -->
+        <div class="qv-details">
+          <p class="product-cat">{{ product.category }}</p>
+          <h3>{{ product.name }}</h3>
+
+          <div class="product-rating">
+            <i class="bi bi-star-fill" *ngFor="let s of stars; let i = index"
+               [class.text-muted]="i >= (product.rating || 0)"></i>
+            <span class="rating-count">({{ product.reviewCount || 0 }}) customer reviews</span>
+          </div>
+
+          <div class="qv-price">
+            <span class="old-price" *ngIf="product.oldPrice">د.إ{{ product.oldPrice }}</span>
+            <span class="new-price">د.إ{{ product.priceRange?.min || product.price }}</span>
+          </div>
+
+          <p class="qv-desc" *ngIf="product.description">{{ product.description }}</p>
+
+          <table class="specs-table" *ngIf="product.specs?.length">
+            <tr *ngFor="let s of product.specs"><td class="spec-label">{{ s.label }}</td><td class="spec-value">{{ s.value }}</td></tr>
+          </table>
+
+          <div class="qv-action-row">
+            <div class="qty-stepper">
+              <button type="button" appRipple (click)="decrementQty()">&minus;</button>
+              <span>{{ quickViewQty }}</span>
+              <button type="button" appRipple (click)="incrementQty()">+</button>
+            </div>
+            <button class="btn btn-accent" appRipple (click)="addQuickViewToCart()">Add To Cart</button>
+            <button class="btn btn-buy-now" appRipple (click)="buyNowFromQuickView()">Buy Now</button>
+          </div>
+
+          <div class="qv-meta" *ngIf="product.sku">
+            <p><span>SKU:</span> {{ product.sku }}</p>
+          </div>
+          <div class="qv-meta" *ngIf="product.category">
+            <p><span>Categories:</span> {{ product.category }}</p>
+          </div>
+          <div class="qv-meta" *ngIf="product.tags?.length">
+            <p><span>Tags:</span> {{ product.tags?.join(', ') }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-3" *ngIf="toastVisible" role="status">
+    <div class="d-flex"><div class="toast-body">Added to cart!</div></div>
+  </div>
+
+  <div class="product-body">
+    <p class="product-cat">{{ product.category }}</p>
+    <h3 class="product-name">{{ product.name }}</h3>
+
+    <div class="product-rating">
+      <i class="bi bi-star-fill" *ngFor="let s of stars; let i = index"
+         [class.text-muted]="i >= (product.rating || 0)"></i>
+      <span class="rating-count">({{ product.reviewCount || 0 }})</span>
+    </div>
+
+    <div class="product-price">
+      <ng-container *ngIf="product.priceRange; else singlePrice">
+      د.إ{{ product.priceRange?.min }} – د.إ{{ product.priceRange?.max }}
+      </ng-container>
+      <ng-template #singlePrice>
+        <span class="old-price" *ngIf="product.oldPrice">د.إ{{ product.oldPrice }}</span>
+        <span class="new-price">د.إ{{ product.price }}</span>
+      </ng-template>
+    </div>
+
+    <ul class="specs-list" *ngIf="product.specs?.length">
+      <li *ngFor="let s of product.specs"><span>{{ s.label }}:</span> {{ s.value }}</li>
+    </ul>
+
+    <button class="btn btn-accent w-100 mt-2" appRipple (click)="addToCart()">
+      <ng-container *ngIf="product.priceRange; else addCartLabel">Select options</ng-container>
+      <ng-template #addCartLabel>Add to cart</ng-template>
+    </button>
+    <button class="similar-btn" appRipple (click)="findSimilar()">Find similar products</button>
+  </div>
+</div>

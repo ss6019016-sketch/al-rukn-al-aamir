@@ -1,0 +1,4 @@
+.lead-text { font-weight: 600; color: var(--clr-primary); font-size: 1.1rem; }
+.body-text { color: var(--clr-muted); line-height: 1.8; }
+.stat-box h3 { color: var(--clr-accent); font-weight: 800; font-size: 2rem; margin-bottom: 0; }
+.stat-box span { color: var(--clr-muted); font-size: 0.85rem; }
