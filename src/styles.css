@@ -1,11 +1,11 @@
-/* ===== Tecnalogya Global Theme (matches alquwahcomputer.com styling) ===== */
+/* ===== Al Rukn Al Aamir Global Theme (matches alquwahcomputer.com styling) ===== */
 :root {
-  --clr-primary: #0d2b4e;      /* dark navy - header/footer */
+  --clr-primary: #0b1f4d;      /* dark navy - header/footer */
   --clr-primary-light: #14396b;
-  --clr-accent: #ff6a00;       /* orange - CTA / sale badges */
-  --clr-accent-dark: #e05e00;
+ --clr-accent: #0033A0;       /* orange - CTA / sale badges */
+ --clr-accent-dark: #00297D;
   --clr-text: #2b2f38;
-  --clr-muted: #6c757d;
+  --clr-muted: #6c757d;   
   --clr-bg-light: #f6f8fb;
   --clr-white: #ffffff;
   --clr-border: #e9ecef;

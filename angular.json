@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tecnalogya": {
+    "Al Rukn Al Aamir": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tecnalogya",
+            "outputPath": "dist/Al Rukn Al Aamir",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -48,8 +48,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": { "browserTarget": "tecnalogya:build:production" },
-            "development": { "browserTarget": "tecnalogya:build:development" }
+            "production": { "browserTarget": "Al Rukn Al Aamir:build:production" },
+            "development": { "browserTarget": "Al Rukn Al Aamir:build:development" }
           },
           "defaultConfiguration": "development"
         }

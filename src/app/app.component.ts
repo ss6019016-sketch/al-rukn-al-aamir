@@ -8,7 +8,7 @@ import { ProductService } from './core/services/product.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'tecnalogya';
+  title = 'Al Rukn Al Aamir';
 
   categoryBanners: CategoryBanner[] = this.productService.getCategoryBanners();
   bestSellers: Product[] = this.productService.getBestSellers();

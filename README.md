@@ -1,4 +1,4 @@
-# Tecnalogya (Angular 16 + Bootstrap 5)
+# Al Rukn Al Aamir (Angular 16 + Bootstrap 5)
 
 Yeh project **alquwahcomputer.com** ki UI/UX ka clone hai — sirf frontend/styling,
 **backend abhi pending hai**. Poora data dummy/static hai
