@@ -1,0 +1,16 @@
+.tag-chip {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 1px solid var(--clr-muted);
+  border-radius: 20px;
+  color: var(--clr-primary);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.tag-chip:hover {
+  background-color: var(--clr-accent);
+  border-color: var(--clr-accent);
+  color: #fff;
+}

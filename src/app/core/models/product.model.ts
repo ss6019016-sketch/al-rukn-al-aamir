@@ -1,3 +1,17 @@
+// core/models/product.model.ts
+
+export interface Spec {
+  label: string;
+  value: string;
+}
+
+export interface Review {
+  name: string;
+  rating: number;
+  comment: string;
+  date: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -13,7 +27,8 @@ export interface Product {
   featured?: boolean;
   isSale?: boolean;
   inStock?: boolean;
-  specs?: { label: string; value: string }[];
+  specs?: Spec[];
+  reviews?: Review[];
   sku?: string;
   tags?: string[];
   description?: string;

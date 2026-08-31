@@ -23,7 +23,7 @@ export class HeroBannerComponent {
     heading: 'Certified Refurbished Laptops Tested for Performance and Reliability',
     cta1: 'Send Inquiry',
     cta2: 'Inventory',
-    videoSrc: 'assets/videos/hero-1.mp4',
+    videoSrc: 'assets/videos/laptop-video.mp4',
     imageSrc: 'assets/images/hero-banner-1.jpg',
   },
     {
@@ -31,7 +31,7 @@ export class HeroBannerComponent {
       heading: 'Your Trusted Source for Bulk Laptops & IT Equipment',
       cta1: 'Want To Sell',
       cta2: 'Send Inquiry',
-      videoSrc: 'assets/videos/hero-2.mp4',
+      videoSrc: 'assets/videos/laptop-video.mp4',
       imageSrc: 'assets/images/hero-banner-2.jpg',
     },
     {
@@ -39,7 +39,7 @@ export class HeroBannerComponent {
       heading: 'Wholesale Deals on High-Quality Renewed Laptops Worldwide',
       cta1: 'Want To Buy',
       cta2: 'Inventory',
-      videoSrc: 'assets/videos/hero-3.mp4',
+      videoSrc: 'assets/videos/laptop-video.mp4',
       imageSrc: 'assets/images/hero-banner-3.jpg',
     },
   ];
@@ -87,4 +87,8 @@ export class HeroBannerComponent {
     if (this.timer) clearInterval(this.timer);
     this.startAutoplay();
   }
+
+  onVideoError(slide: HeroSlide): void {
+  console.error(`Video load failed: ${slide.videoSrc} — check the path and that the file exists in src/assets/videos/`);
+}
 }

@@ -3,12 +3,16 @@
     <video
       *ngIf="slide.videoSrc"
       class="hero-media"
-      [src]="slide.videoSrc"
-      autoplay
-      muted
-      loop
+      [muted]="true"
+      [autoplay]="true"
+      [loop]="true"
       playsinline
-    ></video>
+      preload="auto"
+      [poster]="slide.imageSrc"
+      (error)="onVideoError(slide)"
+    >
+      <source [src]="slide.videoSrc" type="video/mp4" />
+    </video>
 
     <div
       *ngIf="!slide.videoSrc"

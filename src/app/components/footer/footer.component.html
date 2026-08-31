@@ -1,9 +1,9 @@
 <!-- footer.component.html -->
 <footer class="site-footer">
-  <div class="container-xl py-5">
-    <div class="row g-5">
+  <div class="container-xl py-4 py-lg-5">
+    <div class="row g-4 g-lg-5">
 
-      <div class="col-lg-3 col-md-6">
+      <div class="col-6 col-md-6 col-lg-3">
         <h5 class="footer-heading">Our Locations</h5>
         <div class="location-block">
           <span class="location-tag">Store 1:</span>
@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-6">
+      <div class="col-6 col-md-6 col-lg-3">
         <h5 class="footer-heading">Quick Links</h5>
         <ul class="footer-links">
           <li *ngFor="let link of quickLinks">
@@ -24,7 +24,7 @@
         </ul>
       </div>
 
-      <div class="col-lg-3 col-md-6">
+      <div class="col-6 col-md-6 col-lg-3">
         <h5 class="footer-heading">Account</h5>
         <ul class="footer-links">
           <li *ngFor="let link of accountLinks">
@@ -33,7 +33,7 @@
         </ul>
       </div>
 
-      <div class="col-lg-3 col-md-6">
+      <div class="col-6 col-md-6 col-lg-3">
         <h5 class="footer-heading">Customer Care</h5>
         <ul class="footer-links">
           <li *ngFor="let link of customerCareLinks">
@@ -47,7 +47,7 @@
     <hr class="footer-divider" />
 
     <div class="row align-items-center gy-4">
-      <div class="col-md-6">
+      <div class="col-md-6 text-center text-md-start">
         <h6 class="call-heading">Call Us Now</h6>
         <a href="tel:+971526511946" class="call-number">+971- 526511946</a>
         <p class="mb-0 mt-2 contact-email">
@@ -55,7 +55,7 @@
         </p>
       </div>
 
-      <div class="col-md-6 text-md-end">
+      <div class="col-md-6 text-center text-md-end">
         <div class="social-icons">
           <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
           <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
@@ -67,10 +67,10 @@
   </div>
 
   <div class="footer-bottom">
-    <div class="container-xl d-flex flex-wrap justify-content-between align-items-center py-3">
-      <p class="copyright-text mb-0">© {{ currentYear }} Al Rukn Al Aamir. All rights reserved.</p>
+    <div class="container-xl d-flex flex-column flex-md-row flex-wrap gap-2 justify-content-between align-items-center py-3">
+      <p class="copyright-text mb-0 text-center text-md-start">© {{ currentYear }} Al Rukn Al Aamir. All rights reserved.</p>
 
-      <div class="payment-icons">
+      <div class="payment-icons justify-content-center justify-content-md-end">
         <i class="bi bi-credit-card"></i>
         <span>Amex</span>
         <span>Apple Pay</span>

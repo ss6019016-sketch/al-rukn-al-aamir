@@ -28,6 +28,7 @@
   line-height: 1.6;
   margin: 0.25rem 0 0;
   color: rgba(255, 255, 255, 0.7);
+  word-wrap: break-word;
 }
 
 .footer-links {
@@ -68,11 +69,13 @@
   font-size: 1.4rem;
   font-weight: 800;
   text-decoration: none;
+  word-break: break-word;
 }
 
 .contact-email {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
+  word-break: break-word;
 }
 
 .contact-email a {
@@ -87,6 +90,8 @@
 .social-icons {
   display: inline-flex;
   gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .social-icons a {
@@ -100,6 +105,7 @@
   color: #fff;
   font-size: 1rem;
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
 }
 
 .social-icons a:hover {
@@ -120,6 +126,7 @@
 
 .payment-icons {
   display: flex;
+  align-items: center;
   gap: 0.6rem;
   flex-wrap: wrap;
   font-size: 0.75rem;
@@ -130,6 +137,7 @@
   background: rgba(255, 255, 255, 0.08);
   padding: 4px 10px;
   border-radius: 4px;
+  white-space: nowrap;
 }
 
 .back-to-top {
@@ -155,8 +163,111 @@
   transform: translateY(-3px);
 }
 
-@media (max-width: 767px) {
-  .payment-icons {
-    justify-content: flex-start;
+
+/* ================================
+   Responsive
+================================ */
+
+/* Tablet */
+@media (max-width: 991.98px) {
+
+  .footer-heading {
+    font-size: 0.98rem;
+    margin-bottom: 1rem;
   }
+
+  .call-number {
+    font-size: 1.25rem;
+  }
+
+}
+
+
+/* Mobile */
+@media (max-width: 767.98px) {
+
+  .site-footer {
+    text-align: left;
+  }
+
+  .footer-heading {
+    font-size: 0.92rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .location-text,
+  .footer-links a,
+  .contact-email {
+    font-size: 0.85rem;
+  }
+
+  .call-number {
+    font-size: 1.15rem;
+  }
+
+  .social-icons {
+    margin-top: 4px;
+  }
+
+  .payment-icons {
+    justify-content: center;
+    font-size: 0.7rem;
+  }
+
+  .payment-icons span {
+    padding: 3px 8px;
+  }
+
+  .back-to-top {
+    width: 40px;
+    height: 40px;
+    bottom: 16px;
+    right: 16px;
+    font-size: 1rem;
+  }
+
+}
+
+
+/* Small mobile: 2-column link grid gets tight, drop to single column */
+@media (max-width: 480px) {
+
+  .footer-heading {
+    margin-bottom: 0.65rem;
+  }
+
+  .location-tag,
+  .location-text {
+    font-size: 0.8rem;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.5rem;
+  }
+
+  .call-number {
+    font-size: 1.05rem;
+  }
+
+  .social-icons a {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .copyright-text {
+    font-size: 0.78rem;
+  }
+
+  .payment-icons span {
+    font-size: 0.65rem;
+  }
+
+  .back-to-top {
+    width: 36px;
+    height: 36px;
+    bottom: 12px;
+    right: 12px;
+  }
+
 }

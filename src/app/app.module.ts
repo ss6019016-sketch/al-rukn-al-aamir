@@ -29,7 +29,12 @@ import { AvatarComponent } from './shared/components/avatar/avatar.component';
 import { RippleDirective } from './shared/components/directives/ripple.directive';
 import { ScrollRevealDirective } from './shared/components/directives/scroll-reveal.directive';
 import { AppendToBodyDirective } from './shared/components/directives/append-to-body.directive';
-
+import { WhatsappButtonComponent } from './shared/components/whatsapp-button/whatsapp-button.component';
+import { TrendingTagsComponent } from './components/trending-tags/trending-tags.component';
+import { ReferFriendComponent } from './components/refer-friend/refer-friend.component';
+import { BlogListComponent } from './pages/blog-list/blog-list.component';
+import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
+import { AuthModalComponent } from './shared/components/auth-modal/auth-modal.component';
 const routes = [
   { path: '', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
@@ -69,6 +74,12 @@ const routes = [
     RippleDirective,
     ScrollRevealDirective,
     AppendToBodyDirective,
+    WhatsappButtonComponent,
+    BlogDetailComponent,
+    BlogListComponent,
+    TrendingTagsComponent,
+    ReferFriendComponent,
+    AuthModalComponent
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ interface NavItem {
   link: string;
   children?: NavChild[];
   mega?: boolean;
+   _mobileOpen?: boolean;  
 }
 
 interface MegaLink {
@@ -33,7 +34,7 @@ export class HeaderComponent implements OnInit {
   wishlistCount = 0;
   cartItems: CartItem[] = [];
   cartTotal = 0;
-
+  authModalOpen = false;
   cartDropdownOpen = false;
 
   searchTerm = '';
@@ -103,6 +104,14 @@ export class HeaderComponent implements OnInit {
     this.showAnnouncement = false;
   }
 
+  toggleMobileMega(item: any, event: Event) {
+  // Only intercept tap on mobile/tablet (<=991px), desktop pe normal hover chalega
+  if (window.innerWidth <= 991) {
+    event.preventDefault();
+    item._mobileOpen = !item._mobileOpen;
+  }
+}
+
   openMega(): void {
     this.megaOpen = true;
   }
@@ -154,5 +163,13 @@ export class HeaderComponent implements OnInit {
       queryParams['category'] = this.categoryKeywordMap[this.selectedCategory] || null;
     }
     this.router.navigate(['/shop'], { queryParams });
+  }
+
+  openAuthModal(): void {
+    this.authModalOpen = true;
+  }
+
+  closeAuthModal(): void {
+    this.authModalOpen = false;
   }
 }
