@@ -28,7 +28,11 @@ interface AboutTestimonial {
   rating: number;
   message: string;
 }
-@Component({ selector: 'app-about-page', templateUrl: './about-page.component.html' })
+@Component({
+  selector: 'app-about-page',
+  templateUrl: './about-page.component.html',
+  styleUrls: ['./about-page.component.css'],
+})
 export class AboutPageComponent {
 heroImage = 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-1-400x400.jpg';
 

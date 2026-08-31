@@ -11,8 +11,8 @@
 .breadcrumb-bar span:last-child { color: var(--clr-primary); font-weight: 600; }
 
 /* Hero */
-.about-hero { border-radius: var(--radius); overflow: hidden; }
-.about-hero img { width: 100%; max-height: 480px; object-fit: cover; }
+.about-hero { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
+.about-hero img { width: 100%; height: 380px; max-height: 480px; object-fit: cover; display: block; }
 
 /* Story */
 .text-accent { color: var(--clr-accent); }
@@ -31,6 +31,8 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  max-width: 760px;
+  margin: 0 auto;
 }
 .team-slide-window { flex: 1; overflow: hidden; }
 .team-slide-track {
@@ -79,12 +81,13 @@
   border-radius: var(--radius);
   overflow: hidden;
   height: 220px;
+  background: var(--clr-primary);
 }
-.promo-banner img { width: 100%; height: 100%; object-fit: cover; }
+.promo-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .promo-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(13, 43, 78, 0.92) 40%, rgba(13, 43, 78, 0.1) 100%);
+  background: linear-gradient(90deg, rgba(11, 31, 77, 0.94) 40%, rgba(11, 31, 77, 0.35) 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,9 +96,9 @@
   max-width: 70%;
 }
 .promo-tag { color: var(--clr-accent); font-weight: 700; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 6px; }
-.promo-overlay h4 { font-weight: 700; margin-bottom: 8px; }
-.promo-price { font-size: 0.9rem; margin-bottom: 14px; opacity: 0.85; }
-.promo-price strong { color: var(--clr-accent); }
+.promo-overlay h4 { font-weight: 700; margin-bottom: 8px; color: #fff; }
+.promo-price { font-size: 0.9rem; margin-bottom: 14px; color: #fff; opacity: 0.9; }
+.promo-price strong { color: var(--clr-accent); font-weight: 700; }
 .promo-overlay .btn-accent { align-self: flex-start; }
 
 /* Facilities band */
@@ -134,7 +137,30 @@
 }
 .testimonial-dots button.active { background: var(--clr-accent); width: 26px; border-radius: 6px; }
 
-@media (max-width: 767px) {
+@media (max-width: 991.98px) {
+  .about-hero img { height: 300px; }
+  .promo-banner { height: 260px; }
+}
+
+@media (max-width: 767.98px) {
+  .about-hero img { height: 220px; border-radius: 14px; }
   .team-slide { gap: 30px; }
-  .promo-overlay { max-width: 100%; }
+  .promo-banner { height: 300px; }
+  .promo-overlay { max-width: 100%; padding: 0 22px; }
+  .facilities-band { padding: 44px 0; }
+  .facilities-band h2 { font-size: 1.4rem; }
+  .team-arrow { width: 34px; height: 34px; font-size: 0.9rem; }
+  .testimonial-quote { font-size: 0.95rem; }
+}
+
+@media (max-width: 575.98px) {
+  .about-hero img { height: 180px; }
+  .gallery-frame img { height: 200px; }
+  .team-carousel { gap: 8px; }
+  .team-member { max-width: 100%; }
+  .team-slide { gap: 22px; }
+  .promo-banner { height: 240px; }
+  .promo-overlay h4 { font-size: 1.1rem; }
+  .promo-overlay { padding: 0 18px; }
+  .facilities-band h2 { font-size: 1.2rem; }
 }

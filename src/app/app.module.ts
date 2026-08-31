@@ -20,7 +20,6 @@ import { ProductCardComponent } from './shared/components/product-card/product-c
 import { HomeComponent } from './pages/home/home.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
-import { AboutPageComponent } from './pages/about-us/about-page.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
@@ -35,11 +34,14 @@ import { ReferFriendComponent } from './components/refer-friend/refer-friend.com
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
 import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
 import { AuthModalComponent } from './shared/components/auth-modal/auth-modal.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AboutPageComponent } from './pages/about-us/about-page.component';
 const routes = [
   { path: '', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'product/:id', component: ProductDetailComponent },
-  { path: 'about-us', component: AboutPageComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'about-us/full', component: AboutPageComponent },   // <-- naya route
   { path: 'wholesale', component: WholesaleComponent }, 
   { path: 'contact-us', component: ContactComponent },
   { path: 'cart', component: CartComponent },
@@ -65,6 +67,7 @@ const routes = [
     HomeComponent,
     ShopComponent,
     ProductDetailComponent,
+    AboutUsComponent,
     AboutPageComponent,
     ContactComponent,
     CartComponent,

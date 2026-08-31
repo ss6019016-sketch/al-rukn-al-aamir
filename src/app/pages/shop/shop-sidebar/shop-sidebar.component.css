@@ -14,3 +14,7 @@
 .filter-label { display: block; font-size: .85rem; font-weight: 700; margin-bottom: .5rem; }
 .form-select { font-size: .82rem; }
 .reset-link { border: 0; background: none; color: var(--clr-accent); padding: 1rem 0 0; font-size: .85rem; }
+
+@media (max-width: 767px) {
+  .shop-sidebar { padding: 0.85rem; margin-bottom: 1.25rem; }
+}

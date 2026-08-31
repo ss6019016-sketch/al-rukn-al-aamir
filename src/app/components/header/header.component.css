@@ -197,17 +197,20 @@
 }
 
 .brand-name {
-  font-size: 1.5rem;
+  font-size: 2.1rem;
   font-weight: 800;
   color: var(--clr-primary);
   letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .brand-tag {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--clr-accent);
   text-transform: uppercase;
   letter-spacing: 2px;
+  white-space: nowrap;
 }
 
 
@@ -814,6 +817,7 @@
 
 @media (max-width: 1200px) {
 
+  .brand-name { font-size: 1.7rem; }
   .mega-menu-inner {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -834,6 +838,8 @@
 
 @media (max-width: 991.98px) {
 
+  .brand-name { font-size: 1.4rem; }
+.brand-tag { font-size: 0.62rem; letter-spacing: 1.5px; }
   .header-top {
     min-height: auto;
     flex-wrap: nowrap;
@@ -945,12 +951,11 @@
   }
 
   .brand-name {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
   }
 
   .brand-tag {
-    font-size: 0.5rem;
-
+    font-size: 0.52rem;
     letter-spacing: 1.2px;
   }
 
@@ -970,18 +975,15 @@
 @media (max-width: 480px) {
 
   .mini-cart {
-    right: -16px;
-    left: -16px;
-    width: auto;
-    max-width: calc(100vw - 32px);
+    width: calc(100vw - 32px);
+    max-width: 340px;
   }
-
   .header-top {
     gap: 6px !important;
   }
 
   .brand-name {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .header-actions {
@@ -994,6 +996,10 @@
 /* Very small (older/small phones) */
 
 @media (max-width: 360px) {
+
+  .brand-name {
+    font-size: 0.88rem;
+  }
 
   .brand-tag {
     display: none;

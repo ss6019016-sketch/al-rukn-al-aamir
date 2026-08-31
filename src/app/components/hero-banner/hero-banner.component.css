@@ -5,6 +5,7 @@
   min-height: 480px;
   max-height: 820px;
   overflow: hidden;
+  background: var(--clr-primary);
 }
 
 .hero-slide {
@@ -12,7 +13,8 @@
   inset: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.8s ease;
+  z-index: 0;
+  transition: opacity 0.8s ease, visibility 0s linear 0.8s, z-index 0s linear 0.8s;
   display: flex;
   align-items: center;
 }
@@ -20,6 +22,7 @@
   opacity: 1;
   visibility: visible;
   z-index: 1;
+  transition: opacity 0.8s ease;
 }
 
 .hero-media {
