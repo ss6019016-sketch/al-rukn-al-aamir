@@ -50,6 +50,17 @@
 }
 .qa-btn:hover { background: var(--clr-accent); color: #fff; }
 
+/* ---------- Touch devices: hover never fires, so keep quick actions
+   visible always instead of hidden-until-hover ---------- */
+@media (hover: none) {
+  .quick-actions {
+    bottom: 12px;
+  }
+  .quick-cart {
+    display: block;
+  }
+}
+
 .product-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
 .product-cat { color: var(--clr-accent); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
 .product-name {
@@ -218,7 +229,103 @@
 .qv-meta { font-size: 0.85rem; color: var(--clr-muted); margin-bottom: 4px; }
 .qv-meta span { font-weight: 600; color: var(--clr-text); }
 
+
+/* ================================
+   Responsive — product card itself
+================================ */
+
+@media (max-width: 575.98px) {
+  .product-thumb {
+    padding: 14px;
+  }
+  .product-thumb img {
+    max-height: 130px;
+  }
+  .product-body {
+    padding: 12px;
+  }
+  .product-name {
+    font-size: 0.85rem;
+    min-height: 2.5em;
+  }
+  .new-price {
+    font-size: 0.95rem;
+  }
+  .old-price {
+    font-size: 0.78rem;
+  }
+  .qa-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+  .similar-btn {
+    font-size: 0.72rem;
+    padding: 0.4rem;
+  }
+}
+
+
+/* ================================
+   Responsive — quick view modal
+================================ */
+
+@media (max-width: 991.98px) {
+  .qv-details {
+    padding: 1.4rem;
+  }
+  .qv-media {
+    padding: 1.5rem;
+  }
+}
+
 @media (max-width: 700px) {
   .qv-grid { grid-template-columns: 1fr; }
   .qv-media img { max-height: 220px; }
+}
+
+@media (max-width: 575.98px) {
+  .quick-view-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .quick-view-modal {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .qv-media {
+    padding: 1rem;
+  }
+  .qv-media img {
+    max-height: 180px;
+  }
+  .qv-details {
+    padding: 1.1rem;
+  }
+  .qv-details h3 {
+    font-size: 1.05rem;
+  }
+  .qv-price .new-price {
+    font-size: 1.2rem;
+  }
+  .qv-desc {
+    font-size: 0.85rem;
+  }
+  .qv-action-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .qty-stepper {
+    align-self: center;
+  }
+  .qv-action-row .btn-accent,
+  .btn-buy-now {
+    min-width: 100%;
+  }
+  .quick-view-close {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
 }

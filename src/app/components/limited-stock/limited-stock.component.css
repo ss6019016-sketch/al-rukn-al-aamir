@@ -1,18 +1,68 @@
+.limited-stock-section .section-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--clr-primary);
+}
+
 .view-all {
   color: var(--clr-primary);
   font-weight: 600;
   font-size: 0.9rem;
   transition: var(--transition);
+  white-space: nowrap;
 }
 .view-all:hover { color: var(--clr-accent); }
+
+/* ================================
+   5-column grid — full breakpoint chain
+   Desktop: 5 across → Tablet: 3 across →
+   Large mobile: 2 across → Small mobile: 1 across
+================================ */
 
 .col-lg-2-4 {
   flex: 0 0 auto;
   width: 20%;
+  padding-right: calc(var(--bs-gutter-x, 1.5rem) * 0.5);
+  padding-left: calc(var(--bs-gutter-x, 1.5rem) * 0.5);
 }
-@media (max-width: 992px) {
-  .col-lg-2-4 { width: 33.33%; }
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  .col-lg-2-4 {
+    width: 33.333%;
+  }
 }
-@media (max-width: 576px) {
-  .col-lg-2-4 { width: 50%; }
+
+/* Large mobile / small tablet */
+@media (max-width: 767.98px) {
+  .col-lg-2-4 {
+    width: 50%;
+  }
+}
+
+/* Small mobile — single column so card content isn't squeezed */
+@media (max-width: 420px) {
+  .col-lg-2-4 {
+    width: 100%;
+  }
+}
+
+
+/* ================================
+   Responsive section header
+================================ */
+
+@media (max-width: 575.98px) {
+  .limited-stock-section .section-title {
+    font-size: 1.2rem;
+  }
+
+  .section-header {
+    text-align: center;
+    justify-content: center !important;
+  }
+
+  .view-all {
+    font-size: 0.82rem;
+  }
 }

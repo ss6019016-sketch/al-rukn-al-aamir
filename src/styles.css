@@ -23,6 +23,7 @@ body {
   background: var(--clr-white);
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* stray wide elements can't create horizontal scroll on mobile */
 }
 /* Smooth scrolling for anchor jumps */
 html {
@@ -166,3 +167,74 @@ a { text-decoration: none; color: inherit; }
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-thumb { background: var(--clr-accent); border-radius: 10px; }
+
+
+/* ================================
+   Global responsive fallbacks
+   (individual sections may already override
+   these with more specific rules — that's fine,
+   this is just the safety net for anything that doesn't)
+================================ */
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .container-xl {
+    padding: 0 12px;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-accent {
+    padding: 9px 20px;
+    font-size: 0.9rem;
+  }
+
+  .btn-outline-nav {
+    padding: 7px 16px;
+    font-size: 0.88rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .container-xl {
+    padding: 0 10px;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+  }
+
+  .badge-sale,
+  .badge-featured {
+    font-size: 0.62rem;
+    padding: 3px 8px;
+    top: 8px;
+  }
+
+  .badge-sale { left: 8px; }
+  .badge-featured { right: 8px; }
+
+  .btn-accent {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Hide the custom scrollbar styling on touch devices — most mobile
+   browsers hide/auto-manage scrollbars anyway and forcing width can
+   cause a persistent thin bar to show on some Android browsers */
+@media (hover: none) {
+  ::-webkit-scrollbar { width: 4px; }
+}

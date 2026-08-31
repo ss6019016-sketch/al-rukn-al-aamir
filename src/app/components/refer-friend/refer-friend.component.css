@@ -6,3 +6,32 @@
 .refer-section h2 {
   color: #fff;
 }
+
+.refer-heading {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.refer-btn {
+  padding: 10px 28px;
+}
+
+@media (max-width: 767.98px) {
+  .refer-heading {
+    font-size: 1.15rem;
+    line-height: 1.4;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .refer-heading {
+    font-size: 1rem;
+  }
+
+  .refer-btn {
+    width: 100%;
+    padding: 12px 20px;
+  }
+}

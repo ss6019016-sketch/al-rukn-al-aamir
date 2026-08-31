@@ -1,0 +1,21 @@
+.deal-of-day-section .section-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 1.75rem;
+  color: var(--clr-primary);
+}
+
+@media (max-width: 991.98px) {
+  .deal-of-day-section .section-title {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .deal-of-day-section .section-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
