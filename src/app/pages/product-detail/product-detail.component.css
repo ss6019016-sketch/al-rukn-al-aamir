@@ -1,0 +1,44 @@
+.product-detail-page { background: #fff; }
+.product-detail-page .container-xl { max-width: 1240px; }
+.product-detail-back { color: var(--clr-muted); display: inline-flex; align-items: center; gap: .45rem; font-size: .78rem; font-weight: 600; margin-bottom: 1rem; }
+.product-detail-back:hover { color: var(--clr-accent); }
+.detail-layout { align-items: start; }
+.product-gallery { position: sticky; top: 1rem; }
+.product-main-image { align-items: center; background: var(--clr-bg-light); border: 1px solid var(--clr-border); display: flex; justify-content: center; min-height: 410px; padding: 2.25rem; position: relative; }
+.product-main-image img { height: 360px; max-width: 100%; object-fit: contain; }
+.product-thumbs { display: flex; gap: .65rem; margin-top: .85rem; overflow-x: auto; }
+.product-thumb-item { background: #fff; border: 1px solid var(--clr-border); cursor: pointer; height: 62px; padding: .35rem; width: 72px; }
+.product-thumb-item.active, .product-thumb-item:hover { border-color: var(--clr-primary); }
+.product-thumb-item img { height: 100%; object-fit: contain; width: 100%; }
+.detail-eyebrow { color: var(--clr-muted); font-size: .72rem; font-weight: 800; letter-spacing: .1em; margin: .15rem 0 .5rem; text-transform: uppercase; }
+.detail-info h1 { color: var(--clr-primary); font-size: clamp(1.7rem, 3vw, 2.45rem); font-weight: 800; line-height: 1.12; margin-bottom: .85rem; }
+.detail-rating { align-items: center; color: #c3cad6; display: flex; font-size: .85rem; gap: .25rem; }
+.detail-rating i.active { color: var(--clr-accent); }
+.detail-rating span { color: var(--clr-muted); margin-left: .35rem; }
+.detail-price { align-items: baseline; border-bottom: 1px solid var(--clr-border); display: flex; gap: .75rem; margin: 1rem 0; padding-bottom: 1rem; }
+.detail-price .old-price { font-size: 1rem; }
+.detail-price .new-price { color: var(--clr-accent); font-size: 1.55rem; font-weight: 800; }
+.detail-copy { color: var(--clr-muted); font-size: .92rem; line-height: 1.7; }
+.detail-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .7rem; margin: 1.35rem 0; }
+.detail-actions .qty-stepper { flex: 0 0 auto; }
+.detail-actions .btn { border-radius: 5px; font-size: .78rem; font-weight: 800; padding: .72rem 1.2rem; text-transform: uppercase; }
+.detail-meta { border-top: 1px solid var(--clr-border); color: var(--clr-muted); font-size: .78rem; padding-top: .85rem; }
+.detail-meta p { margin-bottom: .35rem; }
+.detail-meta strong { color: var(--clr-text); }
+.detail-out-of-stock { color: #b42318; }
+.detail-tabs { border-bottom: 1px solid var(--clr-border); display: flex; gap: 1.7rem; margin-top: 3.5rem; }
+.detail-tab { background: none; border: 0; border-bottom: 2px solid transparent; color: var(--clr-muted); font-size: .75rem; font-weight: 800; padding: .85rem 0; text-transform: uppercase; }
+.detail-tab.active, .detail-tab:hover { border-color: var(--clr-accent); color: var(--clr-primary); }
+.detail-content { color: var(--clr-muted); font-size: .85rem; line-height: 1.7; padding: 1.35rem 0; }
+.detail-specs { border-top: 1px solid var(--clr-border); margin: 0; max-width: 720px; }
+.detail-specs tr { border-bottom: 1px solid var(--clr-border); }
+.detail-specs th, .detail-specs td { padding: .65rem .5rem; }
+.detail-specs th { color: var(--clr-text); font-weight: 700; width: 35%; }
+.detail-alert { margin-top: 1rem; }
+.detail-features { list-style: none; margin: .75rem 0 0; max-width: 720px; padding: 0; }
+.detail-features li { border-bottom: 1px solid var(--clr-border); padding: .7rem 0; }
+.detail-features strong { color: var(--clr-text); }
+.related-products { border-top: 1px solid var(--clr-border); margin-top: 2rem; padding-top: 2rem; }
+.related-link { color: var(--clr-accent); font-size: .78rem; font-weight: 700; }
+@media (max-width: 991.98px) { .product-gallery { position: static; } .product-main-image { min-height: 330px; } .product-main-image img { height: 290px; } }
+@media (max-width: 575.98px) { .product-detail-page { padding-bottom: 7rem !important; } .product-main-image { min-height: 270px; padding: 1.25rem; } .product-main-image img { height: 230px; } .detail-actions .card-add-btn { flex: 1; } .detail-tabs { gap: 1rem; margin-top: 2.25rem; overflow-x: auto; } }

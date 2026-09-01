@@ -1,0 +1,9 @@
+<nav class="site-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li *ngFor="let item of items; let last = last" [class.current]="last">
+      <a *ngIf="item.link && !last; else currentItem" [routerLink]="item.link" [queryParams]="item.queryParams">{{ item.label }}</a>
+      <ng-template #currentItem><span aria-current="page">{{ item.label }}</span></ng-template>
+      <i *ngIf="!last" class="bi bi-chevron-right" aria-hidden="true"></i>
+    </li>
+  </ol>
+</nav>

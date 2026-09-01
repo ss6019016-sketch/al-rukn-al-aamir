@@ -16,6 +16,7 @@ export class ProductCardComponent {
   quickViewOpen = false;
   quickViewClosing = false;
   quickViewQty = 1;
+  cardQty = 1;
   toastVisible = false;
 
   constructor(
@@ -28,13 +29,34 @@ export class ProductCardComponent {
     return Array(5).fill(0);
   }
 
+  get discountLabel(): string {
+    if (this.product.discountPercent) return `-${this.product.discountPercent}%`;
+    if (this.product.oldPrice && this.product.oldPrice > this.product.price) {
+      const discount = Math.round((1 - this.product.price / this.product.oldPrice) * 100);
+      return `-${discount}%`;
+    }
+    return this.product.isSale ? 'SALE' : '';
+  }
+
   addToCart(): void {
     if (this.product.priceRange) {
       this.router.navigate(['/product', this.product.id]);
       return;
     }
-    this.cartService.addToCart(this.product);
+    this.cartService.addToCart(this.product, this.cardQty);
     this.showToast();
+  }
+
+  incrementCardQty(): void {
+    this.cardQty++;
+  }
+
+  decrementCardQty(): void {
+    if (this.cardQty > 1) this.cardQty--;
+  }
+
+  openProduct(): void {
+    this.router.navigate(['/product', this.product.id]);
   }
 
   toggleWishlist(): void {
@@ -82,10 +104,6 @@ export class ProductCardComponent {
   addQuickCart(): void {
     this.cartService.addToCart(this.product);
     this.showToast();
-  }
-
-  findSimilar(): void {
-    this.router.navigate(['/shop'], { queryParams: { category: this.product.category } });
   }
 
   private showToast(): void {

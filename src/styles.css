@@ -13,6 +13,7 @@
   --shadow-sm: 0 2px 8px rgba(13, 43, 78, 0.08);
   --shadow-md: 0 8px 24px rgba(13, 43, 78, 0.12);
   --transition: all 0.25s ease-in-out;
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * { box-sizing: border-box; }
@@ -24,6 +25,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* stray wide elements can't create horizontal scroll on mobile */
+  line-height: 1.5;
 }
 /* Smooth scrolling for anchor jumps */
 html {
@@ -39,6 +41,15 @@ html {
 .animate-in.in-view {
   opacity: 1;
   transform: translateY(0);
+}
+
+@keyframes premiumRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main > router-outlet + * {
+  animation: premiumRise .55s var(--ease-premium) both;
 }
 
 /* ---------- Button press feedback ---------- */
@@ -93,6 +104,7 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: 1.5rem;
   position: relative;
   padding-bottom: 10px;
+  letter-spacing: -0.02em;
 }
 .section-title::after {
   content: "";
@@ -120,6 +132,10 @@ a { text-decoration: none; color: inherit; }
   color: #fff;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+.btn-accent:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid rgba(0, 51, 160, .22);
+  outline-offset: 3px;
 }
 
 .btn-outline-nav {
@@ -164,6 +180,45 @@ a { text-decoration: none; color: inherit; }
 .bg-soft { background: var(--clr-bg-light); }
 
 .container-xl { max-width: 1320px; margin: 0 auto; padding: 0 15px; }
+.container-xl { overflow-x: clip; }
+
+.row > [class*="col-"] { transition: transform .35s var(--ease-premium); }
+.product-card { box-shadow: 0 1px 0 rgba(11, 31, 77, .04); }
+.product-card:hover { box-shadow: 0 18px 36px rgba(11, 31, 77, .14); }
+.cat-banner, .testimonial-card, .site-footer, .bg-soft { position: relative; }
+.bg-soft { background-image: linear-gradient(135deg, rgba(0, 51, 160, .025), transparent 48%); }
+
+/* ---------- Shared quantity stepper ---------- */
+/* Used in both the product-card quick-view modal AND the header
+   mini-cart — lives here (not in either component's own CSS) because
+   Angular's per-component style encapsulation means a class defined
+   in product-card.component.css never reaches header.component.html,
+   even with the same class name. */
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--clr-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.qty-stepper button {
+  width: 34px;
+  height: 38px;
+  border: none;
+  background: #fff;
+  color: var(--clr-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+.qty-stepper button:hover { background: var(--clr-bg-light); }
+.qty-stepper span {
+  width: 34px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-thumb { background: var(--clr-accent); border-radius: 10px; }
@@ -190,6 +245,11 @@ a { text-decoration: none; color: inherit; }
     padding: 0 12px;
   }
 
+  .container-xl > .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .section-title {
     font-size: 1.3rem;
     margin-bottom: 1rem;
@@ -209,7 +269,7 @@ a { text-decoration: none; color: inherit; }
 /* Small mobile */
 @media (max-width: 480px) {
   .container-xl {
-    padding: 0 10px;
+    padding: 0 12px;
   }
 
   .section-title {
@@ -237,4 +297,8 @@ a { text-decoration: none; color: inherit; }
    cause a persistent thin bar to show on some Android browsers */
 @media (hover: none) {
   ::-webkit-scrollbar { width: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

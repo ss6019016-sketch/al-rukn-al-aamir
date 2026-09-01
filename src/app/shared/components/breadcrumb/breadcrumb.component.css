@@ -1,0 +1,7 @@
+.site-breadcrumb { margin-bottom: 1.5rem; }
+.site-breadcrumb ol { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; list-style: none; margin: 0; padding: 0; }
+.site-breadcrumb li { align-items: center; color: var(--clr-muted); display: inline-flex; font-size: .82rem; gap: .45rem; }
+.site-breadcrumb a { color: var(--clr-primary); font-weight: 600; }
+.site-breadcrumb a:hover { color: var(--clr-accent); }
+.site-breadcrumb .current span { color: var(--clr-muted); }
+.site-breadcrumb i { font-size: .65rem; }

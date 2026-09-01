@@ -92,13 +92,13 @@ heroImage = 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-1-400x
     {
       tag: 'DELL 2-IN-1 SERIES',
       title: 'Dell Professional Range',
-      price: '499.99 AED',
+      price: 'PKR 499',
       image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-1-400x400.jpg',
     },
     {
       tag: 'HP SERIES',
       title: 'HP Essential Series',
-      price: '499.99 AED',
+      price: 'PKR 499',
       image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/HP-Renewed-EliteBook-x360-1030-G7-1-400x400.jpg',
     },
   ];

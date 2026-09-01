@@ -52,6 +52,49 @@ export class ProductService {
         { name: 'Sara M.', rating: 5, comment: 'Great build quality, handles heavy workloads with ease.', date: '2026-05-30' },
       ],
     },
+
+     {
+      id: 4,
+      name: 'Lenovo ThinkPad P51 – Mobile Workstation (Refurbished)',
+      image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-2-400x400.webp',
+      category: 'Lenovo ThinkPad',
+      brand: 'Lenovo',
+      price: 949,
+      oldPrice: 1149,
+      rating: 5,
+      reviewCount: 1,
+      reviews: [
+        { name: 'Sara M.', rating: 5, comment: 'Great build quality, handles heavy workloads with ease.', date: '2026-05-30' },
+      ],
+    },
+     {
+      id: 5,
+      name: 'Lenovo ThinkPad P51 – Mobile Workstation (Refurbished)',
+      image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-2-400x400.webp',
+      category: 'Lenovo ThinkPad',
+      brand: 'Lenovo',
+      price: 949,
+      oldPrice: 1149,
+      rating: 5,
+      reviewCount: 1,
+      reviews: [
+        { name: 'Sara M.', rating: 5, comment: 'Great build quality, handles heavy workloads with ease.', date: '2026-05-30' },
+      ],
+    },
+     {
+      id: 6,
+      name: 'Lenovo ThinkPad P51 – Mobile Workstation (Refurbished)',
+      image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-2-400x400.webp',
+      category: 'Lenovo ThinkPad',
+      brand: 'Lenovo',
+      price: 949,
+      oldPrice: 1149,
+      rating: 5,
+      reviewCount: 1,
+      reviews: [
+        { name: 'Sara M.', rating: 5, comment: 'Great build quality, handles heavy workloads with ease.', date: '2026-05-30' },
+      ],
+    },
   ];
 
   private limitedStock: Product[] = [
@@ -126,9 +169,9 @@ export class ProductService {
   ];
 
   private categoryBanners: CategoryBanner[] = [
-    { id: 1, title: 'Creative Power Machines', subtitle: 'Graphic Laptops For Games', priceFrom: '599.99 AED', image: 'https://placehold.co/600x400/0d2b4e/ffffff?text=Graphic+Workstation', ctaLabel: 'Shop Now' },
-    { id: 2, title: 'Office Laptops For Work', subtitle: 'Business Series', priceFrom: '499.99 AED', image: 'https://placehold.co/600x400/14396b/ffffff?text=Business+Series', ctaLabel: 'Shop Now' },
-    { id: 3, title: 'Premium Glossy Collection', subtitle: 'Glossy Series', priceFrom: '699.99 AED', image: 'https://placehold.co/600x400/ff6a00/ffffff?text=Glossy+Series', ctaLabel: 'Shop Now' },
+    { id: 1, title: 'Creative Power Machines', subtitle: 'Graphic Laptops For Games', priceFrom: 'PKR 599', image: 'https://placehold.co/600x400/0d2b4e/ffffff?text=Graphic+Workstation', ctaLabel: 'Shop Now' },
+    { id: 2, title: 'Office Laptops For Work', subtitle: 'Business Series', priceFrom: 'PKR 499', image: 'https://placehold.co/600x400/14396b/ffffff?text=Business+Series', ctaLabel: 'Shop Now' },
+    { id: 3, title: 'Premium Glossy Collection', subtitle: 'Glossy Series', priceFrom: 'PKR 699', image: 'https://placehold.co/600x400/ff6a00/ffffff?text=Glossy+Series', ctaLabel: 'Shop Now' },
   ];
 
   private testimonials: Testimonial[] = [
@@ -143,7 +186,7 @@ export class ProductService {
   private extraLaptops: Product[] = Array.from({ length: 14 }, (_, index) => {
     const id = 13 + index;
     const brands = ['Dell', 'HP', 'Lenovo', 'Microsoft'];
-    const categories = ['Laptops', 'Business Series', 'Glossy Series', 'Graphic Laptop'];
+    const categories = ['Laptops', 'Business Series', 'Glossy Series', 'Graphic Laptop', 'MacBook', 'Accessories', 'Monitors', 'Desktop'];
     const brand = brands[index % brands.length];
     const category = categories[index % categories.length];
     const price = 299 + index * 540;

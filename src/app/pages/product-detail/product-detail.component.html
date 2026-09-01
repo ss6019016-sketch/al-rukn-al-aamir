@@ -1,45 +1,81 @@
-<section class="py-5" *ngIf="product; else missing">
+<section class="product-detail-page py-4 py-md-5" *ngIf="product; else missing">
   <div class="container-xl">
-    <a routerLink="/shop" class="text-muted"><i class="bi bi-arrow-left"></i> Back to shop</a>
-    <div class="row g-5 mt-2 align-items-start">
+    <app-breadcrumb
+      [category]="product.category"
+      [subcategory]="product.brand"
+      [categoryQuery]="{ category: product.category }"
+      [product]="product.name"
+    ></app-breadcrumb>
+    <a routerLink="/shop" class="product-detail-back"><i class="bi bi-arrow-left"></i> Back to shop</a>
+    <div class="row g-4 g-xl-5 detail-layout">
       <div class="col-lg-6">
-        <div class="bg-soft rounded-3 p-4 text-center">
-          <img [src]="product.image" [alt]="product.name" class="img-fluid" style="max-height: 430px; object-fit: contain" />
+        <div class="product-gallery">
+          <div class="product-main-image">
+            <span class="badge-sale" *ngIf="product.discountPercent">-{{ product.discountPercent }}%</span>
+            <img [src]="selectedImage" [alt]="product.name" />
+          </div>
+          <div class="product-thumbs" aria-label="Product images">
+            <button type="button" class="product-thumb-item active" (click)="selectImage(product.image)" aria-label="Show product image">
+              <img [src]="product.image" [alt]="product.name" />
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <p class="product-cat">{{ product.brand }} · {{ product.category }}</p>
+      <div class="col-lg-6 detail-info">
+        <p class="detail-eyebrow">{{ product.brand }} · {{ product.category }}</p>
         <h1>{{ product.name }}</h1>
-        <div class="product-price fs-4 mt-3">
-          <span class="old-price" *ngIf="product.oldPrice">د.إ{{ product.oldPrice }}</span>
+        <div class="detail-rating">
+          <i class="bi bi-star-fill" *ngFor="let star of [1, 2, 3, 4, 5]" [class.active]="star <= (product.rating || 0)"></i>
+          <span>({{ product.reviewCount || 0 }} customer reviews)</span>
+        </div>
+        <div class="detail-price">
+          <span class="old-price" *ngIf="product.oldPrice">PKR {{ product.oldPrice | number:'1.0-0' }}</span>
           <span class="new-price">
-            د.إ{{ product.priceRange?.min || product.price }}
-            <small *ngIf="product.priceRange"> - د.إ{{ product.priceRange?.max }}</small>
+            PKR {{ product.priceRange?.min || product.price | number:'1.0-0' }}
+            <small *ngIf="product.priceRange"> - PKR {{ product.priceRange.max | number:'1.0-0' }}</small>
           </span>
         </div>
-        <p class="text-muted mt-3">Fully tested, professionally prepared, and ready for your next project.</p>
-        <div class="d-flex gap-2 align-items-center mt-4">
-          <button class="btn btn-outline-secondary" (click)="quantity = quantity > 1 ? quantity - 1 : 1">−</button>
-          <span class="px-3">{{ quantity }}</span>
-          <button class="btn btn-outline-secondary" (click)="quantity = quantity + 1">+</button>
-          <button class="btn btn-accent ms-2" (click)="addToCart()">Add to cart</button>
+        <p class="detail-copy">{{ product.description || 'Fully tested, professionally prepared, and ready for your next project.' }}</p>
+        <div class="detail-actions">
+          <div class="qty-stepper">
+            <button type="button" (click)="quantity = quantity > 1 ? quantity - 1 : 1">&minus;</button>
+            <span>{{ quantity }}</span>
+            <button type="button" (click)="quantity = quantity + 1">+</button>
+          </div>
+          <button class="btn btn-accent" (click)="addToCart()"><i class="bi bi-bag-plus me-1"></i> Add to cart</button>
         </div>
-        <div class="alert alert-success mt-3" *ngIf="added">Added to cart!</div>
+        <div class="detail-meta">
+          <p *ngIf="product.sku"><strong>SKU:</strong> {{ product.sku }}</p>
+          <p><strong>Categories:</strong> {{ product.category }}</p>
+          <p *ngIf="product.tags?.length"><strong>Tags:</strong> {{ product.tags?.join(', ') }}</p>
+          <p [class.detail-out-of-stock]="product.inStock === false"><strong>Availability:</strong> {{ product.inStock === false ? 'Out of stock' : 'In stock' }}</p>
+        </div>
+        <div class="alert alert-success detail-alert" *ngIf="added">Added to cart!</div>
       </div>
     </div>
 
-    <div class="mt-5">
-      <div class="border-bottom d-flex gap-4">
-        <button class="btn btn-link px-0" [class.fw-bold]="activeTab === 'description'" (click)="activeTab = 'description'">Description</button>
-        <button class="btn btn-link px-0" [class.fw-bold]="activeTab === 'reviews'" (click)="activeTab = 'reviews'">Reviews ({{ product.reviewCount || 0 }})</button>
+    <div>
+      <div class="detail-tabs">
+        <button class="detail-tab" [class.active]="activeTab === 'description'" (click)="activeTab = 'description'">Description</button>
+        <button class="detail-tab" [class.active]="activeTab === 'reviews'" (click)="activeTab = 'reviews'">Reviews ({{ product.reviewCount || 0 }})</button>
+        <button class="detail-tab" [class.active]="activeTab === 'features'" (click)="activeTab = 'features'">Features</button>
       </div>
 
-      <div class="py-4" *ngIf="activeTab === 'description'">
-        <h2 class="h5">Product specifications</h2>
-        <table class="table" *ngIf="product.specs?.length">
+      <div class="detail-content" *ngIf="activeTab === 'description'">
+        <h2 class="h6">Specifications</h2>
+        <table class="detail-specs" *ngIf="product.specs?.length">
           <tr *ngFor="let spec of product.specs"><th>{{ spec.label }}</th><td>{{ spec.value }}</td></tr>
         </table>
         <p *ngIf="!product.specs?.length" class="text-muted">Detailed specifications will be added soon.</p>
+      </div>
+
+      <div class="detail-content" *ngIf="activeTab === 'features'">
+        <h2 class="h6">Key features</h2>
+        <ul class="detail-features">
+          <li *ngFor="let spec of product.specs">{{ spec.label }}: <strong>{{ spec.value }}</strong></li>
+          <li *ngIf="!product.specs?.length">Professionally tested and prepared for reliable everyday use.</li>
+          <li>Quality checked before dispatch.</li>
+        </ul>
       </div>
 
       <div class="py-4" *ngIf="activeTab === 'reviews'">
@@ -60,6 +96,18 @@
         </ng-template>
       </div>
     </div>
+
+    <section class="related-products" *ngIf="relatedProducts.length">
+      <div class="d-flex align-items-end justify-content-between gap-3">
+        <h2 class="h5 mb-0">Related products</h2>
+        <a routerLink="/shop" class="related-link">View collection <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="row g-3 g-md-4 mt-2">
+        <div class="col-6 col-md-4 col-xl-2" *ngFor="let related of relatedProducts">
+          <app-product-card [product]="related"></app-product-card>
+        </div>
+      </div>
+    </section>
   </div>
 </section>
 <ng-template #missing>

@@ -1,0 +1,5 @@
+.shop-page { background: var(--clr-bg-light); min-height: 60vh; }
+.shop-heading { border-bottom: 1px solid var(--clr-border); padding-bottom: 1rem; }
+.eyebrow { color: var(--clr-accent); font-size: .72rem; font-weight: 800; letter-spacing: .12em; margin: 0 0 .35rem; text-transform: uppercase; }
+.result-count { color: var(--clr-muted); font-size: .9rem; }
+.empty-shop { background: var(--clr-white); border: 1px solid var(--clr-border); margin-top: 2rem; padding-inline: 1rem; }

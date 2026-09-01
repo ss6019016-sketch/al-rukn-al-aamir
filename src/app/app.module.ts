@@ -18,7 +18,6 @@ import { FooterComponent } from './components/footer/footer.component';
 
 import { ProductCardComponent } from './shared/components/product-card/product-card.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ShopComponent } from './pages/shop/shop.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { CartComponent } from './pages/cart/cart.component';
@@ -36,7 +35,11 @@ import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
 import { AuthModalComponent } from './shared/components/auth-modal/auth-modal.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { AboutPageComponent } from './pages/about-us/about-page.component';
-const routes = [
+import { ShopComponent } from './pages/shop/shop.component';
+import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
+import { Routes } from '@angular/router';
+
+const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'product/:id', component: ProductDetailComponent },
@@ -47,6 +50,8 @@ const routes = [
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'wishlist', component: WishlistComponent },
+  { path: 'blogs', component: BlogListComponent },
+  { path: 'blogs/:id', component: BlogDetailComponent },
   { path: '**', redirectTo: '' },
 ];
 
@@ -64,8 +69,9 @@ const routes = [
     TestimonialsComponent,
     FooterComponent,
     ProductCardComponent,
-    HomeComponent,
+    BreadcrumbComponent,
     ShopComponent,
+    HomeComponent,
     ProductDetailComponent,
     AboutUsComponent,
     AboutPageComponent,

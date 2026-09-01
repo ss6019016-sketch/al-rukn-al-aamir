@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { CartItem, CartService } from '../../core/services/cart.service';
 
@@ -14,7 +15,8 @@ interface NavItem {
   link: string;
   children?: NavChild[];
   mega?: boolean;
-   _mobileOpen?: boolean;  
+  queryParams?: { [key: string]: string };
+  _mobileOpen?: boolean;
 }
 
 interface MegaLink {
@@ -36,53 +38,46 @@ export class HeaderComponent implements OnInit {
   cartTotal = 0;
   authModalOpen = false;
   cartDropdownOpen = false;
+  isMenuOpen = false;
 
   searchTerm = '';
   selectedCategory = 'All Categories';
-  categories = ['All Categories', 'Bussiness Series Laptop', 'Glossy Series Laptop', 'Graphic Laptop'];
+  categories = ['All Categories', 'Bussiness Series Laptop', 'Glossy Series Laptop', 'Graphic Laptop', 'MacBook', 'Accessories', 'Monitors', 'Desktop'];
 
   private categoryKeywordMap: { [label: string]: string } = {
     'Bussiness Series Laptop': 'Business',
     'Glossy Series Laptop': 'Glossy',
     'Graphic Laptop': 'Graphic',
+    MacBook: 'MacBook',
+    Accessories: 'Accessories',
+    Monitors: 'Monitors',
+    Desktop: 'Desktop',
   };
 
   navLinks: NavItem[] = [
     { label: 'Home', link: '/' },
     { label: 'About Us', link: '/about-us' },
     {
-      label: 'Shop',
+      label: 'Laptops',
       link: '/shop',
       mega: true,
-      children: [
-        { label: 'Bussiness Series Laptop', link: '/shop', queryParams: { category: 'Business' } },
-        { label: 'Glossy Series Laptop', link: '/shop', queryParams: { category: 'Glossy' } },
-        { label: 'Graphic Laptop', link: '/shop', queryParams: { category: 'Graphic' } },
-      ],
     },
+    { label: 'MacBook', link: '/shop', queryParams: { category: 'MacBook' } },
+    { label: 'Accessories', link: '/shop', queryParams: { category: 'Accessories' } },
+    { label: 'Monitors', link: '/shop', queryParams: { category: 'Monitors' } },
+    { label: 'Desktop', link: '/shop', queryParams: { category: 'Desktop' } },
     { label: 'Wholesale', link: '/wholesale' },
     { label: 'Contact Us', link: '/contact-us' },
   ];
 
-  megaCategories: MegaLink[] = [
-    { label: 'Limited Stock', queryParams: {} },
-    { label: 'Bussiness Series Laptop', queryParams: { category: 'Business' } },
-    { label: 'Glossy Series Laptop', queryParams: { category: 'Glossy' } },
-    { label: 'Graphic Laptop', queryParams: { category: 'Graphic' } },
-  ];
-
   megaBrands: MegaLink[] = [
-    { label: 'Dell', queryParams: { brand: 'Dell' } },
     { label: 'HP', queryParams: { brand: 'HP' } },
+    { label: 'Dell', queryParams: { brand: 'Dell' } },
     { label: 'Lenovo', queryParams: { brand: 'Lenovo' } },
-    { label: 'Microsoft', queryParams: { brand: 'Microsoft' } },
-  ];
-
-  megaBestSellers: MegaLink[] = [
-    { label: 'HP EliteBook', queryParams: { search: 'EliteBook' } },
-    { label: 'Dell Latitude Series', queryParams: { search: 'Latitude' } },
-    { label: 'Dell Precision', queryParams: { search: 'Precision' } },
-    { label: 'Lenovo ThinkPad', queryParams: { search: 'ThinkPad' } },
+    { label: 'Toshiba', queryParams: { brand: 'Toshiba' } },
+    { label: 'Asus', queryParams: { brand: 'Asus' } },
+    { label: 'MSI', queryParams: { brand: 'MSI' } },
+    { label: 'Apple', queryParams: { brand: 'Apple' } },
   ];
 
   megaOpen = false;
@@ -98,19 +93,33 @@ export class HeaderComponent implements OnInit {
     this.cartService.getCartItems().subscribe((items) => (this.cartItems = items));
     this.cartService.getCartTotal().subscribe((total) => (this.cartTotal = total));
     this.wishlistService.getWishlistCount().subscribe((count) => (this.wishlistCount = count));
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => this.closeMobileMenu());
   }
 
   closeAnnouncement(): void {
     this.showAnnouncement = false;
   }
 
-  toggleMobileMega(item: any, event: Event) {
-  // Only intercept tap on mobile/tablet (<=991px), desktop pe normal hover chalega
-  if (window.innerWidth <= 991) {
-    event.preventDefault();
-    item._mobileOpen = !item._mobileOpen;
+  closeMobileMenu(): void {
+    if (window.innerWidth > 991) return;
+
+    this.isMenuOpen = false;
+    this.megaOpen = false;
+    this.navLinks.forEach((item) => item._mobileOpen = false);
   }
-}
+
+  toggleMobileMenu(event: Event): void {
+    event.stopPropagation();
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  toggleMobileMega(item: any, event: Event) {
+    // Only intercept tap on mobile/tablet (<=991px), desktop pe normal hover chalega
+    if (window.innerWidth <= 991) {
+      event.preventDefault();
+      item._mobileOpen = !item._mobileOpen;
+    }
+  }
 
   openMega(): void {
     this.megaOpen = true;
@@ -163,6 +172,7 @@ export class HeaderComponent implements OnInit {
       queryParams['category'] = this.categoryKeywordMap[this.selectedCategory] || null;
     }
     this.router.navigate(['/shop'], { queryParams });
+    this.closeMobileMenu();
   }
 
   openAuthModal(): void {

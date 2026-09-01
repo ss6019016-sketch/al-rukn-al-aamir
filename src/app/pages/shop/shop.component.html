@@ -1,64 +1,32 @@
-<section class="py-5">
+<section class="shop-page py-5">
   <div class="container-xl">
+    <app-breadcrumb
+      [category]="breadcrumbCategory"
+      [subcategory]="breadcrumbSubcategory"
+      [categoryQuery]="category ? { category: category } : (brand ? { brand: brand } : null)"
+    ></app-breadcrumb>
 
-    <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div class="shop-heading d-flex flex-wrap justify-content-between align-items-end gap-3">
       <div>
-        <p class="product-cat">Al Rukn Al Aamir collection</p>
-        <h1 class="section-title mb-0">Shop laptops</h1>
+        <p class="eyebrow">Al Rukn Al Aamir collection</p>
+        <h1 class="section-title mb-0">{{ pageTitle }}</h1>
       </div>
-      <span class="text-muted">{{ products.length }} products</span>
+      <span class="result-count">{{ products.length }} products</span>
     </div>
 
-    <div class="row g-4">
-      <aside class="col-lg-3">
-        <div class="border rounded-3 p-3 sticky-top" style="top: 1rem">
-          <h2 class="h5">Filter products</h2>
-
-          <label class="form-label mt-3">Category</label>
-          <select class="form-select" [(ngModel)]="selectedCategory" (change)="applyFilters()">
-            <option>All</option>
-            <option *ngFor="let category of categories">{{ category }}</option>
-          </select>
-
-          <label class="form-label mt-3">Brand</label>
-          <select class="form-select" [(ngModel)]="selectedBrand" (change)="applyFilters()">
-            <option>All</option>
-            <option *ngFor="let brand of brands">{{ brand }}</option>
-          </select>
-
-          <label class="form-label mt-3">Maximum price: د.إ{{ maxPrice | number }}</label>
-          <input
-            class="form-range"
-            type="range"
-            min="400"
-            max="15000"
-            step="50"
-            [(ngModel)]="maxPrice"
-            (input)="applyFilters()"
-          />
-
-          <button class="btn btn-outline-secondary w-100 mt-3" (click)="resetFilters()">
-            Reset filters
-          </button>
-        </div>
-      </aside>
-
-      <div class="col-lg-9">
-        <div class="row g-4" *ngIf="products.length; else empty">
-          <div class="col-sm-6 col-xl-4" *ngFor="let product of products">
-            <app-product-card [product]="product"></app-product-card>
-          </div>
-        </div>
-
-        <ng-template #empty>
-          <div class="text-center py-5">
-            <i class="bi bi-search fs-1 text-muted"></i>
-            <h2 class="h4 mt-3">No products match your filters</h2>
-            <button class="btn btn-accent" (click)="resetFilters()">Show all products</button>
-          </div>
-        </ng-template>
+    <div class="row g-4 mt-2" *ngIf="products.length; else noProducts">
+      <div class="col-6 col-md-4 col-xl-2" *ngFor="let product of products">
+        <app-product-card [product]="product"></app-product-card>
       </div>
     </div>
 
+    <ng-template #noProducts>
+      <div class="empty-shop text-center py-5">
+        <i class="bi bi-search fs-1 text-muted" aria-hidden="true"></i>
+        <h2 class="h4 mt-3">No products found</h2>
+        <p class="text-muted">Try another category, brand, or search term.</p>
+        <a routerLink="/shop" class="btn btn-accent">View all products</a>
+      </div>
+    </ng-template>
   </div>
 </section>

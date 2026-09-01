@@ -6,63 +6,42 @@ import { ProductService } from '../../core/services/product.service';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
+  styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
-  private allProducts: Product[] = [];
-
   products: Product[] = [];
-  categories: string[] = [];
-  brands: string[] = [];
+  category = '';
+  brand = '';
+  search = '';
+  breadcrumbCategory = '';
+  breadcrumbSubcategory = '';
 
-  selectedCategory = 'All';
-  selectedBrand = 'All';
-  maxPrice = 15000;
-
-  constructor(
-    private productService: ProductService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
-    // Combine every dummy list into one flat, de-duplicated array.
-    const combined = [
-      ...this.productService.getDealOfTheDay(),
-      ...this.productService.getLimitedStock(),
-      ...this.productService.getBestSellers(),
-      ...this.productService.getNewArrivals(),
-    ];
-    const seen = new Set<number>();
-    this.allProducts = combined.filter((p) => {
-      if (seen.has(p.id)) return false;
-      seen.add(p.id);
-      return true;
-    });
-
-    this.categories = Array.from(new Set(this.allProducts.map((p) => p.category)));
-    this.brands = Array.from(new Set(this.allProducts.map((p) => p.brand)));
-
-    // Pre-fill from query params, e.g. /shop?category=Dell%20Latitude%20Series
-    this.route.queryParams.subscribe((params) => {
-      this.selectedCategory = params['category'] || 'All';
-      this.applyFilters();
-    });
-
-    this.applyFilters();
-  }
-
-  applyFilters(): void {
-    this.products = this.allProducts.filter((p) => {
-      const categoryOk = this.selectedCategory === 'All' || p.category === this.selectedCategory;
-      const brandOk = this.selectedBrand === 'All' || p.brand === this.selectedBrand;
-      const priceOk = (p.priceRange ? p.priceRange.min : p.price) <= this.maxPrice;
-      return categoryOk && brandOk && priceOk;
+    this.route.queryParamMap.subscribe((params) => {
+      this.category = params.get('category') || '';
+      this.brand = params.get('brand') || '';
+      this.search = params.get('search') || '';
+      this.breadcrumbCategory = this.category || (this.brand ? 'Brand' : 'All Products');
+      this.breadcrumbSubcategory = this.brand || '';
+      this.products = this.getFilteredProducts();
     });
   }
 
-  resetFilters(): void {
-    this.selectedCategory = 'All';
-    this.selectedBrand = 'All';
-    this.maxPrice = 15000;
-    this.applyFilters();
+  get pageTitle(): string {
+    return this.search || this.brand || this.category || 'All Products';
+  }
+
+  private getFilteredProducts(): Product[] {
+    const searchTerm = this.search.toLowerCase();
+    const categoryTerm = this.category.toLowerCase();
+    const brandTerm = this.brand.toLowerCase();
+    return this.productService.getAllProducts().filter((product) => {
+      const searchable = `${product.name} ${product.category} ${product.brand}`.toLowerCase();
+      return (!searchTerm || searchable.includes(searchTerm))
+        && (!categoryTerm || product.category.toLowerCase().includes(categoryTerm))
+        && (!brandTerm || product.brand.toLowerCase() === brandTerm);
+    });
   }
 }

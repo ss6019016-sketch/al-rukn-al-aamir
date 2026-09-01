@@ -22,18 +22,15 @@ export class FooterComponent {
   ];
 
   accountLinks: FooterLink[] = [
-    { label: 'My Account', route: '/account' },
     { label: 'Wishlist', route: '/wishlist' },
     { label: 'Checkout', route: '/checkout' },
-    { label: 'Log Out', route: '/logout' },
   ];
 
   customerCareLinks: FooterLink[] = [
     { label: 'Our Team', route: '/about-us' },
-    { label: 'FAQs', route: '/faqs' },
-    { label: 'Terms Of Use', route: '/terms' },
-    { label: 'Privacy Policy', route: '/privacy-policy' },
-    { label: 'Social Share', route: '/social' },
+    { label: 'FAQs', route: '/contact-us' },
+    { label: 'Terms Of Use', route: '/about-us' },
+    { label: 'Privacy Policy', route: '/contact-us' },
   ];
 
   currentYear = new Date().getFullYear();
