@@ -921,7 +921,7 @@
 
 @media (max-width: 1200px) {
 
-  .brand-name { font-size: 1.7rem; }
+  .brand-name { font-size: 1.7rem; font-weight: 800; }
   .mega-menu-inner {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -942,7 +942,7 @@
 
 @media (max-width: 991.98px) {
 
-  .brand-name { font-size: 1.4rem; }
+  .brand-name { font-size: 20px;  font-weight: 800; }
 .brand-tag { font-size: 0.62rem; letter-spacing: 1.5px; }
   .header-top {
     min-height: auto;
@@ -1055,7 +1055,8 @@
   }
 
   .brand-name {
-    font-size: 1.25rem;
+    font-size: 20px;
+     font-weight: 800;
   }
 
   .brand-tag {
@@ -1089,7 +1090,8 @@
   }
 
   .brand-name {
-    font-size: 1.1rem;
+    font-size: 20px;
+     font-weight: 800;
   }
 
   .header-actions {
