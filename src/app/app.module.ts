@@ -42,6 +42,7 @@ import { ScrollProgressComponent } from './shared/components/scroll-progress/scr
 import { ScrambleTextDirective } from './shared/components/directives/scramble-text.directive';
 import { TiltCardDirective } from './shared/components/directives/tilt-card.directive';
 import { CustomCursorComponent } from './shared/components/custom-cursor/custom-cursor.component';
+import { CartButtonComponent } from './shared/components/cart-button/cart-button.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -97,6 +98,7 @@ const routes: Routes = [
     ScrambleTextDirective,
     TiltCardDirective,
     CustomCursorComponent,
+    CartButtonComponent,
   ],
   imports: [
     BrowserModule,

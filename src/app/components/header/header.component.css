@@ -263,12 +263,20 @@
     color: var(--clr-primary);
     letter-spacing: 2px;
     text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
 .brand-tag {
     font-size: 15px;
     font-weight: 700;
     color: var(--clr-accent);
     letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
 
 
@@ -338,6 +346,7 @@
   text-decoration: none;
   transition: var(--transition);
   overflow: visible !important;
+  flex-shrink: 0;
 }
 
 .header-icon-link:hover {
@@ -351,6 +360,7 @@
   padding: 0 8px 0 10px;
   gap: 2px;
   border-radius: 18px;
+  background: var(--clr-bg-light);
 }
 
 .cart-caret {
@@ -957,6 +967,7 @@
     position: static;
     transform: none;
     flex: 1;
+    min-width: 0;
     order: 2;
   }
 
@@ -964,10 +975,6 @@
     margin-left: 0;
     gap: 12px;
     order: 3;
-  }
-
-  .cart-dropdown-wrapper {
-    display: none;
   }
 
   /* Nav becomes the mobile drawer content */
@@ -1079,6 +1086,11 @@
     font-size: 0.85rem;
   }
 
+  .cart-link {
+    padding-left: 8px;
+    padding-right: 7px;
+  }
+
 }
 
 
@@ -1103,6 +1115,11 @@
     gap: 8px !important;
   }
 
+  .cart-link {
+    padding-left: 6px;
+    padding-right: 5px;
+  }
+
 }
 
 
@@ -1113,6 +1130,11 @@
   .brand-name {
     font-size: 1.05rem;
     font-weight: 800;
+  }
+
+  .cart-link {
+    padding-left: 5px;
+    padding-right: 4px;
   }
 
   .brand-tag {

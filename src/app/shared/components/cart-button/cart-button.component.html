@@ -1,0 +1,11 @@
+<button
+  *ngIf="cartCount > 0"
+  type="button"
+  class="cart-fab"
+  aria-label="View cart"
+  appRipple
+  (click)="openCart()"
+>
+  <i class="bi bi-bag" aria-hidden="true"></i>
+  <span class="icon-count">{{ cartCount }}</span>
+</button>
