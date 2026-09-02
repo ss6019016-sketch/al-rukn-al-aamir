@@ -1,9 +1,11 @@
 <section class="new-arrivals-section py-4 py-md-5 bg-soft">
   <div class="container-xl">
-    <h2 class="section-title">New Arrivals</h2>
+    <h2 class="section-title animate-in" appScrollReveal>New Arrivals</h2>
     <div class="row g-3 g-md-4">
-      <div class="col-6 col-md-4 col-xl-2" *ngFor="let p of products">
-        <app-product-card [product]="p"></app-product-card>
+      <div class="col-6 col-md-4 col-xl-2" *ngFor="let p of products; let i = index">
+        <div class="animate-in" appScrollReveal [revealDelay]="i * 60">
+          <app-product-card [product]="p"></app-product-card>
+        </div>
       </div>
     </div>
   </div>

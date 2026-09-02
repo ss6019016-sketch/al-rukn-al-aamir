@@ -92,6 +92,10 @@
 .card-qty button { width: 30px; height: 38px; }
 .card-qty span { width: 28px; }
 .card-add-btn { flex: 1 1 96px; min-width: 96px; max-width: 100%; min-height: 38px; padding: 8px 10px; border-radius: 6px; font-size: .72rem; letter-spacing: .03em; line-height: 1.15; white-space: normal; overflow-wrap: anywhere; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.card-qty span,
+.qty-stepper span { transition: transform 0.15s ease, color 0.15s ease; }
+.quantity-pulse { color: var(--clr-accent); display: inline-block; transform: scale(1.15); }
+.product-toast { animation: premiumRise 0.25s var(--ease-premium) both; }
 
 .specs-table { width: 100%; font-size: 0.78rem; margin-bottom: 8px; border-top: 1px dashed var(--clr-border); }
 .specs-table td { padding: 3px 0; }

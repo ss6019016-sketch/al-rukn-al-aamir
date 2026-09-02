@@ -17,6 +17,7 @@ export class ProductCardComponent {
   quickViewClosing = false;
   quickViewQty = 1;
   cardQty = 1;
+  quantityPulse = false;
   toastVisible = false;
 
   constructor(
@@ -49,10 +50,14 @@ export class ProductCardComponent {
 
   incrementCardQty(): void {
     this.cardQty++;
+    this.pulseQuantity();
   }
 
   decrementCardQty(): void {
-    if (this.cardQty > 1) this.cardQty--;
+    if (this.cardQty > 1) {
+      this.cardQty--;
+      this.pulseQuantity();
+    }
   }
 
   openProduct(): void {
@@ -83,10 +88,14 @@ export class ProductCardComponent {
 
   incrementQty(): void {
     this.quickViewQty++;
+    this.pulseQuantity();
   }
 
   decrementQty(): void {
-    if (this.quickViewQty > 1) this.quickViewQty--;
+    if (this.quickViewQty > 1) {
+      this.quickViewQty--;
+      this.pulseQuantity();
+    }
   }
 
   addQuickViewToCart(): void {
@@ -109,5 +118,11 @@ export class ProductCardComponent {
   private showToast(): void {
     this.toastVisible = true;
     setTimeout(() => this.toastVisible = false, 2200);
+  }
+
+  private pulseQuantity(): void {
+    this.quantityPulse = false;
+    setTimeout(() => (this.quantityPulse = true));
+    setTimeout(() => (this.quantityPulse = false), 160);
   }
 }

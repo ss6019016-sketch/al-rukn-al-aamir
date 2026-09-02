@@ -10,6 +10,7 @@ import { ProductService } from '../../core/services/product.service';
 export class BestSellersComponent {
   tabs = ['New Arrival', 'Laptops', 'HP Elite book'];
   activeTab = this.tabs[0];
+  tabChanging = false;
 
   private allProducts: Product[] = this.productService.getBestSellers();
 
@@ -27,5 +28,7 @@ export class BestSellersComponent {
 
   setTab(tab: string): void {
     this.activeTab = tab;
+    this.tabChanging = false;
+    setTimeout(() => (this.tabChanging = true));
   }
 }

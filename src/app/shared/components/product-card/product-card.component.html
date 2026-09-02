@@ -1,4 +1,4 @@
-<div class="product-card h-100" [class.product-card-list]="listView" role="link" tabindex="0" (click)="openProduct()" (keydown.enter)="openProduct()">
+<div class="product-card h-100 animate-in" appScrollReveal [class.product-card-list]="listView" role="link" tabindex="0" (click)="openProduct()" (keydown.enter)="openProduct()">
   <div class="product-thumb position-relative">
     <span class="badge-sale" *ngIf="discountLabel">{{ discountLabel }}</span>
     <span class="badge-featured" *ngIf="product.featured">FEATURED</span>
@@ -52,7 +52,7 @@
           <div class="qv-action-row">
             <div class="qty-stepper">
               <button type="button" appRipple (click)="decrementQty()">&minus;</button>
-              <span>{{ quickViewQty }}</span>
+              <span [class.quantity-pulse]="quantityPulse">{{ quickViewQty }}</span>
               <button type="button" appRipple (click)="incrementQty()">+</button>
             </div>
             <button class="btn btn-accent" appRipple (click)="addQuickViewToCart()">Add To Cart</button>
@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <div class="toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-3" *ngIf="toastVisible" role="status">
+  <div class="toast product-toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-3" *ngIf="toastVisible" role="status">
     <div class="d-flex"><div class="toast-body">Added to cart!</div></div>
   </div>
 
@@ -108,7 +108,7 @@
     <div class="card-action-row">
       <div class="qty-stepper card-qty" aria-label="Quantity">
         <button type="button" appRipple aria-label="Decrease quantity" (click)="$event.stopPropagation(); decrementCardQty()">&minus;</button>
-        <span>{{ cardQty }}</span>
+        <span [class.quantity-pulse]="quantityPulse">{{ cardQty }}</span>
         <button type="button" appRipple aria-label="Increase quantity" (click)="$event.stopPropagation(); incrementCardQty()">+</button>
       </div>
       <button class="btn btn-accent card-add-btn" appRipple (click)="$event.stopPropagation(); addToCart()">

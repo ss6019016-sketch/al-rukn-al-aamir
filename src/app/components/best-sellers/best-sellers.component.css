@@ -29,6 +29,10 @@
   border-color: var(--clr-accent, #f5760a) !important;
 }
 
+.best-sellers-grid.tab-changing {
+  animation: premiumRise 0.2s var(--ease-premium) both;
+}
+
 @media (max-width: 576px) {
   .tab-list.tab-list {
     flex-wrap: nowrap !important;

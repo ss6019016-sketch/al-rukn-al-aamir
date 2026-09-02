@@ -1,12 +1,13 @@
 <section class="py-5 border-top">
   <div class="container-xl">
-    <h2 class="section-title">Trending Tags</h2>
+    <h2 class="section-title animate-in" appScrollReveal>Trending Tags</h2>
     <div class="d-flex flex-wrap gap-2 mt-3">
       <a
         *ngFor="let tag of tags"
         [routerLink]="['/shop']"
         [queryParams]="{ tag: tag.slug }"
-        class="tag-chip"
+        class="tag-chip animate-in"
+        appScrollReveal
       >
         {{ tag.label }}
       </a>

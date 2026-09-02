@@ -7,7 +7,7 @@
       [product]="product.name"
     ></app-breadcrumb>
     <a routerLink="/shop" class="product-detail-back"><i class="bi bi-arrow-left"></i> Back to shop</a>
-    <div class="row g-4 g-xl-5 detail-layout">
+    <div class="row g-4 g-xl-5 detail-layout animate-in" appScrollReveal>
       <div class="col-lg-6">
         <div class="product-gallery">
           <div class="product-main-image">
@@ -38,11 +38,11 @@
         <p class="detail-copy">{{ product.description || 'Fully tested, professionally prepared, and ready for your next project.' }}</p>
         <div class="detail-actions">
           <div class="qty-stepper">
-            <button type="button" (click)="quantity = quantity > 1 ? quantity - 1 : 1">&minus;</button>
+            <button type="button" appRipple (click)="quantity = quantity > 1 ? quantity - 1 : 1">&minus;</button>
             <span>{{ quantity }}</span>
-            <button type="button" (click)="quantity = quantity + 1">+</button>
+            <button type="button" appRipple (click)="quantity = quantity + 1">+</button>
           </div>
-          <button class="btn btn-accent" (click)="addToCart()"><i class="bi bi-bag-plus me-1"></i> Add to cart</button>
+          <button class="btn btn-accent" appRipple (click)="addToCart()"><i class="bi bi-bag-plus me-1"></i> Add to cart</button>
         </div>
         <div class="detail-meta">
           <p *ngIf="product.sku"><strong>SKU:</strong> {{ product.sku }}</p>

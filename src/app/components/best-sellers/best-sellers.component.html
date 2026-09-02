@@ -7,7 +7,7 @@
       </ul>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-4 best-sellers-grid" [class.tab-changing]="tabChanging">
       <div class="col-6 col-md-4 col-xl-2" *ngFor="let p of filteredProducts; let i = index">
         <div class="animate-in" appScrollReveal [revealDelay]="i * 60">
           <app-product-card [product]="p"></app-product-card>
