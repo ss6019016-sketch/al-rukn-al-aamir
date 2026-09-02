@@ -24,8 +24,29 @@
   max-height: 180px;
   object-fit: contain;
   transition: transform 0.4s ease;
+  opacity: 0;
+}
+.product-thumb img.img-loaded {
+  opacity: 1;
+  transition: transform 0.4s ease, opacity 0.35s ease;
 }
 .product-card:hover .product-thumb img { transform: scale(1.08); }
+
+/* Shimmer skeleton — image load hone tak dikhta hai (external image URLs
+   internet ke hisaab se slow ho sakti hain) */
+.product-thumb.thumb-loading {
+  background: linear-gradient(100deg, var(--clr-bg-light) 30%, #eef1f6 50%, var(--clr-bg-light) 70%);
+  background-size: 250% 100%;
+  animation: thumbShimmer 1.3s ease-in-out infinite;
+}
+@keyframes thumbShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -50% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .product-thumb.thumb-loading { animation: none; }
+  .product-thumb img { opacity: 1; }
+}
 
 .quick-actions {
   position: absolute;

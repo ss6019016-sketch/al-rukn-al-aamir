@@ -43,6 +43,8 @@ import { ScrambleTextDirective } from './shared/components/directives/scramble-t
 import { TiltCardDirective } from './shared/components/directives/tilt-card.directive';
 import { CustomCursorComponent } from './shared/components/custom-cursor/custom-cursor.component';
 import { CartButtonComponent } from './shared/components/cart-button/cart-button.component';
+import { MagneticButtonDirective } from './shared/components/directives/magnetic-button.directive';
+import { ParallaxDirective } from './shared/components/directives/parallax.directive';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -99,6 +101,8 @@ const routes: Routes = [
     TiltCardDirective,
     CustomCursorComponent,
     CartButtonComponent,
+        MagneticButtonDirective,
+    ParallaxDirective,
   ],
   imports: [
     BrowserModule,

@@ -111,8 +111,7 @@
         <span [class.quantity-pulse]="quantityPulse">{{ cardQty }}</span>
         <button type="button" appRipple aria-label="Increase quantity" (click)="$event.stopPropagation(); incrementCardQty()">+</button>
       </div>
-      <button class="btn btn-accent card-add-btn" appRipple (click)="$event.stopPropagation(); addToCart()">
-        <i class="bi bi-bag-plus" aria-hidden="true"></i>
+<button class="btn btn-accent card-add-btn" appRipple appMagnetic (click)="$event.stopPropagation(); addToCart()">        <i class="bi bi-bag-plus" aria-hidden="true"></i>
         <span>{{ product.priceRange ? 'View options' : 'Add to cart' }}</span>
       </button>
     </div>

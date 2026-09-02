@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import gsap from 'gsap';
 
 interface HeroSlide {
   badge: string;
   heading: string;
   cta1: string;
   cta2: string;
-  /** Use either a background video OR a background image — video takes priority if set */
   videoSrc?: string;
   imageSrc: string;
 }
@@ -16,16 +16,16 @@ interface HeroSlide {
   templateUrl: './hero-banner.component.html',
   styleUrls: ['./hero-banner.component.css'],
 })
-export class HeroBannerComponent {
- slides: HeroSlide[] = [
-  {
-    badge: 'A-GRADE REFURBISHED LAPTOPS',
-    heading: 'Certified Refurbished Laptops Tested for Performance and Reliability',
-    cta1: 'Send Inquiry',
-    cta2: 'Inventory',
-    videoSrc: 'assets/videos/laptop-video.mp4',
-    imageSrc: 'assets/images/hero-banner-1.jpg',
-  },
+export class HeroBannerComponent implements AfterViewInit, OnDestroy {
+  slides: HeroSlide[] = [
+    {
+      badge: 'A-GRADE REFURBISHED LAPTOPS',
+      heading: 'Certified Refurbished Laptops Tested for Performance and Reliability',
+      cta1: 'Send Inquiry',
+      cta2: 'Inventory',
+      videoSrc: 'assets/videos/laptop-video.mp4',
+      imageSrc: 'assets/images/hero-banner-1.jpg',
+    },
     {
       badge: 'PREMIUM TECHNOLOGY SUPPLY',
       heading: 'Your Trusted Source for Bulk Laptops & IT Equipment',
@@ -47,17 +47,46 @@ export class HeroBannerComponent {
   active = 0;
   private timer: ReturnType<typeof setInterval> | null = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private el: ElementRef<HTMLElement>) {
     this.startAutoplay();
+  }
+
+  ngAfterViewInit(): void {
+    this.playEntrance();
   }
 
   setActive(i: number): void {
     this.active = i;
     this.restartAutoplay();
+    this.playEntrance();
   }
 
   next(): void {
     this.active = (this.active + 1) % this.slides.length;
+    this.playEntrance();
+  }
+
+  private playEntrance(): void {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    setTimeout(() => {
+      const root = this.el.nativeElement.querySelector('.hero-slide.active');
+      if (!root) return;
+
+      const badge = root.querySelector('.hero-badge');
+      const heading = root.querySelector('.hero-heading');
+      const buttons = root.querySelectorAll('.hero-content .btn');
+
+      gsap
+        .timeline()
+        .fromTo(badge, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' })
+        .fromTo(heading, { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+        .fromTo(buttons, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, '-=0.35');
+    }, 50);
+  }
+
+  ngOnDestroy(): void {
+    if (this.timer) clearInterval(this.timer);
   }
 
   handleCta(label: string): void {
@@ -89,6 +118,6 @@ export class HeroBannerComponent {
   }
 
   onVideoError(slide: HeroSlide): void {
-  console.error(`Video load failed: ${slide.videoSrc} — check the path and that the file exists in src/assets/videos/`);
-}
+    console.error(`Video load failed: ${slide.videoSrc} — check the path and that the file exists in src/assets/videos/`);
+  }
 }

@@ -3,7 +3,9 @@
     <div class="row g-4 align-items-center" [class.flex-row-reverse]="reverse">
       <div class="col-lg-3">
         <div class="cat-banner animate-in" appScrollReveal>
-          <img [src]="banner.image" class="img-fluid rounded-3 mb-3" [alt]="banner.title" />
+          <div class="cat-banner-media">
+            <img appParallax [parallaxStrength]="30" [parallaxScale]="1.14" [src]="banner.image" class="img-fluid rounded-3 mb-3" [alt]="banner.title" />
+          </div>
           <h4>{{ banner.title }}</h4>
           <p class="cat-sub">{{ banner.subtitle }}</p>
           <span class="cat-price">from {{ banner.priceFrom }}</span>
