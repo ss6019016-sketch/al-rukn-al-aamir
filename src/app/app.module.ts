@@ -38,6 +38,10 @@ import { AboutPageComponent } from './pages/about-us/about-page.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { Routes } from '@angular/router';
+import { ScrollProgressComponent } from './shared/components/scroll-progress/scroll-progress.component';
+import { ScrambleTextDirective } from './shared/components/directives/scramble-text.directive';
+import { TiltCardDirective } from './shared/components/directives/tilt-card.directive';
+import { CustomCursorComponent } from './shared/components/custom-cursor/custom-cursor.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -88,7 +92,11 @@ const routes: Routes = [
     BlogListComponent,
     TrendingTagsComponent,
     ReferFriendComponent,
-    AuthModalComponent
+    AuthModalComponent,
+      ScrollProgressComponent,
+    ScrambleTextDirective,
+    TiltCardDirective,
+    CustomCursorComponent,
   ],
   imports: [
     BrowserModule,

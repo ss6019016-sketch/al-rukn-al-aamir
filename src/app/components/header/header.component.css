@@ -708,6 +708,7 @@
 
 .mini-cart-items {
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   flex: 1;
   min-height: 0;
 }
@@ -965,6 +966,10 @@
     order: 3;
   }
 
+  .cart-dropdown-wrapper {
+    display: none;
+  }
+
   /* Nav becomes the mobile drawer content */
   .main-nav .container-xl {
     justify-content: flex-start;
@@ -1055,8 +1060,8 @@
   }
 
   .brand-name {
-    font-size: 20px;
-     font-weight: 800;
+    font-size: 1.25rem;
+    font-weight: 800;
   }
 
   .brand-tag {
@@ -1090,8 +1095,8 @@
   }
 
   .brand-name {
-    font-size: 20px;
-     font-weight: 800;
+    font-size: 1.2rem;
+    font-weight: 800;
   }
 
   .header-actions {
@@ -1106,7 +1111,8 @@
 @media (max-width: 360px) {
 
   .brand-name {
-    font-size: 1rem;
+    font-size: 1.05rem;
+    font-weight: 800;
   }
 
   .brand-tag {

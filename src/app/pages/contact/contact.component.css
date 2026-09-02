@@ -1,3 +1,133 @@
+.contact-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-page .container-xl {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Floating background blobs ---------- */
+/* Purely decorative — low opacity + blur so they add depth without
+   competing with the actual content. Positioned absolute behind
+   everything, ignored by screen readers. */
+
+.bg-blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.13;
+}
+
+.blob-1 {
+  width: 320px;
+  height: 320px;
+  background: var(--clr-accent);
+  top: -80px;
+  left: -60px;
+  animation: blobDrift1 22s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 260px;
+  height: 260px;
+  background: var(--clr-primary);
+  bottom: -60px;
+  right: -40px;
+  animation: blobDrift2 26s ease-in-out infinite;
+}
+
+.blob-3 {
+  width: 200px;
+  height: 200px;
+  background: var(--clr-accent);
+  top: 40%;
+  right: 15%;
+  animation: blobDrift3 18s ease-in-out infinite;
+}
+
+@keyframes blobDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.15); }
+}
+
+@keyframes blobDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, -25px) scale(1.1); }
+}
+
+@keyframes blobDrift3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-25px, 35px); }
+}
+
+@media (max-width: 767.98px) {
+  .blob { filter: blur(40px); }
+  .blob-1 { width: 200px; height: 200px; }
+  .blob-2 { width: 160px; height: 160px; }
+  .blob-3 { display: none; }
+}
+
+/* ---------- Pulse ring — phone icon ---------- */
+/* A soft expanding ring behind the call icon, like a signal going
+   out — reads as "we're reachable", not just decoration. */
+
+.contact-icon-pulse {
+  position: relative;
+}
+
+.contact-icon-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--clr-accent);
+  opacity: 0.4;
+  animation: iconPulse 2.2s ease-out infinite;
+}
+
+@keyframes iconPulse {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* ---------- Pulse ring — WhatsApp social icon ---------- */
+
+.social-pulse {
+  position: relative;
+}
+
+.social-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25D366;
+  opacity: 0.5;
+  animation: iconPulse 2.2s ease-out infinite;
+}
+
+/* ---------- Success checkmark bounce-in ---------- */
+
+.success-bounce {
+  animation: checkBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes checkBounce {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
 .contact-page .product-cat {
   color: var(--clr-accent);
   font-size: 0.8rem;

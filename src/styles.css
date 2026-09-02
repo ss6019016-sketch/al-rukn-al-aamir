@@ -24,15 +24,17 @@ body {
   background: var(--clr-white);
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* stray wide elements can't create horizontal scroll on mobile */
+  overflow-x: hidden;
   line-height: 1.5;
 }
-/* Smooth scrolling for anchor jumps */
+body.custom-cursor-active,
+body.custom-cursor-active * {
+  cursor: none;
+}
 html {
   scroll-behavior: smooth;
 }
 
-/* ---------- Scroll reveal ---------- */
 .animate-in {
   opacity: 0;
   transform: translateY(28px);
@@ -52,7 +54,6 @@ main > router-outlet + * {
   animation: premiumRise .55s var(--ease-premium) both;
 }
 
-/* ---------- Button press feedback ---------- */
 .btn, button {
   transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
@@ -60,7 +61,6 @@ main > router-outlet + * {
   transform: scale(0.96);
 }
 
-/* ---------- Ripple effect ---------- */
 .ripple-effect {
   position: absolute;
   border-radius: 50%;
@@ -76,7 +76,6 @@ main > router-outlet + * {
   }
 }
 
-/* ---------- Bootstrap modal smoother open/close ---------- */
 .modal.fade .modal-dialog {
   transform: scale(0.92) translateY(20px);
   opacity: 0;
@@ -90,10 +89,8 @@ main > router-outlet + * {
   transition: opacity 0.25s ease;
 }
 
-/* Card hover lift */
 .testimonial-card,
-.cat-banner,
-.product-card {
+.cat-banner {
   transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s ease;
 }
 a { text-decoration: none; color: inherit; }
@@ -174,19 +171,36 @@ a { text-decoration: none; color: inherit; }
   z-index: 2;
 }
 
-
 .animate-in { animation: fadeInUp 0.6s ease both; }
 
 .bg-soft { background: var(--clr-bg-light); }
 
-.container-xl { max-width: 1320px; margin: 0 auto; padding: 0 15px; }
-.container-xl { overflow-x: clip; }
+.container-xl { max-width: 1320px; margin: 0 auto; padding: 0 15px; overflow-x: clip; }
 
 .row > [class*="col-"] { transition: transform .35s var(--ease-premium); }
-.product-card { box-shadow: 0 1px 0 rgba(11, 31, 77, .04); }
-.product-card:hover { box-shadow: 0 18px 36px rgba(11, 31, 77, .14); }
 .cat-banner, .testimonial-card, .site-footer, .bg-soft { position: relative; }
 .bg-soft { background-image: linear-gradient(135deg, rgba(0, 51, 160, .025), transparent 48%); }
+
+/* ---------- Product card base + tilt glare (used by TiltCardDirective) ---------- */
+/* The directive injects a <span class="tilt-glare"> into every
+   .product-card at runtime — position: relative is required here so
+   the injected glare span (position: absolute) anchors correctly. */
+.product-card {
+  position: relative;
+  box-shadow: 0 1px 0 rgba(11, 31, 77, .04);
+  transition: transform 0.25s ease-out, box-shadow 0.35s ease;
+}
+.product-card:hover {
+  box-shadow: 0 18px 36px rgba(11, 31, 77, .14);
+}
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  transition: background 0.15s ease;
+}
 
 /* ---------- Shared quantity stepper ---------- */
 /* Used in both the product-card quick-view modal AND the header
@@ -226,12 +240,8 @@ a { text-decoration: none; color: inherit; }
 
 /* ================================
    Global responsive fallbacks
-   (individual sections may already override
-   these with more specific rules — that's fine,
-   this is just the safety net for anything that doesn't)
 ================================ */
 
-/* Tablet */
 @media (max-width: 991.98px) {
   .section-title {
     font-size: 1.5rem;
@@ -239,7 +249,6 @@ a { text-decoration: none; color: inherit; }
   }
 }
 
-/* Mobile */
 @media (max-width: 767.98px) {
   .container-xl {
     padding: 0 12px;
@@ -266,7 +275,6 @@ a { text-decoration: none; color: inherit; }
   }
 }
 
-/* Small mobile */
 @media (max-width: 480px) {
   .container-xl {
     padding: 0 12px;
@@ -292,11 +300,12 @@ a { text-decoration: none; color: inherit; }
   }
 }
 
-/* Hide the custom scrollbar styling on touch devices — most mobile
-   browsers hide/auto-manage scrollbars anyway and forcing width can
-   cause a persistent thin bar to show on some Android browsers */
 @media (hover: none) {
   ::-webkit-scrollbar { width: 4px; }
+
+  /* Tilt effect relies on mousemove, which touch devices don't fire
+     meaningfully — remove will-change to avoid wasting GPU memory */
+  .product-card { will-change: auto !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
