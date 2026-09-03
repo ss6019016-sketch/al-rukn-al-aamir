@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Product, Testimonial, CategoryBanner, Review } from '../models/product.model';
 
 const PRODUCT_IMAGES: Record<string, string> = {
-  Dell: '/assets/img/dell-laptop.svg',
-  HP: '/assets/img/hp-laptop.svg',
-  Lenovo: '/assets/img/lenovo-laptop.svg',
-  Apple: '/assets/img/apple-laptop.svg',
-  Microsoft: '/assets/img/microsoft-laptop.svg',
+  Dell: '/assets/img/laptop.png',
+  HP: '/assets/img/laptop.png',
+  Lenovo: '/assets/img/laptop.png',
+  Apple: '/assets/img/laptop.png',
+  Microsoft: '/assets/img/laptop.png',
 };
 
 function productImage(brand: string, category = ''): string {
@@ -14,13 +14,7 @@ function productImage(brand: string, category = ''): string {
   return PRODUCT_IMAGES[brand] || '/assets/img/laptop.png';
 }
 
-/**
- * ⚠️ BACKEND PENDING
- * Yeh saara data abhi DUMMY / STATIC hai. Jab backend/API ready ho ga
- * to sirf is service ke andar HttpClient calls laga dena — baaki
- * poore app mein kahin kuch change nahi karna parega, kyunke sab
- * jagah se yehi service consume ho raha hai.
- */
+
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private dealOfDay: Product[] = [

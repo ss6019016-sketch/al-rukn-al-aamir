@@ -1,20 +1,14 @@
-import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnDestroy, Renderer2 } from '@angular/core';
+import { watchMobileViewport } from '../../utils/viewport';
 
-/**
- * Auto-applies to every element with class "product-card" — no template
- * changes needed anywhere. Just declare TiltCardDirective in app.module.ts
- * (or a shared module).
- *
- * NOTE: .product-card needs `position: relative` in its own CSS (it
- * likely already has this from the flex layout, but confirm) so the
- * injected glare span positions correctly.
- */
 @Directive({
   selector: '.product-card',
 })
-export class TiltCardDirective {
+export class TiltCardDirective implements OnDestroy {
   private reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   private glareEl?: HTMLElement;
+  private mobileDisabled = false;
+  private stopWatchingViewport?: () => void;
 
   constructor(private el: ElementRef<HTMLElement>, private renderer: Renderer2) {
     if (this.reducedMotion) return;
@@ -25,11 +19,37 @@ export class TiltCardDirective {
     this.glareEl = this.renderer.createElement('span');
     this.renderer.addClass(this.glareEl, 'tilt-glare');
     this.renderer.appendChild(this.el.nativeElement, this.glareEl);
+
+    this.stopWatchingViewport = watchMobileViewport((isMobile) => {
+      this.mobileDisabled = isMobile;
+      if (isMobile) {
+      
+        this.renderer.removeStyle(this.el.nativeElement, 'transform');
+        if (this.glareEl) {
+          this.renderer.setStyle(this.glareEl, 'background', 'transparent');
+        }
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.stopWatchingViewport?.();
+  }
+
+  private resetTransform(): void {
+    this.renderer.setStyle(
+      this.el.nativeElement,
+      'transform',
+      'perspective(700px) rotateX(0) rotateY(0) translateY(0)'
+    );
+    if (this.glareEl) {
+      this.renderer.setStyle(this.glareEl, 'background', 'transparent');
+    }
   }
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(e: MouseEvent): void {
-    if (this.reducedMotion) return;
+    if (this.reducedMotion || this.mobileDisabled) return;
 
     const rect = this.el.nativeElement.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -57,16 +77,8 @@ export class TiltCardDirective {
 
   @HostListener('mouseleave')
   onMouseLeave(): void {
-    if (this.reducedMotion) return;
+    if (this.reducedMotion || this.mobileDisabled) return;
 
-    this.renderer.setStyle(
-      this.el.nativeElement,
-      'transform',
-      'perspective(700px) rotateX(0) rotateY(0) translateY(0)'
-    );
-
-    if (this.glareEl) {
-      this.renderer.setStyle(this.glareEl, 'background', 'transparent');
-    }
+    this.resetTransform();
   }
 }
