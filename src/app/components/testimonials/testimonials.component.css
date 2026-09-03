@@ -1,10 +1,38 @@
 .testimonial-card {
+  position: relative;
   background: var(--clr-bg-light);
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 24px 20px 20px;
   height: 100%;
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
 }
 .testimonial-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); background: #fff; }
-.testimonial-msg { font-size: 0.88rem; color: var(--clr-muted); line-height: 1.6; }
+
+.testimonial-quote-icon {
+  font-size: 1.8rem;
+  color: var(--clr-accent);
+  opacity: 0.35;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.testimonial-msg { font-size: 0.88rem; color: var(--clr-text); line-height: 1.6; flex: 1; }
+
+.testimonial-rating { color: #dfe3ea; font-size: 0.8rem; margin-top: 10px; }
+.testimonial-rating i:not(.text-muted) { color: #f5a623; }
+
+.testimonial-date { color: var(--clr-muted); font-size: 0.75rem; }
+
+.testimonial-accent {
+  background: var(--clr-primary);
+  color: #fff;
+}
+.testimonial-accent:hover { background: var(--clr-primary-light); }
+.testimonial-accent .testimonial-msg { color: rgba(255, 255, 255, 0.92); }
+.testimonial-accent .testimonial-date { color: rgba(255, 255, 255, 0.7); }
+.testimonial-accent .testimonial-quote-icon { color: #fff; opacity: 0.45; }
+.testimonial-accent h6 { color: #fff; }
+
 .section-title.text-center { display: table; }

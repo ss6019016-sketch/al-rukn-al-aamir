@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product, Testimonial, CategoryBanner, Review } from '../models/product.model';
 
-const PRODUCT_IMAGE_URL = '/assets/img/laptop.webp';
+const PRODUCT_IMAGE_URL = '/assets/img/laptop.png';
 
 /**
  * ⚠️ BACKEND PENDING
@@ -177,12 +177,11 @@ export class ProductService {
   ];
 
   private testimonials: Testimonial[] = [
-    { id: 1, name: 'john_doe92', date: '2022-08-10', message: 'My laptop works wonderfully! I like the look of it, the silver is very nice. It’s lightweight and I love that it has the numeric keypad.', avatar: 'https://placehold.co/60x60/eef2f7/0d2b4e?text=JD' },
-    { id: 2, name: 'sarah_buyer', date: '2023-11-16', message: 'Fantastic laptop for the money. Everything is so quick and the pictures are so clear. I really like the size, 15 inch has so much room.', avatar: 'https://placehold.co/60x60/eef2f7/0d2b4e?text=SB' },
-    { id: 3, name: 'mike_trusty', date: '2024-02-05', message: 'I love this lightweight Lenovo laptop. The matte screen has a clear image, and it connects easily to my printer.', avatar: 'https://placehold.co/60x60/eef2f7/0d2b4e?text=MT' },
-    { id: 4, name: 'lisa_shop', date: '2025-05-08', message: 'I’ve had great experiences buying laptops here; the prices are competitive, and the customer service is responsive.', avatar: 'https://placehold.co/60x60/eef2f7/0d2b4e?text=LS' },
+    { id: 1, name: 'Ahmed Al Falasi', date: '2022-08-10', message: 'My laptop works wonderfully! I like the look of it, the silver is very nice. It’s lightweight and I love that it has the numeric keypad.', avatar: 'https://placehold.co/60x60/eef2f7/0d2b4e?text=AF', rating: 5 },
+    { id: 2, name: 'Fatima Al Nuaimi', date: '2023-11-16', message: 'Fantastic laptop for the money. Everything is so quick and the pictures are so clear. I really like the size, 15 inch has so much room.', avatar: 'https://placehold.co/60x60/eef2f7/0d2b4e?text=FN', rating: 5 },
+    { id: 3, name: 'Rashid Mohammed', date: '2024-02-05', message: 'I love this lightweight Lenovo laptop. The matte screen has a clear image, and it connects easily to my printer.', avatar: 'https://placehold.co/60x60/eef2f7/0d2b4e?text=RM', rating: 4 },
+    { id: 4, name: 'Sara Ibrahim', date: '2025-05-08', message: 'I’ve had great experiences buying laptops here; the prices are competitive, and the customer service is responsive.', avatar: 'https://placehold.co/60x60/eef2f7/0d2b4e?text=SI', rating: 5 },
   ];
-
   private newArrivals: Product[] = [this.bestSellers[0], this.dealOfDay[2], this.bestSellers[2], this.limitedStock[2]];
 
   private extraLaptops: Product[] = Array.from({ length: 14 }, (_, index) => {

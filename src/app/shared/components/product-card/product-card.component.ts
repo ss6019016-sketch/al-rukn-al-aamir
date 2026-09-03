@@ -19,6 +19,7 @@ export class ProductCardComponent {
   cardQty = 1;
   quantityPulse = false;
   toastVisible = false;
+  imgLoaded = false;
 
   constructor(
     private cartService: CartService,

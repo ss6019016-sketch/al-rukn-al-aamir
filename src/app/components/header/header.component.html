@@ -92,10 +92,6 @@
       <span class="brand-name">
         Al Rukn Al Aamir
       </span>
-
-      <span class="brand-tag">
-        Computer Trading
-      </span>
     </a>
 
 
@@ -408,15 +404,15 @@
           >
 
             <a
-              class="nav-link"
-              [routerLink]="item.mega ? null : item.link"
-              [queryParams]="item.mega ? null : (item.queryParams || null)"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              [class.dropdown-toggle]="item.children && !item.mega"
-              (click)="item.mega ? toggleMobileMega(item, $event) : closeMobileMenu()"
-            >
-
+          
+  class="nav-link"
+  [routerLink]="item.link"
+  [queryParams]="item.queryParams || null"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{ exact: true }"
+  [class.dropdown-toggle]="item.children && !item.mega"
+  (click)="item.mega ? toggleMobileMega(item, $event) : closeMobileMenu()"
+>
               {{ item.label }}
 
               <i
@@ -458,15 +454,15 @@
               [class.show]="megaOpen || item._mobileOpen"
             >
 
-              <div class="mega-menu-inner">
+                           <div class="mega-menu-inner">
 
 
                 <!-- Brands -->
                 <div class="mega-col">
 
                   <h6>Brands</h6>
-
                   <a
+                  
                     *ngFor="let b of megaBrands"
                     class="mega-link"
                     routerLink="/shop"
@@ -478,6 +474,20 @@
 
                 </div>
 
+                <!-- Animated laptop promo — Brands ke saath khaali jagah cover karta hai -->
+                <a
+                  routerLink="/shop"
+                  class="mega-promo-hero"
+                  (click)="closeMega(); item._mobileOpen = false; closeMobileMenu()"
+                >
+                  <span class="mega-promo-glow"></span>
+                  <img src="/assets/img/laptop.png" alt="Refurbished Laptops" class="mega-promo-laptop" />
+                  <div class="mega-promo-text">
+                    <span class="mega-promo-badge">Certified &amp; Tested</span>
+                    <h5>Explore Our Full Range of Refurbished Laptops</h5>
+                    <span class="btn btn-accent btn-sm" appMagnetic>Shop Now</span>
+                  </div>
+                </a>
 
               </div>
 

@@ -12,17 +12,27 @@ export class AuthModalComponent {
   mode: 'login' | 'register' = 'login';
   email = '';
   password = '';
+  closing = false;
+  modeSwitching = false;
 
   switchMode(mode: 'login' | 'register'): void {
-    this.mode = mode;
+    if (mode === this.mode) return;
+    this.modeSwitching = true;
+    setTimeout(() => {
+      this.mode = mode;
+      this.modeSwitching = false;
+    }, 150);
   }
 
   close(): void {
-    this.closeModal.emit();
+    this.closing = true;
+    setTimeout(() => {
+      this.closing = false;
+      this.closeModal.emit();
+    }, 220);
   }
 
   submit(): void {
-    // Dummy submit — backend abhi nahi hai
     alert('This is a demo — account features will be enabled once backend is connected.');
     this.close();
   }

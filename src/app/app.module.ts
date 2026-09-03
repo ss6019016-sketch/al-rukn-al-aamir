@@ -45,6 +45,7 @@ import { CustomCursorComponent } from './shared/components/custom-cursor/custom-
 import { CartButtonComponent } from './shared/components/cart-button/cart-button.component';
 import { MagneticButtonDirective } from './shared/components/directives/magnetic-button.directive';
 import { ParallaxDirective } from './shared/components/directives/parallax.directive';
+import { CountUpDirective } from './shared/components/directives/count-up.directive';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -103,6 +104,7 @@ const routes: Routes = [
     CartButtonComponent,
         MagneticButtonDirective,
     ParallaxDirective,
+    CountUpDirective,
   ],
   imports: [
     BrowserModule,

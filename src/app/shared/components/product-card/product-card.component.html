@@ -1,8 +1,8 @@
 <div class="product-card h-100 animate-in" appScrollReveal [class.product-card-list]="listView" role="link" tabindex="0" (click)="openProduct()" (keydown.enter)="openProduct()">
-  <div class="product-thumb position-relative">
+  <div class="product-thumb position-relative" [class.thumb-loading]="!imgLoaded">
     <span class="badge-sale" *ngIf="discountLabel">{{ discountLabel }}</span>
     <span class="badge-featured" *ngIf="product.featured">FEATURED</span>
-    <img [src]="product.image" [alt]="product.name" class="img-fluid" />
+    <img [src]="product.image" [alt]="product.name" class="img-fluid" [class.img-loaded]="imgLoaded" (load)="imgLoaded = true" />
     <div class="quick-actions">
       <button class="qa-btn" appRipple title="Quick View" (click)="$event.stopPropagation(); openQuickView()"><i class="bi bi-eye"></i></button>
       <button class="qa-btn" appRipple title="Add to Wishlist" (click)="$event.stopPropagation(); toggleWishlist()"><i class="bi" [class.bi-heart-fill]="isWishlisted()" [class.bi-heart]="!isWishlisted()"></i></button>
@@ -21,13 +21,11 @@
       <button type="button" class="quick-view-close" aria-label="Close" (click)="closeQuickView()">&times;</button>
 
       <div class="qv-grid">
-        <!-- Left: image -->
         <div class="qv-media">
           <span class="badge-sale" *ngIf="discountLabel">{{ discountLabel }}</span>
           <img [src]="product.image" [alt]="product.name" />
         </div>
 
-        <!-- Right: details -->
         <div class="qv-details">
           <p class="product-cat">{{ product.category }}</p>
           <h3>{{ product.name }}</h3>
@@ -111,7 +109,8 @@
         <span [class.quantity-pulse]="quantityPulse">{{ cardQty }}</span>
         <button type="button" appRipple aria-label="Increase quantity" (click)="$event.stopPropagation(); incrementCardQty()">+</button>
       </div>
-<button class="btn btn-accent card-add-btn" appRipple appMagnetic (click)="$event.stopPropagation(); addToCart()">        <i class="bi bi-bag-plus" aria-hidden="true"></i>
+      <button class="btn btn-accent card-add-btn" appRipple appMagnetic (click)="$event.stopPropagation(); addToCart()">
+        <i class="bi bi-bag-plus" aria-hidden="true"></i>
         <span>{{ product.priceRange ? 'View options' : 'Add to cart' }}</span>
       </button>
     </div>

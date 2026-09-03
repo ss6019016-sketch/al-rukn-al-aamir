@@ -4,10 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Usage: <img appParallax [parallaxStrength]="30" [parallaxScale]="1.14" src="..." />
- * IMPORTANT: parent container overflow:hidden ho aur image thodi scaled honi chahiye.
- */
 @Directive({
   selector: '[appParallax]',
 })

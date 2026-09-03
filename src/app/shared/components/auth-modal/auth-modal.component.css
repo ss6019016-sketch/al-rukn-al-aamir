@@ -3,7 +3,13 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1050;
+  animation: authBackdropIn 0.25s ease both;
 }
+.auth-backdrop.closing {
+  animation: authBackdropOut 0.2s ease both;
+}
+@keyframes authBackdropIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes authBackdropOut { from { opacity: 1; } to { opacity: 0; } }
 
 .auth-modal {
   position: fixed;
@@ -22,10 +28,24 @@
 .auth-modal.modal.fade {
   animation: authModalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
+.auth-modal.modal.fade.closing {
+  animation: authModalOut 0.2s ease both;
+}
 
 @keyframes authModalIn {
   from { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
   to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes authModalOut {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
+}
+
+.auth-modal-body {
+  transition: opacity 0.15s ease;
+}
+.auth-modal-body.switching {
+  opacity: 0;
 }
 
 .auth-close {

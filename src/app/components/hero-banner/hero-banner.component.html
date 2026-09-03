@@ -26,8 +26,8 @@
       <span class="hero-badge">{{ slide.badge }}</span>
       <h1 class="hero-heading">{{ slide.heading }}</h1>
       <div class="d-flex gap-3 mt-4 flex-wrap">
-        <button class="btn btn-accent" appRipple (click)="handleCta(slide.cta1)">{{ slide.cta1 }}</button>
-        <button class="btn btn-outline-hero" appRipple (click)="handleCta(slide.cta2)">{{ slide.cta2 }}</button>
+        <button class="btn btn-accent" appRipple appMagnetic (click)="handleCta(slide.cta1)">{{ slide.cta1 }}</button>
+        <button class="btn btn-outline-hero" appRipple appMagnetic (click)="handleCta(slide.cta2)">{{ slide.cta2 }}</button>
       </div>
     </div>
   </div>

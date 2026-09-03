@@ -40,6 +40,7 @@ export interface Testimonial {
   date: string;
   message: string;
   avatar: string;
+  rating: number;
 }
 
 export interface CategoryBanner {

@@ -1,11 +1,6 @@
 import { Directive, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
 import gsap from 'gsap';
 
-/**
- * Magnetic button effect — cursor jab button ke paas aata hai to button
- * halka sa uski taraf kheenchta hai (GSAP quickTo se buttery-smooth follow).
- * Usage: <button appMagnetic>Send Inquiry</button>
- */
 @Directive({
   selector: '[appMagnetic]',
 })

@@ -9,6 +9,7 @@ import { ProductService } from '../../core/services/product.service';
 })
 export class TestimonialsComponent {
   testimonials: Testimonial[] = this.productService.getTestimonials();
+  stars = Array(5).fill(0);
 
   constructor(private productService: ProductService) {}
 }
