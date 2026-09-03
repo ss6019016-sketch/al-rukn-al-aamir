@@ -10,7 +10,7 @@
 <!-- Hero image -->
 <section class="container-xl mt-4">
   <div class="about-hero animate-in" appScrollReveal>
-    <img [src]="heroImage" alt="Al-Quwah Computers warehouse" class="img-fluid rounded-4" />
+    <img [src]="heroImage" alt="Al-Quwah Computers warehouse" class="img-fluid rounded-4" loading="lazy" />
   </div>
 </section>
 
@@ -40,7 +40,7 @@
     <div class="row g-4 mt-2">
       <div class="col-md-6" *ngFor="let img of galleryImages; let i = index">
         <div class="gallery-frame animate-in" appScrollReveal [revealDelay]="i * 100">
-          <img [src]="img" alt="Al-Quwah Computers facility" class="img-fluid" />
+          <img [src]="img" alt="Al-Quwah Computers facility" class="img-fluid" loading="lazy" />
         </div>
       </div>
     </div>
@@ -95,7 +95,7 @@
     <div class="row g-4">
       <div class="col-md-6" *ngFor="let banner of promoBanners">
         <div class="promo-banner animate-in" appScrollReveal>
-          <img [src]="banner.image" [alt]="banner.title" />
+          <img [src]="banner.image" [alt]="banner.title" loading="lazy" />
           <div class="promo-overlay">
             <span class="promo-tag">{{ banner.tag }}</span>
             <h4>{{ banner.title }}</h4>

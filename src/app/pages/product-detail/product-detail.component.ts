@@ -11,6 +11,7 @@ export class ProductDetailComponent implements OnInit {
   quantity = 1;
   activeTab = 'description';
   added = false;
+  cartButtonState: 'idle' | 'loading' | 'success' = 'idle';
   relatedProducts: Product[] = [];
 
   constructor(private route: ActivatedRoute, private products: ProductService, private cart: CartService) {}
@@ -30,9 +31,16 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart(): void {
-    if (!this.product) return;
-    this.cart.addToCart(this.product, this.quantity);
-    this.added = true;
-    setTimeout(() => this.added = false, 2200);
+    if (!this.product || this.cartButtonState !== 'idle') return;
+    this.cartButtonState = 'loading';
+    setTimeout(() => {
+      this.cart.addToCart(this.product!, this.quantity);
+      this.cartButtonState = 'success';
+      this.added = true;
+      setTimeout(() => {
+        this.cartButtonState = 'idle';
+        this.added = false;
+      }, 1000);
+    }, 500);
   }
 }

@@ -4,7 +4,7 @@
     <div class="row g-4 mt-2">
       <div class="col-md-4 animate-in" appScrollReveal [revealDelay]="i * 80" *ngFor="let post of posts; let i = index">
         <a [routerLink]="['/blogs', post.id]" class="text-decoration-none text-dark">
-          <img [src]="post.image" [alt]="post.title" class="img-fluid rounded-3 mb-3" />
+          <img [src]="post.image" [alt]="post.title" class="img-fluid rounded-3 mb-3" loading="lazy" />
           <span class="text-muted small">{{ post.date }}</span>
           <h2 class="h5 mt-1">{{ post.title }}</h2>
           <p class="text-muted">{{ post.excerpt }}</p>

@@ -1,7 +1,7 @@
 <section class="py-5" *ngIf="post; else missing">
   <div class="container-xl animate-in" appScrollReveal>
     <a routerLink="/blogs" class="text-muted"><i class="bi bi-arrow-left"></i> Back to blogs</a>
-    <img [src]="post.image" [alt]="post.title" class="img-fluid rounded-3 my-4" />
+    <img [src]="post.image" [alt]="post.title" class="img-fluid rounded-3 my-4" loading="lazy" />
     <span class="text-muted small">{{ post.date }}</span>
     <h1 class="mt-1">{{ post.title }}</h1>
     <p class="mt-3">{{ post.content }}</p>

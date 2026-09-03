@@ -1,0 +1,39 @@
+<aside class="filter-sidebar" aria-label="Product filters">
+  <button type="button" class="filter-heading" (click)="toggleFilter()" [attr.aria-expanded]="filterOpen">
+    <span>Filter Products</span>
+    <i class="bi" [class.bi-chevron-up]="filterOpen" [class.bi-chevron-down]="!filterOpen" aria-hidden="true"></i>
+  </button>
+
+  <div
+    #filterContent
+    class="filter-content"
+    [class.is-open]="filterOpen"
+    [style.max-height.px]="filterOpen ? contentHeight : 0"
+  >
+    <section class="filter-group">
+      <h3>Price range</h3>
+      <div class="price-values"><span>PKR {{ selectedMinPrice | number:'1.0-0' }}</span><span>PKR {{ selectedMaxPrice | number:'1.0-0' }}</span></div>
+      <input class="form-range" type="range" [min]="minPrice" [max]="maxPrice" [value]="selectedMinPrice" (input)="selectedMinPrice = +$any($event.target).value" aria-label="Minimum price" />
+      <input class="form-range" type="range" [min]="minPrice" [max]="maxPrice" [value]="selectedMaxPrice" (input)="selectedMaxPrice = +$any($event.target).value" aria-label="Maximum price" />
+    </section>
+
+    <section class="filter-group" *ngFor="let group of [
+      { title: 'Brand', values: brands, selected: selectedBrands },
+      { title: 'RAM', values: ramOptions, selected: selectedRam },
+      { title: 'Storage', values: storageOptions, selected: selectedStorage },
+      { title: 'Screen size', values: screenSizes, selected: selectedScreenSizes },
+      { title: 'Condition', values: conditions, selected: selectedConditions }
+    ]">
+      <h3>{{ group.title }}</h3>
+      <label class="filter-option" *ngFor="let value of group.values">
+        <input type="checkbox" [checked]="isSelected(group.selected, value)" (change)="toggleSelection(group.selected, value)" />
+        <span>{{ value }}</span>
+      </label>
+    </section>
+
+    <div class="filter-actions">
+      <button type="button" class="btn btn-light" (click)="clearAll()">Clear All</button>
+      <button type="button" class="btn btn-accent" (click)="apply()">Apply</button>
+    </div>
+  </div>
+</aside>

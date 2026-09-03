@@ -19,7 +19,10 @@ export class ProductCardComponent {
   cardQty = 1;
   quantityPulse = false;
   toastVisible = false;
+  toastClosing = false;
   imgLoaded = false;
+  cartButtonState: 'idle' | 'loading' | 'success' = 'idle';
+  wishlistButtonState: 'idle' | 'loading' | 'success' = 'idle';
 
   constructor(
     private cartService: CartService,
@@ -41,12 +44,18 @@ export class ProductCardComponent {
   }
 
   addToCart(): void {
+    if (this.cartButtonState !== 'idle') return;
+    this.cartButtonState = 'loading';
     if (this.product.priceRange) {
-      this.router.navigate(['/product', this.product.id]);
+      setTimeout(() => this.router.navigate(['/product', this.product.id]), 500);
       return;
     }
-    this.cartService.addToCart(this.product, this.cardQty);
-    this.showToast();
+    setTimeout(() => {
+      this.cartService.addToCart(this.product, this.cardQty);
+      this.cartButtonState = 'success';
+      this.showToast();
+      setTimeout(() => (this.cartButtonState = 'idle'), 1000);
+    }, 500);
   }
 
   incrementCardQty(): void {
@@ -66,7 +75,13 @@ export class ProductCardComponent {
   }
 
   toggleWishlist(): void {
-    this.wishlistService.toggleWishlist(this.product);
+    if (this.wishlistButtonState !== 'idle') return;
+    this.wishlistButtonState = 'loading';
+    setTimeout(() => {
+      this.wishlistService.toggleWishlist(this.product);
+      this.wishlistButtonState = 'success';
+      setTimeout(() => (this.wishlistButtonState = 'idle'), 1000);
+    }, 500);
   }
 
   isWishlisted(): boolean {
@@ -100,9 +115,15 @@ export class ProductCardComponent {
   }
 
   addQuickViewToCart(): void {
+    if (this.cartButtonState !== 'idle') return;
+    this.cartButtonState = 'loading';
+    setTimeout(() => {
     this.cartService.addToCart(this.product, this.quickViewQty);
+    this.cartButtonState = 'success';
     this.closeQuickView();
     this.showToast();
+    setTimeout(() => (this.cartButtonState = 'idle'), 1000);
+    }, 500);
   }
 
   buyNowFromQuickView(): void {
@@ -112,13 +133,24 @@ export class ProductCardComponent {
   }
 
   addQuickCart(): void {
+    if (this.cartButtonState !== 'idle') return;
+    this.cartButtonState = 'loading';
+    setTimeout(() => {
     this.cartService.addToCart(this.product);
+    this.cartButtonState = 'success';
     this.showToast();
+    setTimeout(() => (this.cartButtonState = 'idle'), 1000);
+    }, 500);
   }
 
   private showToast(): void {
+    this.toastClosing = false;
     this.toastVisible = true;
-    setTimeout(() => this.toastVisible = false, 2200);
+    setTimeout(() => (this.toastClosing = true), 1900);
+    setTimeout(() => {
+      this.toastVisible = false;
+      this.toastClosing = false;
+    }, 2200);
   }
 
   private pulseQuantity(): void {

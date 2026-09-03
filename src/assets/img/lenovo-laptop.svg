@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" rx="28" fill="#fff0f0"/>
+  <circle cx="680" cy="90" r="54" fill="#c92a2a"/>
+  <text x="680" y="98" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#fff">LENOVO</text>
+  <image href="laptop.png" x="70" y="80" width="660" height="470" preserveAspectRatio="xMidYMid meet"/>
+</svg>

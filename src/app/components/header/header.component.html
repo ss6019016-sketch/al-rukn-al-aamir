@@ -123,13 +123,13 @@
 
 
       <!-- User -->
-      <a
-        href="javascript:void(0)"
+      <button
+        type="button"
         class="header-icon-link"
         (click)="openAuthModal()"
       >
         <i class="bi bi-person"></i>
-      </a>
+      </button>
 
 
       <!-- Wishlist -->
@@ -154,8 +154,8 @@
       <!-- Cart -->
       <div class="cart-dropdown-wrapper">
 
-        <a
-          href="#"
+        <button
+          type="button"
           class="header-icon-link cart-link"
           appRipple
           (click)="toggleCartDropdown($event)"
@@ -176,7 +176,7 @@
             class="bi bi-chevron-down cart-caret"
           ></i>
 
-        </a>
+        </button>
 
 
         <!-- Backdrop -->
@@ -209,6 +209,7 @@
                 <img
                   [src]="item.product.image"
                   [alt]="item.product.name"
+                  loading="lazy"
                 />
 
 
@@ -481,7 +482,7 @@
                   (click)="closeMega(); item._mobileOpen = false; closeMobileMenu()"
                 >
                   <span class="mega-promo-glow"></span>
-                  <img src="/assets/img/laptop.png" alt="Refurbished Laptops" class="mega-promo-laptop" />
+                  <img src="/assets/img/laptop.png" alt="Refurbished Laptops" class="mega-promo-laptop" loading="lazy" />
                   <div class="mega-promo-text">
                     <span class="mega-promo-badge">Certified &amp; Tested</span>
                     <h5>Explore Our Full Range of Refurbished Laptops</h5>

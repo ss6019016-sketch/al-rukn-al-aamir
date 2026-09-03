@@ -46,6 +46,7 @@ import { CartButtonComponent } from './shared/components/cart-button/cart-button
 import { MagneticButtonDirective } from './shared/components/directives/magnetic-button.directive';
 import { ParallaxDirective } from './shared/components/directives/parallax.directive';
 import { CountUpDirective } from './shared/components/directives/count-up.directive';
+import { FilterSidebarComponent } from './shared/components/filter-sidebar/filter-sidebar.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -105,6 +106,7 @@ const routes: Routes = [
         MagneticButtonDirective,
     ParallaxDirective,
     CountUpDirective,
+    FilterSidebarComponent,
   ],
   imports: [
     BrowserModule,

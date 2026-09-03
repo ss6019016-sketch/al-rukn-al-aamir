@@ -2,11 +2,11 @@
   <div class="product-thumb position-relative" [class.thumb-loading]="!imgLoaded">
     <span class="badge-sale" *ngIf="discountLabel">{{ discountLabel }}</span>
     <span class="badge-featured" *ngIf="product.featured">FEATURED</span>
-    <img [src]="product.image" [alt]="product.name" class="img-fluid" [class.img-loaded]="imgLoaded" (load)="imgLoaded = true" />
+    <img [src]="product.image" [alt]="product.name" loading="lazy" class="img-fluid" [class.img-loaded]="imgLoaded" (load)="imgLoaded = true" />
     <div class="quick-actions">
       <button class="qa-btn" appRipple title="Quick View" (click)="$event.stopPropagation(); openQuickView()"><i class="bi bi-eye"></i></button>
-      <button class="qa-btn" appRipple title="Add to Wishlist" (click)="$event.stopPropagation(); toggleWishlist()"><i class="bi" [class.bi-heart-fill]="isWishlisted()" [class.bi-heart]="!isWishlisted()"></i></button>
-      <button class="qa-btn quick-cart" appRipple title="Add to cart" *ngIf="!product.priceRange" (click)="$event.stopPropagation(); addQuickCart()"><i class="bi bi-basket"></i></button>
+      <button class="qa-btn" appRipple title="Add to Wishlist" [disabled]="wishlistButtonState === 'loading'" (click)="$event.stopPropagation(); toggleWishlist()"><span *ngIf="wishlistButtonState === 'loading'" class="spinner-border spinner-border-sm" aria-hidden="true"></span><i *ngIf="wishlistButtonState !== 'loading'" class="bi" [class.bi-heart-fill]="isWishlisted() || wishlistButtonState === 'success'" [class.bi-heart]="!isWishlisted() && wishlistButtonState !== 'success'"></i></button>
+      <button class="qa-btn quick-cart" appRipple title="Add to cart" [disabled]="cartButtonState === 'loading'" *ngIf="!product.priceRange" (click)="$event.stopPropagation(); addQuickCart()"><span *ngIf="cartButtonState === 'loading'" class="spinner-border spinner-border-sm" aria-hidden="true"></span><i *ngIf="cartButtonState !== 'loading'" class="bi" [class.bi-check-lg]="cartButtonState === 'success'" [class.bi-basket]="cartButtonState !== 'success'"></i></button>
     </div>
   </div>
 
@@ -23,7 +23,7 @@
       <div class="qv-grid">
         <div class="qv-media">
           <span class="badge-sale" *ngIf="discountLabel">{{ discountLabel }}</span>
-          <img [src]="product.image" [alt]="product.name" />
+          <img [src]="product.image" [alt]="product.name" loading="lazy" />
         </div>
 
         <div class="qv-details">
@@ -53,7 +53,7 @@
               <span [class.quantity-pulse]="quantityPulse">{{ quickViewQty }}</span>
               <button type="button" appRipple (click)="incrementQty()">+</button>
             </div>
-            <button class="btn btn-accent" appRipple (click)="addQuickViewToCart()">Add To Cart</button>
+            <button class="btn btn-accent" appRipple [disabled]="cartButtonState === 'loading'" (click)="addQuickViewToCart()"><span *ngIf="cartButtonState === 'loading'" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>{{ cartButtonState === 'loading' ? 'Adding...' : cartButtonState === 'success' ? 'Added!' : 'Add To Cart' }}</button>
             <button class="btn btn-buy-now" appRipple (click)="buyNowFromQuickView()">Buy Now</button>
           </div>
 
@@ -71,7 +71,7 @@
     </div>
   </div>
 
-  <div class="toast product-toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-3" *ngIf="toastVisible" role="status">
+  <div class="toast product-toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-3" [class.toast-closing]="toastClosing" *ngIf="toastVisible" role="status">
     <div class="d-flex"><div class="toast-body">Added to cart!</div></div>
   </div>
 
@@ -109,9 +109,10 @@
         <span [class.quantity-pulse]="quantityPulse">{{ cardQty }}</span>
         <button type="button" appRipple aria-label="Increase quantity" (click)="$event.stopPropagation(); incrementCardQty()">+</button>
       </div>
-      <button class="btn btn-accent card-add-btn" appRipple appMagnetic (click)="$event.stopPropagation(); addToCart()">
-        <i class="bi bi-bag-plus" aria-hidden="true"></i>
-        <span>{{ product.priceRange ? 'View options' : 'Add to cart' }}</span>
+      <button class="btn btn-accent card-add-btn" appRipple appMagnetic [disabled]="cartButtonState === 'loading'" (click)="$event.stopPropagation(); addToCart()">
+        <span *ngIf="cartButtonState === 'loading'" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        <i *ngIf="cartButtonState !== 'loading'" class="bi" [class.bi-check-lg]="cartButtonState === 'success'" [class.bi-bag-plus]="cartButtonState !== 'success'" aria-hidden="true"></i>
+        <span>{{ cartButtonState === 'loading' ? 'Adding...' : cartButtonState === 'success' ? 'Added!' : product.priceRange ? 'View options' : 'Add to cart' }}</span>
       </button>
     </div>
   </div>

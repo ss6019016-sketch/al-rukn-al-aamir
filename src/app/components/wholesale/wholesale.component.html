@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="col-lg-6 text-center">
-        <img [src]="heroSlides[activeHeroSlide].image" alt="Wholesale laptops" class="hero-img img-fluid" />
+        <img [src]="heroSlides[activeHeroSlide].image" alt="Wholesale laptops" class="hero-img img-fluid" loading="lazy" />
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@
     <div class="row g-4 mt-2">
       <div class="col-md-6" *ngFor="let card of marketplaceCards">
         <div class="marketplace-card animate-in" appScrollReveal>
-          <img [src]="card.image" [alt]="card.title" />
+          <img [src]="card.image" [alt]="card.title" loading="lazy" />
           <div class="marketplace-overlay">
             <h4>{{ card.title }}</h4>
             <p>{{ card.text }}</p>

@@ -24,7 +24,7 @@ export class HeroBannerComponent implements AfterViewInit, OnDestroy {
       cta1: 'Send Inquiry',
       cta2: 'Inventory',
       videoSrc: 'assets/videos/laptop-video.mp4',
-      imageSrc: 'assets/images/hero-banner-1.jpg',
+      imageSrc: 'assets/images/hero-banner-1.svg',
     },
     {
       badge: 'PREMIUM TECHNOLOGY SUPPLY',
@@ -32,7 +32,7 @@ export class HeroBannerComponent implements AfterViewInit, OnDestroy {
       cta1: 'Want To Sell',
       cta2: 'Send Inquiry',
       videoSrc: 'assets/videos/laptop-video.mp4',
-      imageSrc: 'assets/images/hero-banner-2.jpg',
+      imageSrc: 'assets/images/hero-banner-2.svg',
     },
     {
       badge: 'TRUSTED GLOBAL MARKETPLACE',
@@ -40,7 +40,7 @@ export class HeroBannerComponent implements AfterViewInit, OnDestroy {
       cta1: 'Want To Buy',
       cta2: 'Inventory',
       videoSrc: 'assets/videos/laptop-video.mp4',
-      imageSrc: 'assets/images/hero-banner-3.jpg',
+      imageSrc: 'assets/images/hero-banner-3.svg',
     },
   ];
 

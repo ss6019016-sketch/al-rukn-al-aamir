@@ -12,11 +12,11 @@
         <div class="product-gallery">
           <div class="product-main-image">
             <span class="badge-sale" *ngIf="product.discountPercent">-{{ product.discountPercent }}%</span>
-            <img [src]="selectedImage" [alt]="product.name" />
+            <img [src]="selectedImage" [alt]="product.name" loading="eager" />
           </div>
           <div class="product-thumbs" aria-label="Product images">
             <button type="button" class="product-thumb-item active" (click)="selectImage(product.image)" aria-label="Show product image">
-              <img [src]="product.image" [alt]="product.name" />
+              <img [src]="product.image" [alt]="product.name" loading="lazy" />
             </button>
           </div>
         </div>
@@ -42,7 +42,7 @@
             <span>{{ quantity }}</span>
             <button type="button" appRipple (click)="quantity = quantity + 1">+</button>
           </div>
-          <button class="btn btn-accent" appRipple (click)="addToCart()"><i class="bi bi-bag-plus me-1"></i> Add to cart</button>
+          <button class="btn btn-accent" appRipple [disabled]="cartButtonState === 'loading'" (click)="addToCart()"><span *ngIf="cartButtonState === 'loading'" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span><i *ngIf="cartButtonState !== 'loading'" class="bi me-1" [class.bi-check-lg]="cartButtonState === 'success'" [class.bi-bag-plus]="cartButtonState !== 'success'"></i>{{ cartButtonState === 'loading' ? 'Adding...' : cartButtonState === 'success' ? 'Added!' : 'Add to cart' }}</button>
         </div>
         <div class="detail-meta">
           <p *ngIf="product.sku"><strong>SKU:</strong> {{ product.sku }}</p>

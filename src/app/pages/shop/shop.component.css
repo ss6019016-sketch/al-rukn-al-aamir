@@ -2,4 +2,19 @@
 .shop-heading { border-bottom: 1px solid var(--clr-border); padding-bottom: 1rem; }
 .eyebrow { color: var(--clr-accent); font-size: .72rem; font-weight: 800; letter-spacing: .12em; margin: 0 0 .35rem; text-transform: uppercase; }
 .result-count { color: var(--clr-muted); font-size: .9rem; }
+.product-toolbar {
+	align-items: center;
+	display: flex;
+	gap: .65rem;
+	justify-content: flex-end;
+	margin-bottom: 1rem;
+}
+.product-toolbar label { color: var(--clr-muted); font-size: .82rem; white-space: nowrap; }
+.product-toolbar .form-select { max-width: 220px; font-size: .85rem; }
+.load-more-wrap { display: flex; justify-content: center; padding-top: 2rem; }
 .empty-shop { background: var(--clr-white); border: 1px solid var(--clr-border); margin-top: 2rem; padding-inline: 1rem; }
+
+@media (max-width: 575.98px) {
+	.product-toolbar { justify-content: stretch; }
+	.product-toolbar .form-select { max-width: none; }
+}
