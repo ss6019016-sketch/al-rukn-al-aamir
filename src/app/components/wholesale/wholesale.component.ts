@@ -20,11 +20,11 @@ export class WholesaleComponent implements OnInit {
   heroSlides = [
     {
       heading: 'Wholesale Laptops — Buy & Sell in Bulk with Confidence',
-      image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-1-400x400.jpg',
+      image: '/assets/img/laptop.png',
     },
     {
       heading: 'Verified Stock, Transparent Pricing, Global Reach',
-      image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-2-400x400.webp',
+      image: '/assets/img/laptop.png',
     },
   ];
   activeHeroSlide = 0;
@@ -33,14 +33,14 @@ export class WholesaleComponent implements OnInit {
     {
       title: 'Global Laptop Buying',
       text: 'Purchase high-quality renewed laptops in bulk from trusted suppliers worldwide.',
-      image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/image-1-400x400.jpg',
+      image: '/assets/img/laptop.png',
       ctaLabel: 'Want To Sell',
       action: 'sell',
     },
     {
       title: 'Wholesale Stock Selling',
       text: 'Move large-volume laptop inventory quickly through trusted global wholesale channels.',
-      image: 'https://alquwahcomputer.com/wp-content/uploads/2022/08/HP-Renewed-EliteBook-x360-1030-G7-1-400x400.jpg',
+      image: '/assets/img/laptop.png',
       ctaLabel: 'Want To Buy',
       action: 'buy',
     },
