@@ -1,0 +1,67 @@
+<div class="admin-page-header">
+  <div>
+    <h1>Products</h1>
+    <p>Products added here are saved on this device and appear live on the shop and product pages.</p>
+  </div>
+  <a routerLink="/admin/products/new" class="btn-admin-primary">
+    <i class="bi bi-plus-lg"></i> Add Product
+  </a>
+</div>
+
+<div class="admin-card">
+  <div class="admin-toolbar">
+    <input
+      type="text"
+      class="admin-search-input"
+      placeholder="Search by name, category or brand..."
+      [(ngModel)]="search"
+    />
+  </div>
+
+  <div class="admin-empty" *ngIf="!filteredProducts.length">
+    <i class="bi bi-inbox"></i>
+    <p>{{ products.length ? 'No products match your search.' : 'No products yet — add your first one.' }}</p>
+    <a routerLink="/admin/products/new" class="btn-admin-primary" *ngIf="!products.length">Add your first product</a>
+  </div>
+
+  <div class="admin-table-wrap" *ngIf="filteredProducts.length">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Images</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of filteredProducts">
+          <td><img class="admin-table-thumb" [src]="product.image" [alt]="product.name" /></td>
+          <td>
+            <div class="admin-table-name">{{ product.name }}</div>
+            <div style="font-size:0.78rem;color:var(--clr-muted)">{{ product.brand }}</div>
+          </td>
+          <td>{{ product.category }}</td>
+          <td>PKR {{ product.price | number:'1.0-0' }}</td>
+          <td>
+            <span class="admin-badge" [class.admin-badge-success]="product.inStock !== false" [class.admin-badge-muted]="product.inStock === false">
+              {{ product.inStock === false ? 'Out of stock' : 'In stock' }}
+            </span>
+          </td>
+          <td>{{ product.images?.length || 1 }}</td>
+          <td>
+            <div class="admin-table-actions">
+              <a [routerLink]="['/admin/products/edit', product.id]" class="btn-admin-ghost">Edit</a>
+              <button type="button" class="btn-admin-danger" (click)="deleteProduct(product)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="admin-toast" *ngIf="toastMessage"><i class="bi bi-check-circle-fill"></i> {{ toastMessage }}</div>

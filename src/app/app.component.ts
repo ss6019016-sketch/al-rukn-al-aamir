@@ -12,13 +12,16 @@ import { ProductService } from './core/services/product.service';
 export class AppComponent implements OnInit {
   title = 'Al Rukn Al Aamir';
   loading = true;
+  isAdminRoute = false;
 
   categoryBanners: CategoryBanner[] = this.productService.getCategoryBanners();
   bestSellers: Product[] = this.productService.getBestSellers();
 
   constructor(private productService: ProductService, private router: Router) {
+    this.isAdminRoute = this.router.url.startsWith('/admin');
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
+        this.isAdminRoute = event.url.startsWith('/admin');
         this.fadeOutMain();
       }
       if (event instanceof NavigationEnd) {

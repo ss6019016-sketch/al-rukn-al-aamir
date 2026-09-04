@@ -1,0 +1,40 @@
+<div class="admin-shell">
+  <button type="button" class="admin-mobile-toggle" (click)="toggleSidebar()" aria-label="Toggle menu">
+    <i class="bi bi-list"></i> Menu
+  </button>
+
+  <aside class="admin-sidebar" [class.open]="sidebarOpen">
+    <div class="admin-brand">
+      <span class="admin-brand-mark">RA</span>
+      <div>
+        <strong>Al Rukn Al Aamir</strong>
+        <small>Admin Panel</small>
+      </div>
+    </div>
+
+    <nav class="admin-nav">
+      <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeSidebar()">
+        <i class="bi bi-speedometer2"></i> Dashboard
+      </a>
+      <a routerLink="/admin/products" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="bi bi-box-seam"></i> Products
+      </a>
+      <a routerLink="/admin/products/new" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="bi bi-plus-circle"></i> Add Product
+      </a>
+      <a routerLink="/admin/categories" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="bi bi-tags"></i> Categories
+      </a>
+    </nav>
+
+    <a routerLink="/" class="admin-back-link">
+      <i class="bi bi-box-arrow-left"></i> Back to store
+    </a>
+  </aside>
+
+  <div class="admin-backdrop" *ngIf="sidebarOpen" (click)="closeSidebar()"></div>
+
+  <main class="admin-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

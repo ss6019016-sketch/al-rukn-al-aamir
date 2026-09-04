@@ -47,6 +47,12 @@ import { MagneticButtonDirective } from './shared/components/directives/magnetic
 import { ParallaxDirective } from './shared/components/directives/parallax.directive';
 import { CountUpDirective } from './shared/components/directives/count-up.directive';
 import { FilterSidebarComponent } from './shared/components/filter-sidebar/filter-sidebar.component';
+import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { AdminProductsComponent } from './pages/admin/admin-products/admin-products.component';
+import { AdminProductFormComponent } from './pages/admin/admin-product-form/admin-product-form.component';
+import { AdminCategoriesComponent } from './pages/admin/admin-categories/admin-categories.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -61,6 +67,17 @@ const routes: Routes = [
   { path: 'wishlist', component: WishlistComponent },
   { path: 'blogs', component: BlogListComponent },
   { path: 'blogs/:id', component: BlogDetailComponent },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    children: [
+      { path: '', component: AdminDashboardComponent },
+      { path: 'products', component: AdminProductsComponent },
+      { path: 'products/new', component: AdminProductFormComponent },
+      { path: 'products/edit/:id', component: AdminProductFormComponent },
+      { path: 'categories', component: AdminCategoriesComponent },
+    ],
+  },
   { path: '**', redirectTo: '' },
 ];
 
@@ -107,6 +124,11 @@ const routes: Routes = [
     ParallaxDirective,
     CountUpDirective,
     FilterSidebarComponent,
+    AdminLayoutComponent,
+    AdminDashboardComponent,
+    AdminProductsComponent,
+    AdminProductFormComponent,
+    AdminCategoriesComponent,
   ],
   imports: [
     BrowserModule,

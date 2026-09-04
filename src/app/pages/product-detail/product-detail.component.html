@@ -14,9 +14,16 @@
             <span class="badge-sale" *ngIf="product.discountPercent">-{{ product.discountPercent }}%</span>
             <img [src]="selectedImage" [alt]="product.name" loading="eager" />
           </div>
-          <div class="product-thumbs" aria-label="Product images">
-            <button type="button" class="product-thumb-item active" (click)="selectImage(product.image)" aria-label="Show product image">
-              <img [src]="product.image" [alt]="product.name" loading="lazy" />
+                  <div class="product-thumbs" aria-label="Product images" *ngIf="galleryImages.length > 1">
+            <button
+              type="button"
+              class="product-thumb-item"
+              *ngFor="let img of galleryImages"
+              [class.active]="img === selectedImage"
+              (click)="selectImage(img)"
+              aria-label="Show product image"
+            >
+              <img [src]="img" [alt]="product.name" loading="lazy" />
             </button>
           </div>
         </div>

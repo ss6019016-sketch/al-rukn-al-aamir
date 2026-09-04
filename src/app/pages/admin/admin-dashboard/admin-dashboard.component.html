@@ -1,0 +1,57 @@
+<div class="admin-page-header">
+  <div>
+    <h1>Dashboard</h1>
+    <p>Quick overview of what's stored on this device (no backend yet — everything lives in local storage).</p>
+  </div>
+  <a routerLink="/admin/products/new" class="btn-admin-primary">
+    <i class="bi bi-plus-lg"></i> Add Product
+  </a>
+</div>
+
+<div class="admin-stat-grid">
+  <div class="admin-stat-card">
+    <div class="admin-stat-icon"><i class="bi bi-box-seam"></i></div>
+    <div>
+      <span class="admin-stat-value">{{ products.length }}</span>
+      <span class="admin-stat-label">Products added</span>
+    </div>
+  </div>
+  <div class="admin-stat-card">
+    <div class="admin-stat-icon"><i class="bi bi-check-circle"></i></div>
+    <div>
+      <span class="admin-stat-value">{{ inStockCount }}</span>
+      <span class="admin-stat-label">In stock</span>
+    </div>
+  </div>
+  <div class="admin-stat-card">
+    <div class="admin-stat-icon"><i class="bi bi-tags"></i></div>
+    <div>
+      <span class="admin-stat-value">{{ categoriesCount }}</span>
+      <span class="admin-stat-label">Categories</span>
+    </div>
+  </div>
+</div>
+
+<div class="admin-card">
+  <div class="admin-card-header">
+    <h2>Recently added</h2>
+    <a routerLink="/admin/products">View all</a>
+  </div>
+
+  <div class="admin-empty" *ngIf="!products.length">
+    <i class="bi bi-inbox"></i>
+    <p>No products yet. Add your first one to see it here and on the live store.</p>
+    <a routerLink="/admin/products/new" class="btn-admin-primary">Add your first product</a>
+  </div>
+
+  <ul class="admin-recent-list" *ngIf="products.length">
+    <li *ngFor="let product of recentProducts">
+      <img [src]="product.image" [alt]="product.name" />
+      <div class="admin-recent-info">
+        <strong>{{ product.name }}</strong>
+        <span>{{ product.category }} &middot; PKR {{ product.price | number:'1.0-0' }}</span>
+      </div>
+      <a [routerLink]="['/admin/products/edit', product.id]" class="btn-admin-ghost">Edit</a>
+    </li>
+  </ul>
+</div>

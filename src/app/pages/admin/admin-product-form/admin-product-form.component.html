@@ -1,0 +1,123 @@
+<div class="admin-page-header">
+  <div>
+    <h1>{{ editingId ? 'Edit Product' : 'Add Product' }}</h1>
+    <p>Fill this setup form once — category, photos, description and tags all come from here and show up on the storefront instantly.</p>
+  </div>
+</div>
+
+<form class="admin-card" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="admin-form-grid">
+    <div class="admin-field full" [class.invalid]="f['name'].touched && f['name'].invalid">
+      <label>Product Name</label>
+      <input type="text" formControlName="name" placeholder="e.g. Dell Latitude 5420 - Core i5 8th Gen" />
+      <span class="error-text" *ngIf="f['name'].touched && f['name'].invalid">Product name is required.</span>
+    </div>
+
+    <div class="admin-field" [class.invalid]="f['category'].touched && f['category'].invalid">
+      <label>Category</label>
+      <div class="admin-category-row">
+        <select formControlName="category">
+          <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
+        </select>
+        <button type="button" class="btn-admin-secondary" (click)="toggleAddCategory()">
+          <i class="bi" [class.bi-plus-lg]="!addingCategory" [class.bi-x-lg]="addingCategory"></i>
+        </button>
+      </div>
+      <div class="admin-inline-add" *ngIf="addingCategory">
+        <input type="text" placeholder="New category name" [(ngModel)]="newCategoryName" [ngModelOptions]="{ standalone: true }" (keydown.enter)="$event.preventDefault(); saveNewCategory()" />
+        <button type="button" class="btn-admin-primary" (click)="saveNewCategory()">Add</button>
+      </div>
+    </div>
+
+    <div class="admin-field" [class.invalid]="f['brand'].touched && f['brand'].invalid">
+      <label>Brand</label>
+      <input type="text" formControlName="brand" placeholder="e.g. Dell, HP, Lenovo" />
+      <span class="error-text" *ngIf="f['brand'].touched && f['brand'].invalid">Brand is required.</span>
+    </div>
+
+    <div class="admin-field" [class.invalid]="f['price'].touched && f['price'].invalid">
+      <label>Price (PKR)</label>
+      <input type="number" formControlName="price" min="1" placeholder="e.g. 65000" />
+      <span class="error-text" *ngIf="f['price'].touched && f['price'].invalid">Enter a valid price.</span>
+    </div>
+
+    <div class="admin-field">
+      <label>Old / Compare-at Price <span class="hint">(optional, shows a strike-through)</span></label>
+      <input type="number" formControlName="oldPrice" min="1" placeholder="e.g. 80000" />
+    </div>
+
+    <div class="admin-field">
+      <label>SKU <span class="hint">(optional)</span></label>
+      <input type="text" formControlName="sku" placeholder="e.g. RA-DELL-5420" />
+    </div>
+
+    <div class="admin-field full">
+      <label>Description</label>
+      <textarea formControlName="description" placeholder="Condition, specs, what's included, etc."></textarea>
+    </div>
+
+    <div class="admin-field full">
+      <label>Tags <span class="hint">(shown on the product card — press Enter or comma to add)</span></label>
+      <div class="admin-chip-box">
+        <span class="admin-chip" *ngFor="let tag of tags">
+          {{ tag }}
+          <button type="button" (click)="removeTag(tag)" aria-label="Remove tag">&times;</button>
+        </span>
+        <input
+          type="text"
+          [(ngModel)]="tagInput"
+          [ngModelOptions]="{ standalone: true }"
+          placeholder="e.g. SSD, Refurbished, Touchscreen"
+          (keydown)="onTagKeydown($event)"
+          (blur)="addTagFromInput()"
+        />
+      </div>
+    </div>
+
+    <div class="admin-field full">
+      <label>Product Images <span class="hint">(first image is the cover shown on cards — multiple supported)</span></label>
+      <div
+        class="admin-dropzone"
+        [class.drag-over]="dragOver"
+        (click)="fileInput.click()"
+        (drop)="onDrop($event)"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave()"
+      >
+        <i class="bi" [class.bi-cloud-arrow-up]="!uploading" [class.bi-hourglass-split]="uploading"></i>
+        <span>{{ uploading ? 'Processing image...' : 'Click to upload or drag & drop images here' }}</span>
+        <input #fileInput type="file" accept="image/*" multiple (change)="onFilesSelected($event)" />
+      </div>
+
+      <div class="admin-image-grid" *ngIf="images.length">
+        <div class="admin-image-thumb" [class.cover]="i === 0" *ngFor="let img of images; let i = index">
+          <span class="cover-label" *ngIf="i === 0">COVER</span>
+          <img [src]="img" alt="Product image" />
+          <button type="button" class="remove-btn" (click)="removeImage(i)" aria-label="Remove image">&times;</button>
+          <button type="button" class="set-cover-btn" *ngIf="i !== 0" (click)="setCoverImage(i)">Set as cover</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-switch-row">
+        <input type="checkbox" formControlName="inStock" id="inStock" />
+        <label for="inStock">In stock</label>
+      </div>
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-switch-row">
+        <input type="checkbox" formControlName="featured" id="featured" />
+        <label for="featured">Featured product</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-form-actions">
+    <button type="submit" class="btn-admin-primary" [disabled]="submitting || uploading">
+      {{ submitting ? 'Saving...' : (editingId ? 'Save Changes' : 'Add Product') }}
+    </button>
+    <button type="button" class="btn-admin-secondary" (click)="cancel()">Cancel</button>
+  </div>
+</form>

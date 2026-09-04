@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product, Testimonial, CategoryBanner, Review } from '../models/product.model';
-
+import { AdminStorageService } from './admin-storage.service';
 const PRODUCT_IMAGES: Record<string, string> = {
   Dell: '/assets/img/laptop.png',
   HP: '/assets/img/laptop.png',
@@ -219,9 +219,11 @@ export class ProductService {
     };
   });
 
+  constructor(private adminStorage: AdminStorageService) {}
+
   getDealOfTheDay(): Product[] { return this.dealOfDay; }
   getAllProducts(): Product[] {
-    return [...this.dealOfDay, ...this.limitedStock, ...this.bestSellers, ...this.extraLaptops];
+    return [...this.dealOfDay, ...this.limitedStock, ...this.bestSellers, ...this.extraLaptops, ...this.adminStorage.getProducts()];
   }
   getProductById(id: number): Product | undefined { return this.getAllProducts().find((product) => product.id === id); }
   getLimitedStock(): Product[] { return this.limitedStock; }

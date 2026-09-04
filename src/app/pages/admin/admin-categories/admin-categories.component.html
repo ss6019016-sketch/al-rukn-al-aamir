@@ -1,0 +1,60 @@
+<div class="admin-page-header">
+  <div>
+    <h1>Categories</h1>
+    <p>Manage the category list used in the product setup form.</p>
+  </div>
+</div>
+
+<div class="admin-card">
+  <div class="admin-inline-add" style="max-width:420px;margin-bottom:18px;">
+    <input
+      type="text"
+      placeholder="New category name"
+      [(ngModel)]="newName"
+      (keydown.enter)="$event.preventDefault(); addCategory()"
+    />
+    <button type="button" class="btn-admin-primary" (click)="addCategory()">Add</button>
+  </div>
+
+  <div class="admin-empty" *ngIf="!categories.length">
+    <i class="bi bi-tags"></i>
+    <p>No categories yet.</p>
+  </div>
+
+  <div class="admin-table-wrap" *ngIf="categories.length">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td>
+            <ng-container *ngIf="editingId !== category.id">{{ category.name }}</ng-container>
+            <input
+              *ngIf="editingId === category.id"
+              type="text"
+              [(ngModel)]="editingName"
+              (keydown.enter)="saveEdit(category)"
+              style="padding:7px 10px;border-radius:8px;border:1px solid var(--clr-border);"
+            />
+          </td>
+          <td>
+            <div class="admin-table-actions" *ngIf="editingId !== category.id">
+              <button type="button" class="btn-admin-ghost" (click)="startEdit(category)">Edit</button>
+              <button type="button" class="btn-admin-danger" (click)="deleteCategory(category)">Delete</button>
+            </div>
+            <div class="admin-table-actions" *ngIf="editingId === category.id">
+              <button type="button" class="btn-admin-primary" (click)="saveEdit(category)">Save</button>
+              <button type="button" class="btn-admin-secondary" (click)="cancelEdit()">Cancel</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="admin-toast" *ngIf="toastMessage"><i class="bi bi-check-circle-fill"></i> {{ toastMessage }}</div>

@@ -8,6 +8,7 @@ import { CartService } from '../../core/services/cart.service';
 export class ProductDetailComponent implements OnInit {
   product?: Product;
   selectedImage = '';
+  galleryImages: string[] = [];
   quantity = 1;
   activeTab = 'description';
   added = false;
@@ -20,6 +21,7 @@ export class ProductDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.product = this.products.getProductById(Number(params.get('id')));
       this.selectedImage = this.product?.image || '';
+      this.galleryImages = this.product?.images?.length ? this.product.images : (this.product?.image ? [this.product.image] : []);
       this.relatedProducts = this.product
         ? this.products.getAllProducts().filter((item) => item.id !== this.product?.id).slice(0, 6)
         : [];
