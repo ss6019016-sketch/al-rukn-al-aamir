@@ -69,6 +69,11 @@ export class WholesaleComponent implements OnInit {
   formNotes = '';
   formSubmitted = false;
 
+  inquiryPhone = '';
+inquiryTopic = 'general';
+inquiryConsent = false;
+inquiryFiles: File[] = [];
+
   private autoplayTimer: ReturnType<typeof setInterval> | null = null;
 
   constructor(private productService: ProductService, private route: ActivatedRoute) {}
@@ -101,6 +106,13 @@ export class WholesaleComponent implements OnInit {
     this.modalClosing = false;
     this.sellModalOpen = true;
   }
+
+  onInquiryFilesSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files) {
+    this.inquiryFiles = Array.from(input.files);
+  }
+}
 
   openBuyModal(): void {
     this.formSubmitted = false;

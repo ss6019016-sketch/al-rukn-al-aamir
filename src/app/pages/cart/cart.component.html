@@ -1,1 +1,186 @@
-<section class="py-5"><div class="container-xl"><h1 class="section-title">Your cart</h1><ng-container *ngIf="items$ | async as items"><div *ngIf="items.length; else empty" class="row g-4"><div class="col-lg-8"><div class="border rounded-3 overflow-hidden"><div class="d-flex align-items-center gap-3 p-3 border-bottom cart-item" [class.removing-item]="removingIds.has(item.product.id)" *ngFor="let item of items"><img [src]="item.product.image" [alt]="item.product.name" width="90" height="70" style="object-fit: contain"><div class="flex-grow-1"><h2 class="h6 mb-1">{{ item.product.name }}</h2><span class="text-muted">PKR {{ item.product.priceRange?.min || item.product.price | number:'1.0-0' }}</span></div><div class="d-flex align-items-center gap-2"><button class="btn btn-sm btn-outline-secondary" (click)="update(item, item.quantity - 1)">−</button><span>{{ item.quantity }}</span><button class="btn btn-sm btn-outline-secondary" (click)="update(item, item.quantity + 1)">+</button></div><button class="btn btn-sm text-danger" title="Remove" (click)="remove(item)"><i class="bi bi-trash"></i></button></div></div></div><div class="col-lg-4"><div class="bg-soft rounded-3 p-4"><h2 class="h5">Cart total</h2><div class="d-flex justify-content-between my-3"><span>Subtotal</span><strong>PKR {{ total$ | async | number:'1.0-0' }}</strong></div><a routerLink="/checkout" class="btn btn-accent w-100">Proceed to checkout</a></div></div></div><ng-template #empty><div class="text-center py-5"><i class="bi bi-cart-x fs-1 text-muted empty-state-icon"></i><h2 class="h4 mt-3">Your cart is currently empty.</h2><a routerLink="/shop" class="btn btn-accent mt-2">Browse products</a></div></ng-template></ng-container></div></section>
+<section class="cart-page">
+
+  <!-- Sticky header -->
+  <header class="cart-header">
+    <div class="container-xl">
+      <div class="cart-header-top">
+        <button class="cart-back-btn" appRipple (click)="goBack()" aria-label="Go back">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+
+        <div class="cart-header-title">
+          <div class="d-flex align-items-center justify-content-center gap-2">
+            <h1 class="h6 mb-0">Your Cart</h1>
+            <span class="cart-count-badge" *ngIf="(items$ | async) as items">{{ items.length }} item{{ items.length === 1 ? '' : 's' }}</span>
+          </div>
+        </div>
+
+        <button class="cart-clear-btn" appRipple (click)="clearCart()">Clear</button>
+      </div>
+
+      <!-- Free shipping progress -->
+      <div class="cart-shipping-progress" *ngIf="(amountToFreeShipping$ | async) as remaining">
+        <div class="cart-shipping-row">
+          <span>
+            <i class="bi bi-truck"></i>
+            <ng-container *ngIf="remaining > 0; else freeUnlocked">
+              Add <strong>PKR {{ remaining | number:'1.0-0' }}</strong> for <u>Free Express</u>
+            </ng-container>
+            <ng-template #freeUnlocked>
+              <strong class="text-success">Free Express shipping unlocked!</strong>
+            </ng-template>
+          </span>
+          <span class="cart-shipping-pct">{{ shippingProgress$ | async }}%</span>
+        </div>
+        <div class="cart-shipping-track">
+          <div class="cart-shipping-fill" [style.width.%]="shippingProgress$ | async"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-xl py-4">
+    <ng-container *ngIf="items$ | async as items">
+
+      <div *ngIf="items.length; else empty" class="row g-4">
+
+        <!-- Items + extras -->
+        <div class="col-lg-8">
+
+          <div class="cart-item-rich animate-in" appScrollReveal [revealDelay]="i * 60" *ngFor="let item of items; let i = index">
+            <div class="cart-item-rich-thumb">
+              <img [src]="item.product.image" [alt]="item.product.name" loading="lazy" />
+            <span class="cart-item-rich-tag" *ngIf="item.product.tags?.length">{{ item.product.tags?.[0] }}</span>
+            </div>
+
+            <div class="cart-item-rich-body">
+              <div class="d-flex justify-content-between align-items-start gap-2">
+                <div>
+                  <span class="cart-item-rich-grade" *ngIf="item.product.isSale">On Sale</span>
+                  <h2 class="cart-item-rich-name">{{ item.product.name }}</h2>
+                </div>
+                <button class="cart-item-remove" appRipple (click)="remove(item)" aria-label="Remove item">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+
+              <div class="cart-item-rich-price">
+                <span class="price-now">PKR {{ item.product.priceRange?.min || item.product.price | number:'1.0-0' }}</span>
+                <span class="price-old" *ngIf="item.product.oldPrice">PKR {{ item.product.oldPrice | number:'1.0-0' }}</span>
+                <span class="price-off" *ngIf="item.product.discountPercent">-{{ item.product.discountPercent }}% OFF</span>
+              </div>
+
+              <div class="cart-item-rich-specs" *ngIf="item.product.specs?.length">
+                <span *ngFor="let s of item.product.specs; let last = last">{{ s.label }}: {{ s.value }}<i *ngIf="!last" class="bi bi-dot"></i></span>
+              </div>
+
+              <div class="cart-item-rich-footer">
+                <span class="cart-stock-status">
+                  <span class="stock-dot"></span> {{ item.product.inStock === false ? 'Ships in 2-3 days' : 'In Stock (Ships Today)' }}
+                </span>
+
+                <div class="qty-stepper">
+                  <button type="button" appRipple (click)="update(item, item.quantity - 1)" aria-label="Decrease quantity">−</button>
+                  <span>{{ item.quantity }}</span>
+                  <button type="button" appRipple (click)="update(item, item.quantity + 1)" aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Promo code -->
+          <div class="cart-promo animate-in" appScrollReveal>
+            <label class="cart-promo-label">
+              <span><i class="bi bi-tag-fill"></i> Promotional Voucher</span>
+              <span class="cart-promo-view">View Available</span>
+            </label>
+            <div class="d-flex gap-2">
+              <input type="text" class="cart-promo-input" placeholder="e.g. SURFACE10" [(ngModel)]="promoCode" name="promoCode" />
+              <button class="cart-promo-apply" appRipple (click)="applyPromo()">Apply</button>
+            </div>
+            <div class="cart-promo-success" *ngIf="promoApplied">
+              <i class="bi bi-check-circle-fill"></i> Voucher applied.
+            </div>
+          </div>
+
+          <!-- Delivery estimate -->
+          <div class="cart-delivery-badge animate-in" appScrollReveal>
+            <div class="d-flex align-items-center gap-2">
+              <span class="cart-delivery-icon"><i class="bi bi-clock-history"></i></span>
+              <div>
+                <strong>Standard Delivery</strong>
+                <span class="d-block cart-delivery-sub">2–3 Business Days</span>
+              </div>
+            </div>
+            <span class="cart-delivery-free">FREE</span>
+          </div>
+
+          <!-- Security guarantees -->
+          <div class="cart-guarantees animate-in" appScrollReveal>
+            <div class="cart-guarantee">
+              <i class="bi bi-shield-lock"></i>
+              <span>256-Bit SSL</span>
+            </div>
+            <div class="cart-guarantee">
+              <i class="bi bi-arrow-counterclockwise"></i>
+              <span>7-Day Return</span>
+            </div>
+            <div class="cart-guarantee">
+              <i class="bi bi-patch-check"></i>
+              <span>Certified Tech</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="col-lg-4">
+          <div class="cart-summary animate-in" appScrollReveal>
+            <div class="cart-summary-head">
+              <h2 class="h5 cart-summary-title mb-0">Order Summary</h2>
+              <span class="cart-summary-currency">All prices in PKR</span>
+            </div>
+
+            <div class="cart-summary-row">
+              <span>Subtotal</span>
+              <strong>PKR {{ total$ | async | number:'1.0-0' }}</strong>
+            </div>
+            <div class="cart-summary-row">
+              <span>Shipping</span>
+              <span class="text-success fw-semibold">Free Delivery</span>
+            </div>
+            <div class="cart-summary-row cart-summary-note">
+              <span>Estimated Sales Tax / VAT</span>
+              <span>Included</span>
+            </div>
+
+            <div class="cart-summary-divider"></div>
+
+            <div class="cart-summary-row cart-summary-total">
+              <span>Total Amount</span>
+              <strong>PKR {{ total$ | async | number:'1.0-0' }}</strong>
+            </div>
+
+            <a routerLink="/checkout" class="btn cart-checkout-btn w-100" appRipple>
+              <span class="cart-checkout-shimmer"></span>
+              Proceed to Checkout <i class="bi bi-arrow-right"></i>
+            </a>
+
+            <a routerLink="/shop" class="cart-continue-link">
+              <i class="bi bi-arrow-left"></i> Continue shopping
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <ng-template #empty>
+        <div class="cart-empty animate-in" appScrollReveal>
+          <i class="bi bi-cart-x empty-state-icon"></i>
+          <h2 class="h4 mt-3">Your cart is currently empty.</h2>
+          <p class="cart-empty-sub">Looks like you haven't added anything yet.</p>
+          <a routerLink="/shop" class="btn btn-accent mt-2" appRipple>Browse products</a>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+</section>

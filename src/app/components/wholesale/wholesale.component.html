@@ -85,34 +85,237 @@
 </section>
 
 <!-- Get Inquiry -->
-<section class="py-5 bg-soft">
-  <div class="container-xl">
-    <h2 class="section-title">Get Inquiry</h2>
+<section class="py-5 py-lg-6 inquiry-section">
+  <div class="bg-blueprint-grid" aria-hidden="true"></div>
+  <div class="inquiry-glow" aria-hidden="true"></div>
 
-    <div class="inquiry-success animate-in" *ngIf="inquirySubmitted">
-      <i class="bi bi-check-circle-fill"></i>
-      Thanks! Your inquiry has been received — our team will reach out shortly.
-    </div>
+  <div class="container-xl position-relative">
 
-    <form class="inquiry-form" (ngSubmit)="submitInquiry()" *ngIf="!inquirySubmitted">
-      <label class="form-label">Name <span class="req">*</span></label>
-      <div class="row g-3">
-        <div class="col-md-6">
-          <input type="text" class="form-control" placeholder="First" [(ngModel)]="inquiryFirstName" name="firstName" required />
-        </div>
-        <div class="col-md-6">
-          <input type="text" class="form-control" placeholder="Last" [(ngModel)]="inquiryLastName" name="lastName" />
+    <!-- Header -->
+    <header class="inquiry-header mb-5">
+      <span class="eyebrow-pill">
+        <span class="eyebrow-dot"></span>
+        Have a question?
+      </span>
+      <h2 class="section-title">Get Inquiry</h2>
+      <p class="inquiry-lead">
+        Fill out the form below and our dedicated team will review your specifications and get back
+        to you with a comprehensive proposal within 2 hours.
+      </p>
+    </header>
+
+    <div class="row g-4 g-lg-5 align-items-start">
+
+      <!-- Left: value cards -->
+      <div class="col-lg-4">
+        <div class="inquiry-side-cards">
+
+          <div class="inquiry-side-card animate-in" appScrollReveal>
+            <div class="inquiry-side-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+            <div>
+              <h3 class="inquiry-side-title">Fast Response Promise</h3>
+              <p class="inquiry-side-text">
+                Average inquiry evaluation time is under <strong>2 hours</strong> during standard business days.
+              </p>
+              <span class="inquiry-status-pill">
+                <span class="status-dot"></span> Specialists Online Now
+              </span>
+            </div>
+          </div>
+
+          <div class="inquiry-side-card animate-in" appScrollReveal>
+            <div class="inquiry-side-icon"><i class="bi bi-building"></i></div>
+            <div>
+              <h3 class="inquiry-side-title">Commercial &amp; Bulk Support</h3>
+              <p class="inquiry-side-text mb-0">
+                Need wholesale, fleet, or customized industrial quotes? We assign an account manager immediately.
+              </p>
+            </div>
+          </div>
+
+          <div class="inquiry-side-card inquiry-contact-card animate-in" appScrollReveal>
+            <h3 class="inquiry-side-label">Direct Contact Channels</h3>
+
+            <a href="tel:+971526511946" class="inquiry-contact-row">
+              <span><i class="bi bi-telephone"></i> +971-526511946</span>
+              <span class="inquiry-contact-action">Call</span>
+            </a>
+
+            <a href="mailto:info@alruknalaamir.com" class="inquiry-contact-row">
+              <span class="text-truncate"><i class="bi bi-envelope"></i> info@alruknalaamir.com</span>
+              <span class="inquiry-contact-action">Email</span>
+            </a>
+
+            <div class="inquiry-contact-footer">
+              <span>Quick Chat on WhatsApp</span>
+              <a href="https://wa.me/971526511946" target="_blank" rel="noopener noreferrer" class="inquiry-whatsapp-btn">
+                <i class="bi bi-whatsapp"></i> Live Chat
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <label class="form-label mt-3">Email <span class="req">*</span></label>
-      <input type="email" class="form-control" [(ngModel)]="inquiryEmail" name="email" required />
+      <!-- Right: form -->
+      <div class="col-lg-8">
+        <div class="inquiry-card animate-in" appScrollReveal>
+          <div class="inquiry-card-glow"></div>
 
-      <label class="form-label mt-3">Comment or Message</label>
-      <textarea class="form-control" rows="5" [(ngModel)]="inquiryMessage" name="message"></textarea>
+          <div class="inquiry-success" *ngIf="inquirySubmitted">
+            <i class="bi bi-check-circle-fill success-bounce"></i>
+            <div>
+              <h3 class="h5 mb-1">Thanks for reaching out.</h3>
+              <p class="mb-0">Your message has been received — our team will reach out shortly.</p>
+            </div>
+          </div>
 
-      <button type="submit" class="btn btn-navy mt-4" appRipple>Submit</button>
-    </form>
+          <form
+            class="inquiry-form"
+            (ngSubmit)="submitInquiry()"
+            #inquiryForm="ngForm"
+            novalidate
+            *ngIf="!inquirySubmitted"
+          >
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label" for="inq-first">First name <span class="req">*</span></label>
+                <div class="input-icon-wrap" [class.is-invalid]="firstName.invalid && (firstName.touched || inquiryForm.submitted)">
+                  <i class="bi bi-person field-icon"></i>
+                  <input
+                    id="inq-first"
+                    type="text"
+                    class="form-control"
+                    placeholder="e.g. John"
+                    [(ngModel)]="inquiryFirstName"
+                    name="firstName"
+                    #firstName="ngModel"
+                    required
+                  />
+                </div>
+                <div class="invalid-feedback d-block" *ngIf="firstName.invalid && (firstName.touched || inquiryForm.submitted)">
+                  Please enter your first name.
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label" for="inq-last">Last name</label>
+                <div class="input-icon-wrap">
+                  <i class="bi bi-person field-icon"></i>
+                  <input
+                    id="inq-last"
+                    type="text"
+                    class="form-control"
+                    placeholder="e.g. Anderson"
+                    [(ngModel)]="inquiryLastName"
+                    name="lastName"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-sm-6">
+                <label class="form-label" for="inq-email">Email address <span class="req">*</span></label>
+                <div class="input-icon-wrap" [class.is-invalid]="email.invalid && (email.touched || inquiryForm.submitted)">
+                  <i class="bi bi-envelope field-icon"></i>
+                  <input
+                    id="inq-email"
+                    type="email"
+                    class="form-control"
+                    placeholder="john.anderson@company.com"
+                    [(ngModel)]="inquiryEmail"
+                    name="email"
+                    #email="ngModel"
+                    required
+                    email
+                  />
+                </div>
+                <div class="invalid-feedback d-block" *ngIf="email.invalid && (email.touched || inquiryForm.submitted)">
+                  Please enter a valid email address.
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label" for="inq-phone">Phone number</label>
+                <div class="input-icon-wrap">
+                  <i class="bi bi-telephone field-icon"></i>
+                  <input
+                    id="inq-phone"
+                    type="tel"
+                    class="form-control"
+                    placeholder="+971 50 000 0000"
+                    [(ngModel)]="inquiryPhone"
+                    name="phone"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label" for="inq-topic">Inquiry Topic</label>
+              <select id="inq-topic" name="topic" class="form-select" [(ngModel)]="inquiryTopic">
+                <option value="general">General Inquiry &amp; Information</option>
+                <option value="wholesale">Wholesale &amp; Bulk Procurement</option>
+                <option value="product-spec">Product Specifications &amp; Compatibility</option>
+                <option value="quote">Custom Quotation / Price Request</option>
+                <option value="technical">Technical Support / After Sales</option>
+              </select>
+            </div>
+
+            <div class="mt-3">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <label class="form-label mb-0" for="inq-message">Comment or Message <span class="req">*</span></label>
+                <span class="field-hint">Clear &amp; detailed</span>
+              </div>
+              <textarea
+                id="inq-message"
+                class="form-control"
+                rows="4"
+                [(ngModel)]="inquiryMessage"
+                name="message"
+                placeholder="How can we help? Please describe your inquiry, requirements, or part specifications..."
+              ></textarea>
+            </div>
+
+            <!-- File attach -->
+            <div class="inquiry-attach mt-3">
+              <div class="inquiry-attach-info">
+                <i class="bi bi-paperclip"></i>
+                <span>Attach specs, RFP or part images <span class="text-muted-2">(PDF, PNG, JPG up to 10MB)</span></span>
+              </div>
+              <label class="inquiry-attach-btn">
+                Add files
+                <input type="file" multiple hidden (change)="onInquiryFilesSelected($event)" />
+              </label>
+            </div>
+            <div class="inquiry-attach-list" *ngIf="inquiryFiles?.length">
+              <span class="inquiry-attach-chip" *ngFor="let f of inquiryFiles">{{ f.name }}</span>
+            </div>
+
+            <!-- Consent -->
+            <div class="form-check inquiry-consent mt-3">
+              <input class="form-check-input" type="checkbox" id="inq-consent" [(ngModel)]="inquiryConsent" name="consent" required />
+              <label class="form-check-label" for="inq-consent">
+                I agree to the <a routerLink="/contact-us" class="inquiry-consent-link">privacy terms</a> and consent to be contacted regarding this inquiry.
+              </label>
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" class="btn btn-inquiry-submit" appRipple>
+                Submit Inquiry <i class="bi bi-send"></i>
+              </button>
+            </div>
+
+            <div class="inquiry-trust-row">
+              <span><i class="bi bi-lightning-charge-fill"></i> Average response time: <strong>under 2 hours</strong></span>
+              <span><i class="bi bi-shield-check"></i> 100% Privacy Guaranteed • 256-bit SSL</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
